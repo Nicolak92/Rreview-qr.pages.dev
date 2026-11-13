@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<link rel="canonical" href="https://rreview-qr-pages-dev.nicola-kameel.workers.dev/">
+<meta name="theme-color" content="#07142e">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Free Google Review QR Code Generator</title>
-<meta name="description" content="Paste any Google Maps link, even a short maps.app.goo.gl link, and get a QR code that opens your Google review form. Free, no sign-up.">
+<title>Free Google Review QR Code Generator (Short Links Supported)</title>
+<meta name="description" content="Create a QR code that opens your Google review form in seconds. Paste any Google Maps link, including short maps.app.goo.gl links. Free, no sign-up.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap">
 <style>
-:root{--bg:#fff7fb;--card:#fff;--ink:#1d1340;--mute:#6a6288;--line:#eadff7;--code:#f5eefc;--ok:#0b7a4b;--okbg:#e3f9ee;--err:#b4231a;--errbg:#ffe9e6;--g:linear-gradient(120deg,#6a11cb,#e91e8c 55%,#ff8a00)}
-@media (prefers-color-scheme:dark){:root{--bg:#150d2e;--card:#20154a;--ink:#f4efff;--mute:#b5a9da;--line:#3a2a73;--code:#2a1c5c;--ok:#5ee0a0;--okbg:#0f3023;--err:#ff9a90;--errbg:#3d1519}}
+:root{--bg:#f3f7ff;--card:#fff;--ink:#0b1b3a;--mute:#566786;--line:#d9e5f8;--code:#eaf1fc;--ok:#0b7a4b;--okbg:#e3f9ee;--err:#b4231a;--errbg:#ffe9e6;--g:linear-gradient(120deg,#07142e,#0b4fd8 62%,#13a8ff)}
+@media (prefers-color-scheme:dark){:root{--bg:#07142e;--card:#0f2147;--ink:#eaf1ff;--mute:#9db2d8;--line:#1f3566;--code:#14295a;--ok:#5ee0a0;--okbg:#0f3023;--err:#ff9a90;--errbg:#3d1519}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 'Poppins',system-ui,sans-serif;min-height:100vh}
 .hero{background:var(--g);color:#fff;text-align:center;padding:44px 16px 90px;position:relative;overflow:hidden}
@@ -19,22 +21,22 @@ body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 'Poppins'
 h1{margin:0 auto 8px;max-width:640px;font-size:clamp(28px,6vw,44px);line-height:1.1;font-weight:800;letter-spacing:-.02em}
 .hero p{margin:0 auto;max-width:520px;opacity:.95}
 .wrap{max-width:720px;margin:-56px auto 0;padding:0 16px 40px;position:relative}
-.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 12px 34px rgba(106,17,203,.15);margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 12px 34px rgba(11,92,255,.15);margin-bottom:18px}
 label{display:block;font-weight:600;font-size:14px;margin-bottom:8px}
 .row{display:flex;gap:10px;flex-wrap:wrap}
 .field{flex:1 1 260px;min-width:0;font:inherit;padding:13px 16px;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--ink)}
-.field:focus-visible,.btn:focus-visible{outline:3px solid #ff8a00;outline-offset:2px}
+.field:focus-visible,.btn:focus-visible{outline:3px solid #13a8ff;outline-offset:2px}
 .btn{font:600 15px 'Poppins',sans-serif;padding:13px 22px;border-radius:12px;border:2px solid transparent;cursor:pointer;transition:transform .1s,box-shadow .1s}
 .btn:active{transform:translateY(1px)}
-.main{background:var(--g);color:#fff;box-shadow:0 6px 16px rgba(233,30,140,.35)}
-.main:hover{box-shadow:0 8px 22px rgba(233,30,140,.5)}
+.main{background:var(--g);color:#fff;box-shadow:0 6px 16px rgba(11,92,255,.35)}
+.main:hover{box-shadow:0 8px 22px rgba(11,92,255,.5)}
 .main:disabled{opacity:.6;cursor:wait}
 .blue{background:#1fa2ff;color:#fff}.green{background:#12c27e;color:#fff}
 .ghost{background:transparent;color:var(--ink);border-color:var(--line)}
 #msg{display:none;margin-top:14px;padding:10px 14px;border-radius:12px;font-size:14px;font-weight:500}
 #msg.ok{display:block;background:var(--okbg);color:var(--ok)}#msg.err{display:block;background:var(--errbg);color:var(--err)}
 .hint{margin:14px 0 0;font-size:13px;color:var(--mute)}
-.hint a{color:#e91e8c;font-weight:600}
+.hint a{color:#0b5cff;font-weight:600}
 code{background:var(--code);padding:1px 6px;border-radius:6px;font-size:12.5px}
 #out{display:none}
 .result{display:grid;grid-template-columns:250px 1fr;gap:26px;align-items:start}
@@ -51,12 +53,28 @@ h2{margin:0 0 6px;font-size:20px;font-weight:700}
 .step{background:var(--code);border-radius:14px;padding:14px;font-size:14px}
 .step b{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--g);color:#fff;font-size:13px;margin-bottom:6px}
 .foot{text-align:center;font-size:12px;color:var(--mute)}
+.prose h2{margin:26px 0 8px;font-size:20px;font-weight:700}.prose h2:first-child{margin-top:0}
+.prose p,.prose li{color:var(--ink)}.prose ul,.prose ol{padding-left:22px;margin:8px 0}.prose li{margin:5px 0}
+details{border-top:1px solid var(--line);padding:12px 0}details:first-of-type{border-top:0}
+summary{cursor:pointer;font-weight:600}details p{margin:8px 0 0;color:var(--mute)}
+.signup h2{margin:0 0 6px;font-size:20px}.signup p{margin:0 0 14px;color:var(--mute)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 18px;background:#07142e;color:#fff;border-bottom:1px solid #1f3566}
+.top a{color:#fff;text-decoration:none;font-weight:500;font-size:14px}.top a:hover{text-decoration:underline}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700!important;font-size:16px!important}.brand img{border-radius:8px;display:block}
+.links{display:flex;gap:18px}
+.more{text-align:center}.more p{margin:0 0 12px;color:var(--mute)}
+.fl{text-align:center;font-size:13px;margin:6px 0 4px}.fl a{color:var(--mute);margin:0 8px}
 </style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is this Google review QR code generator free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. You can create and download as many QR codes as you like, with no sign-up."}}, {"@type": "Question", "name": "Does it work with short Google Maps links?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. You can paste short links that start with maps.app.goo.gl, full Google Maps URLs, or a Place ID that starts with ChIJ."}}, {"@type": "Question", "name": "Where do I find my Google Maps link?", "acceptedAnswer": {"@type": "Answer", "text": "Search for your business in Google Maps, open its listing, tap Share, then Copy link."}}, {"@type": "Question", "name": "How do I know the QR code opens the right page?", "acceptedAnswer": {"@type": "Answer", "text": "Scan it with your phone before you print it. It should open the Google review form for your business. If it does not, paste the full link from your browser's address bar instead of the short link."}}, {"@type": "Question", "name": "Does the QR code expire?", "acceptedAnswer": {"@type": "Answer", "text": "No. The code points to your review link, so it keeps working as long as your Google Business Profile exists."}}, {"@type": "Question", "name": "Can I use the QR code in print?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Download the PNG and use it on flyers, receipts, signs and packaging. Keep white space around it and print it at least 3 cm (about 1.2 inches) wide."}}, {"@type": "Question", "name": "Do I need a Google Business Profile?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Your business needs a listing on Google Maps so customers have a page to review."}}]}</script>
 </head>
 <body>
+<nav class="top" aria-label="Site">
+  <a class="brand" href="https://nicolakamel.wordpress.com/"><img src="https://nicolakamel.wordpress.com/wp-content/uploads/2024/04/blue-and-black-modern-chip-technology-logo.png?w=50" alt="" width="32" height="32"><span>The Ultimate Guide</span></a>
+  <div class="links"><a href="https://nicolakamel.wordpress.com/free-tools/">More free tools</a><a href="https://nicolakamel.wordpress.com/">Blog</a></div>
+</nav>
 <header class="hero">
   <span class="pill">Free · No sign-up</span>
-  <h1>Get more Google reviews with one scan</h1>
+  <h1>Free Google Review QR Code Generator</h1>
   <p>Paste a Google Maps link, including short <code style="background:rgba(255,255,255,.2)">maps.app.goo.gl</code> links, and get a QR code that opens your review form.</p>
 </header>
 <main class="wrap">
@@ -86,14 +104,48 @@ h2{margin:0 0 6px;font-size:20px;font-weight:700}
     </div>
   </section>
 
-  <section class="card">
-    <h2 style="margin-bottom:14px">How it works</h2>
-    <div class="steps">
-      <div class="step"><b>1</b><br>Open your business in Google Maps and tap Share to copy the link.</div>
-      <div class="step"><b>2</b><br>Paste it above and press Create QR code.</div>
-      <div class="step"><b>3</b><br>Download the PNG and print it for your counter, receipts or window.</div>
-    </div>
+  <section class="card signup">
+    <h2>Get free tools and templates by email</h2>
+    <p>New free tools and ready-to-use templates for small businesses, sent now and then. No spam, unsubscribe any time.</p>
+    <script async data-uid="62890ea7c9" src="https://the-ultimate-guide.kit.com/62890ea7c9/index.js"></script>
   </section>
+
+  <section class="card prose">
+    <h2>Make it easy for customers to leave a Google review</h2>
+    <p>Most happy customers never leave a review, simply because it takes too many steps. Paste your Google Maps link above and this free tool creates a QR code that opens your review form directly. Customers scan it with their phone camera and land on the page where they can write a review. No searching for your business and no extra steps.</p>
+    <h2>How to create your Google review QR code</h2>
+    <ol>
+      <li><b>Copy your Google Maps link.</b> Open your business in Google Maps, tap Share, and copy the link.</li>
+      <li><b>Paste it into the generator.</b> Put the link in the box at the top of this page.</li>
+      <li><b>Create and download.</b> Press "Create QR code," then download the PNG.</li>
+      <li><b>Test it.</b> Scan the code with your phone to confirm it opens the review form for the right business.</li>
+      <li><b>Print or share it.</b> Add it to your counter, receipts, menus, packaging or window.</li>
+    </ol>
+    <h2>Why use a Google review QR code?</h2>
+    <p>A QR code removes friction. A scan takes a few seconds, and you can place it exactly where customers are already thinking about their experience. Google reviews also matter for local visibility, because businesses with recent, genuine reviews look more trustworthy to people comparing options in Google Search and Google Maps.</p>
+    <h2>Where to place your review QR code</h2>
+    <ul><li>On the counter or at checkout</li><li>On receipts and invoices</li><li>On menus and table cards</li><li>On packaging and delivery bags</li><li>In your shop window or waiting area</li><li>On business cards, flyers and thank-you notes</li></ul>
+    <h2>Who is this tool for?</h2>
+    <p>Any business with a Google Maps listing: restaurants, cafes, salons, clinics, hotels, repair shops, gyms, agencies, and freelancers who serve customers locally.</p>
+    <h2>Tips to get more genuine reviews</h2>
+    <ul>
+      <li><b>Ask at the right moment,</b> right after a good service or purchase.</li>
+      <li><b>Add a clear message</b> next to the code, like "Enjoyed your visit? Scan to leave a review."</li>
+      <li><b>Thank people</b> who review. A quick reply builds trust with future customers.</li>
+      <li><b>Follow Google's rules.</b> Do not pay or reward customers for reviews, and do not ask only happy customers. Ask everyone and let people write what they think.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2 style="margin:0 0 6px;font-size:20px">Frequently asked questions</h2>
+    <details><summary>Is this Google review QR code generator free?</summary><p>Yes. You can create and download as many QR codes as you like, with no sign-up.</p></details><details><summary>Does it work with short Google Maps links?</summary><p>Yes. You can paste short links that start with maps.app.goo.gl, full Google Maps URLs, or a Place ID that starts with ChIJ.</p></details><details><summary>Where do I find my Google Maps link?</summary><p>Search for your business in Google Maps, open its listing, tap Share, then Copy link.</p></details><details><summary>How do I know the QR code opens the right page?</summary><p>Scan it with your phone before you print it. It should open the Google review form for your business. If it does not, paste the full link from your browser's address bar instead of the short link.</p></details><details><summary>Does the QR code expire?</summary><p>No. The code points to your review link, so it keeps working as long as your Google Business Profile exists.</p></details><details><summary>Can I use the QR code in print?</summary><p>Yes. Download the PNG and use it on flyers, receipts, signs and packaging. Keep white space around it and print it at least 3 cm (about 1.2 inches) wide.</p></details><details><summary>Do I need a Google Business Profile?</summary><p>Yes. Your business needs a listing on Google Maps so customers have a page to review.</p></details>
+  </section>
+  <section class="card more">
+    <h2 style="margin:0 0 6px;font-size:20px">More free tools and guides</h2>
+    <p>This tool is part of The Ultimate Guide, a growing collection of free tools, templates and guides for small businesses.</p>
+    <a class="btn main" style="display:inline-block;text-decoration:none" href="https://nicolakamel.wordpress.com/free-tools/">Explore The Ultimate Guide</a>
+  </section>
+  <p class="fl"><a href="https://nicolakamel.wordpress.com/">The Ultimate Guide</a><a href="https://nicolakamel.wordpress.com/free-tools/">Free tools</a></p>
   <p class="foot">Not affiliated with Google. Scan the code once before printing to confirm it opens the right business.</p>
 </main>
 

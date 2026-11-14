@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="canonical" href="https://rreview-qr-pages-dev.nicola-kameel.workers.dev/sign-maker">
+<meta name="theme-color" content="#07142e">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Google Review Sign Maker with QR Code and Your Logo</title>
+<meta name="description" content="Make a printable Google review sign, poster, counter card or sticker with your QR code and logo. Choose a design, download the PNG, print it. Free.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--bg:#f3f7ff;--card:#fff;--ink:#0b1b3a;--mute:#566786;--line:#d9e5f8;--code:#eaf1fc;--ok:#0b7a4b;--okbg:#e3f9ee;--err:#b4231a;--errbg:#ffe9e6;--g:linear-gradient(120deg,#07142e,#0b4fd8 62%,#13a8ff)}
+@media (prefers-color-scheme:dark){:root{--bg:#07142e;--card:#0f2147;--ink:#eaf1ff;--mute:#9db2d8;--line:#1f3566;--code:#14295a;--ok:#5ee0a0;--okbg:#0f3023;--err:#ff9a90;--errbg:#3d1519}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 'Poppins',system-ui,sans-serif;min-height:100vh}
+.hero{background:var(--g);color:#fff;text-align:center;padding:44px 16px 90px;position:relative;overflow:hidden}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.14)}
+.hero::before{width:260px;height:260px;left:-70px;top:-90px}.hero::after{width:200px;height:200px;right:-50px;bottom:-80px}
+.hero>*{position:relative}
+.pill{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);padding:4px 14px;border-radius:99px;font-size:13px;font-weight:600;margin-bottom:12px}
+h1{margin:0 auto 8px;max-width:640px;font-size:clamp(28px,6vw,44px);line-height:1.1;font-weight:800;letter-spacing:-.02em}
+.hero p{margin:0 auto;max-width:520px;opacity:.95}
+.wrap{max-width:720px;margin:-56px auto 0;padding:0 16px 40px;position:relative}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 12px 34px rgba(11,92,255,.15);margin-bottom:18px}
+label{display:block;font-weight:600;font-size:14px;margin-bottom:8px}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.field{flex:1 1 260px;min-width:0;font:inherit;padding:13px 16px;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--ink)}
+.field:focus-visible,.btn:focus-visible{outline:3px solid #13a8ff;outline-offset:2px}
+.btn{font:600 15px 'Poppins',sans-serif;padding:13px 22px;border-radius:12px;border:2px solid transparent;cursor:pointer;transition:transform .1s,box-shadow .1s}
+.btn:active{transform:translateY(1px)}
+.main{background:var(--g);color:#fff;box-shadow:0 6px 16px rgba(11,92,255,.35)}
+.main:hover{box-shadow:0 8px 22px rgba(11,92,255,.5)}
+.main:disabled{opacity:.6;cursor:wait}
+.blue{background:#1fa2ff;color:#fff}.green{background:#12c27e;color:#fff}
+.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+#msg{display:none;margin-top:14px;padding:10px 14px;border-radius:12px;font-size:14px;font-weight:500}
+#msg.ok{display:block;background:var(--okbg);color:var(--ok)}#msg.err{display:block;background:var(--errbg);color:var(--err)}
+.hint{margin:14px 0 0;font-size:13px;color:var(--mute)}
+.hint a{color:#0b5cff;font-weight:600}
+code{background:var(--code);padding:1px 6px;border-radius:6px;font-size:12.5px}
+#out{display:none}
+.result{display:grid;grid-template-columns:250px 1fr;gap:26px;align-items:start}
+@media (max-width:620px){.result{grid-template-columns:1fr}.qrbox{margin:0 auto}}
+.qrbox{width:250px;max-width:100%;padding:10px;border-radius:20px;background:var(--g)}
+.qrin{background:#fff;border-radius:12px;padding:10px}
+canvas{display:block;width:100%;height:auto;image-rendering:pixelated}
+h2{margin:0 0 6px;font-size:20px;font-weight:700}
+.urlbox{word-break:break-all;font:12.5px/1.5 ui-monospace,Menlo,Consolas,monospace;padding:10px 12px;border-radius:12px;background:var(--code);border:1px solid var(--line);margin:6px 0 16px}
+.actions{display:flex;flex-wrap:wrap;gap:10px}
+#note{margin:14px 0 0;font-size:13px;color:var(--mute)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0}
+@media (max-width:620px){.steps{grid-template-columns:1fr}}
+.step{background:var(--code);border-radius:14px;padding:14px;font-size:14px}
+.step b{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--g);color:#fff;font-size:13px;margin-bottom:6px}
+.foot{text-align:center;font-size:12px;color:var(--mute)}
+.prose h2{margin:26px 0 8px;font-size:20px;font-weight:700}.prose h2:first-child{margin-top:0}
+.prose p,.prose li{color:var(--ink)}.prose ul,.prose ol{padding-left:22px;margin:8px 0}.prose li{margin:5px 0}
+details{border-top:1px solid var(--line);padding:12px 0}details:first-of-type{border-top:0}
+summary{cursor:pointer;font-weight:600}details p{margin:8px 0 0;color:var(--mute)}
+.signup h2{margin:0 0 6px;font-size:20px}.signup p{margin:0 0 14px;color:var(--mute)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 18px;background:#07142e;color:#fff;border-bottom:1px solid #1f3566}
+.top a{color:#fff;text-decoration:none;font-weight:500;font-size:14px}.top a:hover{text-decoration:underline}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700!important;font-size:16px!important}.brand img{border-radius:8px;display:block}
+.links{display:flex;gap:18px}
+.more{text-align:center}.more p{margin:0 0 12px;color:var(--mute)}
+.fl{text-align:center;font-size:13px;margin:6px 0 4px}.fl a{color:var(--mute);margin:0 8px}
+
+.app{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:18px;align-items:start}
+@media(max-width:860px){.app{grid-template-columns:1fr}}
+.ctl label{margin-top:16px}.ctl label:first-child{margin-top:0}
+.ctl .field{width:100%;flex:none}
+.sw{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.sw button{height:46px;border-radius:12px;border:2px solid var(--line);cursor:pointer;font:600 11px 'Poppins',sans-serif;color:#fff;text-shadow:0 1px 2px #000a}
+.sw button.lt{color:#222;text-shadow:none}
+.sw button[aria-pressed=true]{outline:3px solid #13a8ff;outline-offset:2px}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg button{font:600 13px 'Poppins',sans-serif;padding:9px 14px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true]{background:#0b5cff;border-color:#0b5cff;color:#fff}
+.pick{display:none;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px;font-size:12px;color:var(--mute)}
+.pick.on{display:grid}.pick input{width:100%;height:38px;border:2px solid var(--line);border-radius:8px;padding:0;background:none}
+.chk{display:flex;gap:8px;align-items:center;font-weight:500;margin-top:12px}
+.prev{position:sticky;top:12px;text-align:center}
+.prev canvas{image-rendering:auto;width:auto;max-width:100%;max-height:78vh;margin:0 auto;border-radius:12px;box-shadow:0 10px 30px rgba(7,20,46,.3)}
+.sm{font-size:13px;color:var(--mute);margin:6px 0 0}
+.faq p{color:var(--mute);margin:4px 0 12px}
+</style>
+</head>
+<body>
+<nav class="top" aria-label="Site">
+  <a class="brand" href="https://nicolakamel.wordpress.com/"><img src="https://nicolakamel.wordpress.com/wp-content/uploads/2024/04/blue-and-black-modern-chip-technology-logo.png?w=50" alt="" width="32" height="32"><span>The Ultimate Guide</span></a>
+  <div class="links"><a href="/">QR generator</a><a href="https://nicolakamel.wordpress.com/free-tools/">More free tools</a></div>
+</nav>
+<header class="hero">
+  <span class="pill">Free · Add your logo · Print-ready</span>
+  <h1>Free Google Review Sign Maker</h1>
+  <p>Turn your review QR code into a poster, counter card or sticker with your logo and colors.</p>
+</header>
+<main class="wrap">
+<div class="app">
+  <section class="card ctl">
+    <label for="u">1. Your Google Maps link or review link</label>
+    <div class="row"><input id="u" class="field" type="text" placeholder="https://maps.app.goo.gl/..." autocomplete="off" spellcheck="false" style="flex:1 1 200px"><button id="go" class="btn main" type="button">Load</button></div>
+    <div id="msg" role="status" aria-live="polite"></div>
+
+    <label for="bn">2. Business name (optional)</label>
+    <input id="bn" class="field" type="text" maxlength="40" placeholder="Maria's Cafe">
+    <label for="ps">Message style</label>
+    <select id="ps" class="field"></select>
+    <label for="hl">Headline</label>
+    <input id="hl" class="field" type="text" maxlength="60">
+    <label for="sb">Small text</label>
+    <input id="sb" class="field" type="text" maxlength="90">
+
+    <label>3. Design</label>
+    <div class="sw" id="sw"></div>
+    <div class="pick" id="pick"><div>Back 1<input type="color" id="c1" value="#0b4fd8"></div><div>Back 2<input type="color" id="c2" value="#13a8ff"></div><div>Text<input type="color" id="c3" value="#ffffff"></div><div>Stars<input type="color" id="c4" value="#ffd54a"></div></div>
+
+    <label>4. Size</label>
+    <div class="seg" id="fm"></div>
+
+    <label for="lg">5. Your logo (optional)</label>
+    <input id="lg" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml">
+    <p class="sm">Your logo stays on your device. It is never uploaded.</p>
+    <label class="chk"><input type="checkbox" id="bd" checked> White badge behind logo</label>
+    <label class="chk"><input type="checkbox" id="st" checked> Show 5 stars</label>
+    <button id="rm" class="btn ghost" type="button" style="margin-top:10px;display:none">Remove logo</button>
+  </section>
+
+  <section class="card prev">
+    <canvas id="cv" width="1654" height="2339" aria-label="Preview of your review sign"></canvas>
+    <div class="row"><button id="dl" class="btn green" type="button">Download PNG</button></div>
+    <p class="sm" id="hint">Add your link to unlock the download. The preview uses a sample code until then.</p>
+  </section>
+</div>
+
+<section class="card signup" style="margin-top:18px">
+  <h2>Premium design packs are coming</h2>
+  <p>Want more designs, bulk sizes and print-shop files? Join the list and you will hear first.</p>
+  <script async data-uid="395b469fd0" src="https://the-ultimate-guide.kit.com/395b469fd0/index.js"></script>
+</section>
+
+<section class="card prose faq">
+  <h2>How to use your review sign</h2>
+  <ol><li>Paste your Google Maps link and press Load.</li><li>Pick a design, a size and add your logo.</li><li>Download the PNG.</li><li>Print it (A4 poster, 6x4 inch card, square sign or round sticker) and scan it once to test.</li></ol>
+  <h2>Questions</h2>
+  <details><summary>Is it free?</summary><p>Yes. Make and download as many signs as you like.</p></details>
+  <details><summary>Does it work with short Google Maps links?</summary><p>Yes. Paste a maps.app.goo.gl link or a full Google Maps link.</p></details>
+  <details><summary>What file do I get?</summary><p>A high-resolution PNG. Print the poster on A4 paper at 100% scale for sharp results.</p></details>
+  <details><summary>Where should I put it?</summary><p>Near the counter, at the table, on the door, or on packaging. Place it where customers are already finished and happy.</p></details>
+</section>
+<p class="fl"><a href="https://nicolakamel.wordpress.com/">The Ultimate Guide</a><a href="https://nicolakamel.wordpress.com/free-tools/">Free tools</a></p>
+<p class="foot">Not affiliated with Google. Scan your sign before printing to confirm it opens the right business.</p>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)},v=function(i){return $(i).value};
+var FONT='Poppins,"Segoe UI",Arial,sans-serif';
+var T={
+classic:{n:'Classic Blue',bg:['#07142e','#0b5cff'],fg:'#ffffff',ac:'#ffd54a',deco:'circles'},
+sunset:{n:'Sunset',bg:['#ff512f','#dd2476'],fg:'#ffffff',ac:'#ffe082',deco:'circles'},
+fresh:{n:'Fresh Green',bg:['#0b6b3a','#27c26a'],fg:'#ffffff',ac:'#fff3a0',deco:'dots'},
+clean:{n:'Clean White',bg:['#ffffff','#eef2f8'],fg:'#10213f',ac:'#f5a300',deco:'none',light:1,border:'#10213f'},
+gold:{n:'Midnight Gold',bg:['#0b0b0f','#1f1f2b'],fg:'#f5e6b8',ac:'#d4af37',deco:'lines'},
+coral:{n:'Coral Pop',bg:['#ff6b6b','#ffa36c'],fg:'#ffffff',ac:'#ffffff',deco:'dots'},
+purple:{n:'Purple Wave',bg:['#4a1fb8','#b13cff'],fg:'#ffffff',ac:'#ffe14a',deco:'waves'},
+cafe:{n:'Cafe Cream',bg:['#f6ecdc','#ead7b8'],fg:'#4a2e1a',ac:'#b8651b',deco:'dots',light:1},
+ocean:{n:'Ocean Teal',bg:['#003d5b','#00b4a6'],fg:'#ffffff',ac:'#ffe14a',deco:'waves'},
+custom:{n:'Custom'}
+};
+var FM={poster:{n:'A4 poster',w:1654,h:2339},card:{n:'Counter card 6x4in',w:1800,h:1200,land:1},square:{n:'Square sign',w:1200,h:1200},sticker:{n:'Round sticker',w:1200,h:1200,round:1}};
+var PS=[['Enjoyed your visit?','Scan to leave us a Google review.'],['Loved it? Tell the world!','Scan to review us on Google. It takes 30 seconds.'],['How did we do?','Your feedback helps us improve. Scan to leave a review.'],['Review us on Google','Scan the code with your phone camera.'],['Thank you!','If you enjoyed your experience, please scan to leave a review.']];
+var theme='classic',fmt='poster',logo=null,url='',qn=0,qcv=document.createElement('canvas'),cv=$('cv'),timer=0;
+var SAMPLE='https://search.google.com/local/writereview?placeid=ChIJSAMPLEPLACEIDFORPREVIEW00';
+
+PS.forEach(function(p,i){var o=document.createElement('option');o.value=i;o.textContent=p[0];$('ps').appendChild(o)});
+function preset(){var p=PS[+v('ps')];$('hl').value=p[0];$('sb').value=p[1];sched()}
+$('ps').onchange=preset;preset();
+Object.keys(T).forEach(function(k){var b=document.createElement('button');b.type='button';b.textContent=T[k].n;b.setAttribute('aria-pressed',k===theme);
+ if(k==='custom')b.style.background='conic-gradient(#ff512f,#ffd54a,#27c26a,#13a8ff,#b13cff,#ff512f)';else{b.style.background='linear-gradient(135deg,'+T[k].bg[0]+','+T[k].bg[1]+')';if(T[k].light)b.className='lt'}
+ b.onclick=function(){theme=k;[].forEach.call($('sw').children,function(x){x.setAttribute('aria-pressed',x===b)});$('pick').className='pick'+(k==='custom'?' on':'');sched()};$('sw').appendChild(b)});
+Object.keys(FM).forEach(function(k){var b=document.createElement('button');b.type='button';b.textContent=FM[k].n;b.setAttribute('aria-pressed',k===fmt);
+ b.onclick=function(){fmt=k;[].forEach.call($('fm').children,function(x){x.setAttribute('aria-pressed',x===b)});sched()};$('fm').appendChild(b)});
+['bn','hl','sb','c1','c2','c3','c4','bd','st'].forEach(function(i){$(i).addEventListener('input',sched);$(i).addEventListener('change',sched)});
+$('lg').onchange=function(e){var f=e.target.files[0];if(!f)return;if(f.size>5e6){say('That logo is over 5 MB. Please use a smaller file.',false);return}
+ var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){logo=im;$('rm').style.display='inline-block';sched()};im.onerror=function(){say('Could not read that image.',false)};im.src=r.result};r.readAsDataURL(f)};
+$('rm').onclick=function(){logo=null;$('lg').value='';$('rm').style.display='none';sched()};
+
+function say(t,ok){var m=$('msg');m.textContent=t;m.className=ok?'ok':'err'}
+function ftid(a,b){var by=[10,18,9],i;function le(h){var n=BigInt('0x'+h),r=[];for(i=0;i<8;i++){r.push(Number(n&0xFFn));n>>=8n}return r}by=by.concat(le(a),[17],le(b));var s='';for(i=0;i<by.length;i++)s+=String.fromCharCode(by[i]);return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+function extract(s){var d=s;try{d=decodeURIComponent(s)}catch(e){}
+ if(/^ChIJ[\w-]{15,}$/.test(s))return s;
+ var m=d.match(/(?:place_id[:=]|query_place_id=|placeid=)(ChIJ[\w-]+)/i)||d.match(/(ChIJ[\w-]{20,})/);if(m)return m[1];
+ m=d.match(/(?:!1s|ftid=)0x([0-9a-f]+):0x([0-9a-f]+)/i);if(m){try{return ftid(m[1],m[2])}catch(e){}}return null}
+async function load(){var s=v('u').trim();if(!s){say('Paste a Google Maps link first.',false);return}
+ var b=$('go');b.disabled=true;b.textContent='...';
+ try{var id=extract(s);
+  if(!id&&/^https?:\/\//i.test(s)){var r=await fetch('/api/resolve?url='+encodeURIComponent(s)),d=await r.json();if(!r.ok||d.error)throw new Error(d.error||'Could not open that link.');id=extract(d.url)}
+  if(!id)throw new Error('No Place ID found. Use the link of a business page from Google Maps.');
+  url='https://search.google.com/local/writereview?placeid='+encodeURIComponent(id);
+  say('Link loaded. Scan the finished sign once to confirm it opens the right business.',true);$('hint').textContent='Ready. Download your sign below.';sched();
+ }catch(e){say(e.message==='Failed to fetch'?'Could not reach the link expander.':e.message,false)}
+ b.disabled=false;b.textContent='Load'}
+$('go').onclick=load;$('u').addEventListener('keydown',function(e){if(e.key==='Enter')load()});
+
+function makeQR(u){var q=qrcode(0,'M');q.addData(u);q.make();qn=q.getModuleCount();var c=qcv.getContext('2d'),k=10;qcv.width=qcv.height=qn*k;c.fillStyle='#fff';c.fillRect(0,0,qcv.width,qcv.height);c.fillStyle='#000';for(var r=0;r<qn;r++)for(var j=0;j<qn;j++)if(q.isDark(r,j))c.fillRect(j*k,r*k,k,k)}
+function lum(h){var n=parseInt(h.slice(1),16);return .3*(n>>16)+.59*((n>>8)&255)+.11*(n&255)}
+function th(){if(theme!=='custom')return T[theme];return {bg:[v('c1'),v('c2')],fg:v('c3'),ac:v('c4'),deco:'circles',light:lum(v('c1'))>150}}
+function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+function star(c,cx,cy,r){c.beginPath();for(var i=0;i<10;i++){var a=-Math.PI/2+i*Math.PI/5,d=i%2?r*.42:r;c.lineTo(cx+Math.cos(a)*d,cy+Math.sin(a)*d)}c.closePath();c.fill()}
+function wrap(c,t,mw){var o=[],ws=t.split(/\s+/),l='';ws.forEach(function(w){var x=l?l+' '+w:w;if(c.measureText(x).width>mw&&l){o.push(l);l=w}else l=x});if(l)o.push(l);return o}
+function fit(c,t,wt,mw,s,ml,mn){var l,w;for(;;){c.font=wt+' '+s+'px '+FONT;l=wrap(c,t,mw);w=0;l.forEach(function(x){w=Math.max(w,c.measureText(x).width)});if((l.length<=ml&&w<=mw)||s<=mn)break;s*=.93}
+ if(l.length>ml){l=l.slice(0,ml);var z=l[ml-1];while(z.length>1&&c.measureText(z+'\u2026').width>mw)z=z.slice(0,-1);l[ml-1]=z+'\u2026'}
+ if(w>mw){s*=mw/w;c.font=wt+' '+s+'px '+FONT}
+ return {s:s,l:l}}
+function deco(c,W,H,t){c.save();var d=t.deco,col=t.light?'rgba(0,0,0,.07)':'rgba(255,255,255,.12)';c.fillStyle=col;
+ if(d==='circles'){c.beginPath();c.arc(0,0,W*.32,0,7);c.fill();c.beginPath();c.arc(W,H,W*.38,0,7);c.fill()}
+ if(d==='dots'){var s=Math.min(W,H)*.045;for(var i=0;i<9;i++)for(var j=0;j<9;j++){c.beginPath();c.arc(W-s*.8-i*s,s*.8+j*s,s*.12,0,7);c.fill();c.beginPath();c.arc(s*.8+i*s,H-s*.8-j*s,s*.12,0,7);c.fill()}}
+ if(d==='lines'){c.strokeStyle=t.ac;c.lineWidth=W*.005;c.strokeRect(W*.035,W*.035,W-W*.07,H-W*.07);c.lineWidth=W*.0018;c.strokeRect(W*.05,W*.05,W-W*.1,H-W*.1)}
+ if(d==='waves'){for(var k=0;k<2;k++){c.fillStyle='rgba(255,255,255,'+(.1+k*.06)+')';c.beginPath();c.moveTo(0,H);for(var x=0;x<=W;x+=W/60)c.lineTo(x,H*(.88-k*.04)+Math.sin(x/W*6.28*1.5+k*2)*H*.02);c.lineTo(W,H);c.closePath();c.fill()}}
+ c.restore()}
+function qrCard(c,t,x,y,qs){var n=qn,q=Math.floor(qs/n)*n,pad=qs*.09,side=q+pad*2;c.save();c.shadowColor='rgba(0,0,0,.28)';c.shadowBlur=side*.06;c.shadowOffsetY=side*.02;c.fillStyle='#fff';rr(c,x,y,side,side,side*.07);c.fill();c.restore();
+ if(t.border){c.strokeStyle=t.border;c.lineWidth=side*.012;rr(c,x,y,side,side,side*.07);c.stroke()}
+ c.imageSmoothingEnabled=false;c.drawImage(qcv,x+pad,y+pad,q,q);return side}
+function stack(c,t,b,al,wq){var nm=v('bn').trim(),hl=v('hl').trim(),sb=v('sb').trim(),ax=al==='left'?b.x:b.x+b.w/2,minGap=b.h*.012;c.textAlign=al;c.textBaseline='alphabetic';
+ function build(k){var its=[],kq=Math.max(k,.6);
+  if(logo){var lh=b.h*(wq?.11:.22)*k,lw=lh*logo.width/logo.height;if(lw>b.w*.6){lw=b.w*.6;lh=lw*logo.height/logo.width}var p=$('bd').checked?lh*.18:0;
+   its.push({h:lh+p*2,d:function(y){var w=lw+p*2,x=al==='left'?b.x:b.x+(b.w-w)/2;if(p){c.fillStyle='#fff';rr(c,x,y,w,lh+p*2,p*1.5);c.fill()}c.drawImage(logo,x+p,y+p,lw,lh)}})}
+  if(nm){var nf=fit(c,nm,700,b.w,b.w*.05*k,1,b.w*.025);its.push({h:nf.s*1.25,d:function(y){c.font='700 '+nf.s+'px '+FONT;c.fillStyle=t.fg;c.globalAlpha=.9;c.textAlign=al;c.fillText(nf.l[0],ax,y+nf.s);c.globalAlpha=1}})}
+  if(hl){var f=fit(c,hl,800,b.w,b.w*(wq?.13:.115)*k,3,b.w*.04);its.push({h:f.l.length*f.s*1.12,d:function(y){c.font='800 '+f.s+'px '+FONT;c.fillStyle=t.fg;c.textAlign=al;f.l.forEach(function(l,i){c.fillText(l,ax,y+f.s*(i+1)*1.12-f.s*.2)})}})}
+  if($('st').checked){var z=b.w*(wq?.065:.07)*k;its.push({h:z*1.2,d:function(y){var sp=z*1.2,x0=al==='left'?b.x+z*.6:ax-sp*2;c.fillStyle=t.ac;for(var i=0;i<5;i++)star(c,x0+i*sp,y+z*.6,z*.55)}})}
+  if(wq){var qs=Math.min(b.w*.8,b.h*.42)*kq;its.push({h:qs*1.18,d:function(y){qrCard(c,t,ax-(qs*1.18)/2,y,qs)}})}
+  if(sb){var g=fit(c,sb,500,b.w*.95,b.w*.055*k,3,b.w*.025);its.push({h:g.l.length*g.s*1.28,d:function(y){c.font='500 '+g.s+'px '+FONT;c.fillStyle=t.fg;c.globalAlpha=.88;c.textAlign=al;g.l.forEach(function(l,i){c.fillText(l,ax,y+g.s*(i+1)*1.28-g.s*.3)});c.globalAlpha=1}})}
+  return its}
+ var its,tot,n;for(var k=1;k>=.3;k-=.05){its=build(k);tot=0;its.forEach(function(i){tot+=i.h});n=its.length;if(tot+minGap*(n-1)<=b.h)break}
+ var gap=Math.max(Math.min((b.h-tot)/(n+1),b.h*.06),minGap),y=b.y+(b.h-(tot+gap*(n-1)))/2;
+ its.forEach(function(i){i.d(y);y+=i.h+gap})}
+function render(){var F=FM[fmt],W=F.w,H=F.h,c=cv.getContext('2d'),t=th();cv.width=W;cv.height=H;makeQR(url||SAMPLE);
+ c.save();if(F.round){c.beginPath();c.arc(W/2,H/2,W/2,0,7);c.clip()}
+ var g=c.createLinearGradient(0,0,W*.6,H);g.addColorStop(0,t.bg[0]);g.addColorStop(1,t.bg[1]);c.fillStyle=g;c.fillRect(0,0,W,H);deco(c,W,H,t);
+ if(F.land){stack(c,t,{x:W*.06,y:H*.08,w:W*.46,h:H*.84},'left',false);var qs=H*.5,sd=qs*1.18;qrCard(c,t,W*.76-sd/2,H/2-sd/2,qs)}
+ else if(F.round)stack(c,t,{x:W*.2,y:H*.17,w:W*.6,h:H*.66},'center',true);
+ else if(fmt==='square')stack(c,t,{x:W*.08,y:H*.06,w:W*.84,h:H*.88},'center',true);
+ else stack(c,t,{x:W*.08,y:H*.05,w:W*.84,h:H*.9},'center',true);
+ c.restore()}
+function sched(){clearTimeout(timer);timer=setTimeout(render,40)}
+$('dl').onclick=function(){if(!url){say('Add your Google Maps link and press Load first.',false);$('u').focus();return}
+ render();cv.toBlob(function(b){var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='google-review-sign-'+fmt+'.png';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},2000)},'image/png')};
+render();
+try{Promise.all([document.fonts.load('800 40px Poppins'),document.fonts.load('700 40px Poppins'),document.fonts.load('500 40px Poppins')]).then(sched)}catch(e){}
+var q=new URLSearchParams(location.search).get('link');if(q){$('u').value=q;load()}
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!--CSS-->
+
+<!--MARKUP-->
+<section class="card">
+    <label for="u">Google Maps link or Place ID</label>
+    <div class="row">
+      <input id="u" class="field" type="text" placeholder="https://maps.app.goo.gl/..." autocomplete="off" spellcheck="false">
+      <button id="go" class="btn main">Create QR code</button>
+    </div>
+    <div id="msg" role="status" aria-live="polite"></div>
+    <p class="hint">Works with short links, full Maps URLs, or a Place ID starting with <code>ChIJ</code>.</p>
+  </section>
+
+  <section class="card" id="out">
+    <div class="result">
+      <div class="qrbox"><div class="qrin"><canvas id="qr" width="512" height="512" aria-label="QR code that opens the Google review page"></canvas></div></div>
+      <div>
+        <h2>Your review QR code</h2>
+        <div class="urlbox" id="link"></div>
+        <div class="actions">
+          <button id="dl" class="btn green">Download PNG</button>
+          <button id="cp" class="btn blue">Copy link</button>
+          <button id="op" class="btn ghost">Test link</button>
+          <a id="sg" class="btn main" style="display:inline-block;text-decoration:none" href="/review-sign-maker">Make a printable sign</a>
+        </div>
+        <p id="note"></p>
+      </div>
+    </div>
+  </section>
+<!--GUIDE-->
+<h2>Make it easy for customers to leave a Google review</h2>
+    <p>Most happy customers never leave a review, simply because it takes too many steps. Paste your Google Maps link above and this free tool creates a QR code that opens your review form directly. Customers scan it with their phone camera and land on the page where they can write a review. No searching for your business and no extra steps.</p>
+    <h2>How to create your Google review QR code</h2>
+    <ol>
+      <li><b>Copy your Google Maps link.</b> Open your business in Google Maps, tap Share, and copy the link.</li>
+      <li><b>Paste it into the generator.</b> Put the link in the box at the top of this page.</li>
+      <li><b>Create and download.</b> Press "Create QR code," then download the PNG.</li>
+      <li><b>Test it.</b> Scan the code with your phone to confirm it opens the review form for the right business.</li>
+      <li><b>Print or share it.</b> Add it to your counter, receipts, menus, packaging or window.</li>
+    </ol>
+    <h2>Why use a Google review QR code?</h2>
+    <p>A QR code removes friction. A scan takes a few seconds, and you can place it exactly where customers are already thinking about their experience. Google reviews also matter for local visibility, because businesses with recent, genuine reviews look more trustworthy to people comparing options in Google Search and Google Maps.</p>
+    <h2>Where to place your review QR code</h2>
+    <ul><li>On the counter or at checkout</li><li>On receipts and invoices</li><li>On menus and table cards</li><li>On packaging and delivery bags</li><li>In your shop window or waiting area</li><li>On business cards, flyers and thank-you notes</li></ul>
+    <h2>Who is this tool for?</h2>
+    <p>Any business with a Google Maps listing: restaurants, cafes, salons, clinics, hotels, repair shops, gyms, agencies, and freelancers who serve customers locally.</p>
+    <h2>Tips to get more genuine reviews</h2>
+    <ul>
+      <li><b>Ask at the right moment,</b> right after a good service or purchase.</li>
+      <li><b>Add a clear message</b> next to the code, like "Enjoyed your visit? Scan to leave a review."</li>
+      <li><b>Thank people</b> who review. A quick reply builds trust with future customers.</li>
+      <li><b>Follow Google's rules.</b> Do not pay or reward customers for reviews, and do not ask only happy customers. Ask everyone and let people write what they think.</li>
+    </ul>
+<!--FAQ-->
+<details><summary>Is this Google review QR code generator free?</summary><p>Yes. You can create and download as many QR codes as you like, with no sign-up.</p></details>
+<details><summary>Does it work with short Google Maps links?</summary><p>Yes. You can paste short links that start with maps.app.goo.gl, full Google Maps URLs, or a Place ID that starts with ChIJ.</p></details>
+<details><summary>Where do I find my Google Maps link?</summary><p>Search for your business in Google Maps, open its listing, tap Share, then Copy link.</p></details>
+<details><summary>How do I know the QR code opens the right page?</summary><p>Scan it with your phone before you print it. It should open the Google review form for your business. If it does not, paste the full link from your browser's address bar instead of the short link.</p></details>
+<details><summary>Does the QR code expire?</summary><p>No. The code points to your review link, so it keeps working as long as your Google Business Profile exists.</p></details>
+<details><summary>Can I use the QR code in print?</summary><p>Yes. Download the PNG and use it on flyers, receipts, signs and packaging. Keep white space around it and print it at least 3 cm (about 1.2 inches) wide.</p></details>
+<details><summary>Do I need a Google Business Profile?</summary><p>Yes. Your business needs a listing on Google Maps so customers have a page to review.</p></details>
+<!--TAIL-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var input=$('u'),msg=$('msg'),out=$('out'),canvas=$('qr'),go=$('go'),current='';
+function say(t,ok){msg.textContent=t;msg.className=ok?'ok':'err'}
+function ftidToPlaceId(a,b){
+  var bytes=[0x0A,0x12,0x09],i;
+  function le(h){var n=BigInt('0x'+h),r=[];for(i=0;i<8;i++){r.push(Number(n&0xFFn));n>>=8n}return r}
+  bytes=bytes.concat(le(a),[0x11],le(b));
+  var s='';for(i=0;i<bytes.length;i++)s+=String.fromCharCode(bytes[i]);
+  return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+}
+function extract(s){
+  var dec=s;try{dec=decodeURIComponent(s)}catch(e){}
+  if(/^ChIJ[\w-]{15,}$/.test(s))return {id:s,how:'Place ID entered directly.'};
+  var m=dec.match(/(?:place_id[:=]|query_place_id=|placeid=)(ChIJ[\w-]+)/i)||dec.match(/(ChIJ[\w-]{20,})/);
+  if(m)return {id:m[1],how:'Place ID found in the link.'};
+  m=dec.match(/(?:!1s|ftid=)0x([0-9a-f]+):0x([0-9a-f]+)/i);
+  if(m){try{return {id:ftidToPlaceId(m[1],m[2]),how:'Place ID derived from the Maps link. Scan the code to confirm it opens the right business.'}}catch(e){}}
+  return null;
+}
+function draw(url){
+  var q=qrcode(0,'M');q.addData(url);q.make();
+  var n=q.getModuleCount(),m=2,t=n+m*2,cell=Math.floor(512/t),size=cell*t;
+  canvas.width=canvas.height=size;
+  var c=canvas.getContext('2d');c.fillStyle='#fff';c.fillRect(0,0,size,size);c.fillStyle='#000';
+  for(var r=0;r<n;r++)for(var k=0;k<n;k++)if(q.isDark(r,k))c.fillRect((k+m)*cell,(r+m)*cell,cell,cell);
+}
+async function run(){
+  var s=input.value.trim();
+  if(!s){say('Paste a Google Maps link first.',false);return}
+  go.disabled=true;go.textContent='Working...';
+  try{
+    var r=extract(s);
+    if(!r&&/^https?:\/\//i.test(s)){
+      var res=await fetch('/api/resolve?url='+encodeURIComponent(s));
+      var d=await res.json();
+      if(!res.ok||d.error)throw new Error(d.error||'Could not open that link.');
+      r=extract(d.url);
+    }
+    if(!r)throw new Error('No Place ID found. Use the link of a business page from Google Maps, or paste a Place ID starting with ChIJ.');
+    current='https://search.google.com/local/writereview?placeid='+encodeURIComponent(r.id);
+    draw(current);
+    $('link').textContent=current;$('note').textContent=r.how;$('sg').href='/review-sign-maker?link='+encodeURIComponent(current);
+    say('Your QR code is ready.',true);
+    out.style.display='block';out.scrollIntoView({behavior:'smooth',block:'start'});
+  }catch(e){
+    out.style.display='none';
+    say(e.message==='Failed to fetch'?'Could not reach the link expander. Make sure the site is hosted with the _worker.js file.':e.message,false);
+  }
+  go.disabled=false;go.textContent='Create QR code';
+}
+go.onclick=run;
+input.addEventListener('keydown',function(e){if(e.key==='Enter')run()});
+$('op').onclick=function(){if(current)window.open(current,'_blank','noopener')};
+$('cp').onclick=function(){
+  var b=$('cp');
+  function done(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy link'},1500)}
+  try{navigator.clipboard.writeText(current).then(done,function(){say('Copy was blocked. Select the link and copy it manually.',false)})}
+  catch(e){say('Copy was blocked. Select the link and copy it manually.',false)}
+};
+$('dl').onclick=function(){
+  var a=document.createElement('a');a.download='google-review-qr.png';a.href=canvas.toDataURL('image/png');
+  document.body.appendChild(a);a.click();a.remove();
+};
+})();
+</script>

@@ -1,0 +1,100 @@
+<!--CSS-->
+.t .field{width:100%;flex:none}
+.t label{display:block;margin:16px 0 6px}.t label:first-child{margin-top:0}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}
+.seg button{font:600 13px 'Poppins',sans-serif;padding:8px 14px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true]{background:#0b5cff;border-color:#0b5cff;color:#fff}
+#pv{height:230px;border-radius:16px;border:1px solid rgba(127,127,127,.35);margin-bottom:6px}
+.stop{display:grid;grid-template-columns:52px 1fr 90px 44px;gap:8px;align-items:center;margin:8px 0}
+.stop input[type=color]{width:52px;height:42px;border:2px solid var(--line);border-radius:10px;padding:2px;background:none;cursor:pointer}
+.stop .field{padding:9px 12px}
+.stop button{height:42px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);cursor:pointer;font-weight:700}
+.stop button:disabled{opacity:.4;cursor:not-allowed}
+input[type=range]{width:100%}
+.pre{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.pre button{width:64px;height:40px;border-radius:10px;border:2px solid var(--line);cursor:pointer}
+.t textarea.field{min-height:96px;font:12.5px/1.55 ui-monospace,Menlo,Consolas,monospace;resize:vertical}
+<!--MARKUP-->
+<section class="card t">
+  <div id="pv" aria-label="Gradient preview"></div>
+  <label>Type</label><div class="seg" id="ty" role="group" aria-label="Gradient type"></div>
+  <div id="angBox"><label for="ang">Angle: <span id="angv">135</span> degrees</label><input id="ang" type="range" min="0" max="360" value="135"></div>
+  <label>Color stops</label>
+  <div id="stops"></div>
+  <div class="actions" style="margin-top:10px"><button id="add" class="btn ghost" type="button">Add color</button><button id="rnd" class="btn blue" type="button">Random</button></div>
+  <label>Presets</label><div class="pre" id="pre"></div>
+</section>
+<section class="card t">
+  <label for="css" style="margin-top:0">CSS code</label>
+  <textarea id="css" class="field" readonly></textarea>
+  <div class="actions" style="margin-top:12px">
+    <button id="cp" class="btn green" type="button">Copy CSS</button>
+    <button id="cv" class="btn blue" type="button">Copy value only</button>
+    <button id="dl" class="btn ghost" type="button">Download PNG</button>
+  </div>
+  <div id="msg" role="status" aria-live="polite"></div>
+</section>
+<!--GUIDE-->
+<h2>How to make a CSS gradient</h2>
+<ol>
+  <li>Choose linear, radial or conic.</li>
+  <li>Change the colors and their positions. Add up to six colors.</li>
+  <li>Set the angle for linear and conic gradients.</li>
+  <li>Copy the CSS and paste it into your stylesheet, or download a PNG.</li>
+</ol>
+<h2>Gradient types</h2>
+<ul>
+  <li><b>Linear:</b> colors blend along a straight line.</li>
+  <li><b>Radial:</b> colors spread out from the center.</li>
+  <li><b>Conic:</b> colors rotate around the center, like a color wheel.</li>
+</ul>
+<h2>Tips</h2>
+<p>Use colors that are close on the color wheel for a smooth, calm look. Check that text on top of the gradient stays easy to read.</p>
+<!--FAQ-->
+<details><summary>Is the CSS gradient generator free?</summary><p>Yes. Make as many gradients as you like, with no sign-up.</p></details>
+<details><summary>Do I need a fallback color?</summary><p>The code includes a solid fallback color line for very old browsers, followed by the gradient.</p></details>
+<details><summary>How do I use the code?</summary><p>Paste it inside any CSS rule, for example in .hero or body. You can also put the value in a style attribute.</p></details>
+<details><summary>Can I download the gradient as an image?</summary><p>Yes. Press Download PNG for a 1600 by 900 image. Conic gradients need a recent browser.</p></details>
+<details><summary>Does it work in all browsers?</summary><p>Linear and radial gradients work everywhere. Conic gradients work in current versions of all major browsers.</p></details>
+<!--TAIL-->
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var type='linear',stops=[{c:'#0b5cff',p:0},{c:'#13a8ff',p:100}];
+var PRE=[['#ff512f','#dd2476'],['#4a1fb8','#b13cff'],['#0b6b3a','#27c26a'],['#07142e','#0b5cff'],['#ffd54a','#ff6b6b'],['#00b4a6','#003d5b'],['#f6ecdc','#b8651b'],['#ff2e93','#ff8a00','#ffe600']];
+function say(t,ok){var m=$('msg');m.textContent=t;m.className=t?(ok?'ok':'err'):'';clearTimeout(say.t);say.t=setTimeout(function(){m.textContent='';m.className=''},2000)}
+function sorted(){return stops.slice().sort(function(a,b){return a.p-b.p})}
+function value(){var s=sorted().map(function(x){return x.c+' '+x.p+'%'}).join(', '),a=+$('ang').value;
+ if(type==='radial')return 'radial-gradient(circle, '+s+')';
+ if(type==='conic')return 'conic-gradient(from '+a+'deg, '+s+')';
+ return 'linear-gradient('+a+'deg, '+s+')'}
+function out(){var v=value();$('pv').style.background=v;$('angBox').style.display=type==='radial'?'none':'';$('angv').textContent=$('ang').value;
+ $('css').value='background: '+sorted()[0].c+';\nbackground: '+v+';'}
+function rows(){var w=$('stops');w.innerHTML='';stops.forEach(function(s,i){var r=document.createElement('div');r.className='stop';
+ r.innerHTML='<input type="color" value="'+s.c+'" aria-label="Color '+(i+1)+'"><input class="field" type="text" value="'+s.c+'" maxlength="7" aria-label="HEX color '+(i+1)+'"><input class="field" type="number" min="0" max="100" value="'+s.p+'" aria-label="Position '+(i+1)+' percent"><button type="button" aria-label="Remove color '+(i+1)+'"'+(stops.length<=2?' disabled':'')+'>x</button>';
+ var cp=r.children[0],tx=r.children[1],ps=r.children[2],rm=r.children[3];
+ cp.oninput=function(){s.c=cp.value;tx.value=cp.value;out()};
+ tx.oninput=function(){var h=tx.value.trim();if(/^#[0-9a-f]{6}$/i.test(h)){s.c=h.toLowerCase();cp.value=s.c;out()}};
+ ps.oninput=function(){s.p=Math.max(0,Math.min(100,+ps.value||0));out()};
+ rm.onclick=function(){if(stops.length>2){stops.splice(i,1);rows();out()}};w.appendChild(r)});$('add').disabled=stops.length>=6}
+var ty=$('ty');[['linear','Linear'],['radial','Radial'],['conic','Conic']].forEach(function(o){var b=document.createElement('button');b.type='button';b.textContent=o[1];b.setAttribute('aria-pressed',o[0]===type);
+ b.onclick=function(){type=o[0];[].forEach.call(ty.children,function(x){x.setAttribute('aria-pressed',x===b)});out()};ty.appendChild(b)});
+$('ang').oninput=out;
+$('add').onclick=function(){if(stops.length<6){var l=sorted();stops.push({c:l[l.length-1].c,p:100});rows();out()}};
+function setStops(cs){stops=cs.map(function(c,i){return {c:c,p:Math.round(i*100/(cs.length-1))}});rows();out()}
+function rc(){return '#'+Math.floor(Math.random()*0xffffff).toString(16).padStart(6,'0')}
+$('rnd').onclick=function(){var n=2+Math.floor(Math.random()*2),a=[];for(var i=0;i<n;i++)a.push(rc());$('ang').value=Math.floor(Math.random()*360);setStops(a)};
+PRE.forEach(function(p){var b=document.createElement('button');b.type='button';b.style.background='linear-gradient(135deg,'+p.join(',')+')';b.setAttribute('aria-label','Preset '+p.join(' to '));b.onclick=function(){setStops(p)};$('pre').appendChild(b)});
+function copy(t,ok){function d(){say(ok,true)}function fb(){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');d()}catch(e){say('Copy was blocked. Select the text and copy it manually.',false)}a.remove()}
+ try{navigator.clipboard.writeText(t).then(d,fb)}catch(e){fb()}}
+$('cp').onclick=function(){copy($('css').value,'CSS copied.')};
+$('cv').onclick=function(){copy(value(),'Value copied.')};
+$('dl').onclick=function(){var W=1600,H=900,c=document.createElement('canvas');c.width=W;c.height=H;var x=c.getContext('2d'),a=+$('ang').value,g,s=sorted();
+ if(type==='radial')g=x.createRadialGradient(W/2,H/2,0,W/2,H/2,Math.hypot(W,H)/2);
+ else if(type==='conic'){if(!x.createConicGradient){say('Your browser cannot download conic gradients.',false);return}g=x.createConicGradient((a-90)*Math.PI/180,W/2,H/2)}
+ else{var r=a*Math.PI/180,L=Math.abs(W*Math.sin(r))+Math.abs(H*Math.cos(r)),dx=Math.sin(r)*L/2,dy=-Math.cos(r)*L/2;g=x.createLinearGradient(W/2-dx,H/2-dy,W/2+dx,H/2+dy)}
+ s.forEach(function(o){g.addColorStop(o.p/100,o.c)});x.fillStyle=g;x.fillRect(0,0,W,H);
+ c.toBlob(function(b){var l=document.createElement('a');l.href=URL.createObjectURL(b);l.download='gradient.png';document.body.appendChild(l);l.click();l.remove();setTimeout(function(){URL.revokeObjectURL(l.href)},2000)},'image/png')};
+rows();out();
+})();
+</script>

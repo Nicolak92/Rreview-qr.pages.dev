@@ -1,0 +1,98 @@
+<!--CSS-->
+.t label.drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:130px;border:2px dashed var(--line);border-radius:16px;cursor:pointer;text-align:center;padding:18px;font-weight:600;position:relative;margin:0}
+.t label.drop:hover,.t label.drop.on{border-color:#0b5cff;background:var(--code)}
+.t label.drop input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.t label.drop span{font-weight:400;font-size:13px;color:var(--mute)}
+#cv{display:block;max-width:100%;height:auto;margin:0 auto;border-radius:12px;cursor:crosshair;image-rendering:auto}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.seg button{font:600 13px 'Poppins',sans-serif;padding:8px 14px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true]{background:#0b5cff;border-color:#0b5cff;color:#fff}
+.sws{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin:8px 0 14px}
+.sw{border:0;border-radius:14px;min-height:92px;padding:10px;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;cursor:pointer;font:600 13px 'Poppins',sans-serif;box-shadow:inset 0 0 0 1px rgba(127,127,127,.3);text-align:left}
+.sw small{font-weight:400;font-size:11px;opacity:.85}
+.sw:focus-visible{outline:3px solid #13a8ff;outline-offset:2px}
+<!--MARKUP-->
+<section class="card t">
+  <label class="drop" id="drop" for="f">Drop an image here, or click to choose<span>JPG, PNG, WebP, GIF. It stays on your device.</span><input id="f" type="file" accept="image/*"></label>
+  <div id="msg" role="status" aria-live="polite"></div>
+</section>
+<section class="card t" id="res" style="display:none">
+  <canvas id="cv" aria-label="Your image. Click to pick a color."></canvas>
+  <p class="sm">Tip: click anywhere on the image to add that exact color.</p>
+  <div class="seg" id="cnt" role="group" aria-label="Number of colors"></div>
+  <div class="sws" id="sws"></div>
+  <div class="actions">
+    <button class="btn blue" data-x="hex" type="button">Copy HEX</button>
+    <button class="btn blue" data-x="css" type="button">Copy CSS</button>
+    <button class="btn blue" data-x="json" type="button">Copy JSON</button>
+    <button class="btn green" data-x="png" type="button">Download PNG</button>
+    <button class="btn ghost" id="rs" type="button">Reset</button>
+  </div>
+</section>
+<!--GUIDE-->
+<h2>How to get a color palette from an image</h2>
+<ol>
+  <li>Choose a photo, logo or screenshot, or drop it on the box.</li>
+  <li>Pick how many colors you want. The main colors appear below the image.</li>
+  <li>Click the image to add any color you want, such as a small detail.</li>
+  <li>Click a color to copy its HEX code, or copy the whole palette as CSS or JSON.</li>
+</ol>
+<h2>What is it good for?</h2>
+<ul>
+  <li>Matching your website colors to your logo</li>
+  <li>Building a brand palette from a product photo</li>
+  <li>Finding colors for slides, posters and social posts</li>
+  <li>Getting a design idea from a photo you like</li>
+</ul>
+<h2>Your image stays private</h2>
+<p>The image is read in your browser. It is not uploaded or saved anywhere.</p>
+<!--FAQ-->
+<details><summary>Is the color palette from image tool free?</summary><p>Yes. Use it as often as you like, with no sign-up.</p></details>
+<details><summary>Is my image uploaded?</summary><p>No. Everything happens in your browser, so your image never leaves your device.</p></details>
+<details><summary>How are the colors chosen?</summary><p>The tool looks at the colors that appear most and keeps those that are clearly different from each other. You can also click the image to add exact colors.</p></details>
+<details><summary>What formats can I copy?</summary><p>HEX codes, CSS variables and JSON. You can also download the palette as a PNG image.</p></details>
+<details><summary>Can I use a logo?</summary><p>Yes. A PNG or JPG logo works well. Transparent areas are ignored.</p></details>
+<!--TAIL-->
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var cols=[],N=6,img=null,sc=document.createElement('canvas');
+function say(t,ok){var m=$('msg');m.textContent=t;m.className=t?(ok?'ok':'err'):''}
+function hex(r,g,b){return '#'+[r,g,b].map(function(v){return Math.round(v).toString(16).padStart(2,'0')}).join('')}
+function rgb(h){var n=parseInt(h.slice(1),16);return [n>>16,(n>>8)&255,n&255]}
+function lum(h){var a=rgb(h).map(function(x){x/=255;return x<=.03928?x/12.92:Math.pow((x+.055)/1.055,2.4)});return .2126*a[0]+.7152*a[1]+.0722*a[2]}
+function textOn(h){return lum(h)>.35?'#111111':'#ffffff'}
+function extract(n){var W=100,H=100;sc.width=W;sc.height=H;var x=sc.getContext('2d',{willReadFrequently:true});x.clearRect(0,0,W,H);x.drawImage(img,0,0,W,H);
+ var d=x.getImageData(0,0,W,H).data,m={};
+ for(var i=0;i<d.length;i+=4){if(d[i+3]<200)continue;var k=(d[i]>>3)+','+(d[i+1]>>3)+','+(d[i+2]>>3),o=m[k]||(m[k]={n:0,r:0,g:0,b:0});o.n++;o.r+=d[i];o.g+=d[i+1];o.b+=d[i+2]}
+ var arr=Object.keys(m).map(function(k){var o=m[k],r=o.r/o.n,g=o.g/o.n,b=o.b/o.n,mx=Math.max(r,g,b),mn=Math.min(r,g,b),sat=mx?(mx-mn)/mx:0;return {w:o.n*(1+sat*.8),c:[r,g,b]}}).sort(function(a,b){return b.w-a.w}),pick=[];
+ for(var th=70;th>=6&&pick.length<n;th-=8){arr.forEach(function(o){if(pick.length>=n)return;if(pick.every(function(p){var a=p[0]-o.c[0],b=p[1]-o.c[1],g=p[2]-o.c[2];return Math.sqrt(a*a+b*b+g*g)>th}))pick.push(o.c)})}
+ return pick.map(function(c){return hex(c[0],c[1],c[2])})}
+function show(){$('sws').innerHTML=cols.map(function(h){var c=rgb(h);return '<button type="button" class="sw" data-h="'+h+'" style="background:'+h+';color:'+textOn(h)+'" aria-label="Copy '+h+'">'+h.toUpperCase()+'<small>rgb('+c.join(', ')+')</small></button>'}).join('')}
+function load(f){if(!f||!/^image\//.test(f.type)){say('Please choose an image file.',false);return}
+ var u=URL.createObjectURL(f),im=new Image();
+ im.onerror=function(){say('Could not read that image.',false)};
+ im.onload=function(){img=im;var cv=$('cv'),s=Math.min(1,720/im.width);cv.width=Math.round(im.width*s);cv.height=Math.round(im.height*s);cv.getContext('2d',{willReadFrequently:true}).drawImage(im,0,0,cv.width,cv.height);
+  URL.revokeObjectURL(u);cols=extract(N);show();$('res').style.display='block';say('Palette ready.',true);$('res').scrollIntoView({behavior:'smooth',block:'start'})};
+ im.src=u}
+$('f').onchange=function(e){load(e.target.files[0])};
+var dr=$('drop');['dragenter','dragover'].forEach(function(t){dr.addEventListener(t,function(e){e.preventDefault();dr.classList.add('on')})});
+['dragleave','drop'].forEach(function(t){dr.addEventListener(t,function(e){e.preventDefault();dr.classList.remove('on')})});
+dr.addEventListener('drop',function(e){load(e.dataTransfer.files[0])});
+$('cv').addEventListener('click',function(e){var cv=$('cv'),r=cv.getBoundingClientRect(),x=Math.floor((e.clientX-r.left)*cv.width/r.width),y=Math.floor((e.clientY-r.top)*cv.height/r.height),p=cv.getContext('2d').getImageData(x,y,1,1).data;
+ if(p[3]<10)return;var h=hex(p[0],p[1],p[2]);if(cols.indexOf(h)<0)cols.push(h);if(cols.length>16)cols.shift();show()});
+var seg=$('cnt');[4,5,6,8,10].forEach(function(n){var b=document.createElement('button');b.type='button';b.textContent=n+' colors';b.setAttribute('aria-pressed',n===N);
+ b.onclick=function(){N=n;[].forEach.call(seg.children,function(x){x.setAttribute('aria-pressed',x===b)});if(img){cols=extract(N);show()}};seg.appendChild(b)});
+$('rs').onclick=function(){if(img){cols=extract(N);show()}};
+function copy(t,ok){function d(){say(ok,true)}function fb(){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');d()}catch(e){say('Copy was blocked. Select the text and copy it manually.',false)}a.remove()}
+ try{navigator.clipboard.writeText(t).then(d,fb)}catch(e){fb()}}
+$('sws').addEventListener('click',function(e){var b=e.target.closest('[data-h]');if(b)copy(b.dataset.h.toUpperCase(),'Copied '+b.dataset.h.toUpperCase())});
+document.querySelectorAll('[data-x]').forEach(function(b){b.onclick=function(){var k=b.dataset.x,hx=cols.map(function(h){return h.toUpperCase()});if(!hx.length)return;
+ if(k==='hex')copy(hx.join(', '),'HEX codes copied');
+ if(k==='css')copy(':root{\n'+hx.map(function(h,i){return '  --color-'+(i+1)+': '+h+';'}).join('\n')+'\n}','CSS variables copied');
+ if(k==='json')copy(JSON.stringify(hx),'JSON copied');
+ if(k==='png'){var w=Math.max(1,hx.length),c=document.createElement('canvas');c.width=w*240;c.height=400;var x=c.getContext('2d');
+  hx.forEach(function(h,i){x.fillStyle=h;x.fillRect(i*240,0,240,400);x.fillStyle=textOn(h);x.font='700 28px Arial,sans-serif';x.textAlign='center';x.fillText(h,i*240+120,360)});
+  c.toBlob(function(bl){var a=document.createElement('a');a.href=URL.createObjectURL(bl);a.download='palette-from-image.png';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},2000)},'image/png');say('Palette image downloaded.',true)}}});
+})();
+</script>

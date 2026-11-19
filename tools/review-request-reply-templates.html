@@ -1,0 +1,98 @@
+<!--CSS-->
+.t .field{width:100%;flex:none}
+.t label{margin-top:16px}.t label:first-child{margin-top:0}
+.t textarea.field{min-height:170px;resize:vertical;line-height:1.55}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+.seg button{font:600 13px 'Poppins',sans-serif;padding:8px 14px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true]{background:#0b5cff;border-color:#0b5cff;color:#fff}
+.seg button:focus-visible{outline:3px solid #13a8ff;outline-offset:2px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.g2{grid-template-columns:1fr}}
+<!--MARKUP-->
+<section class="card t">
+  <div class="seg" id="mode" role="group" aria-label="Template type"></div>
+  <div class="g2">
+    <div><label for="bn">Business name</label><input id="bn" class="field" type="text" maxlength="50" placeholder="Maria's Cafe"></div>
+    <div id="rowA"><label for="lk">Your review link</label><input id="lk" class="field" type="text" placeholder="https://search.google.com/local/writereview?..."></div>
+    <div id="rowR1"><label for="cn">Customer name (optional)</label><input id="cn" class="field" type="text" maxlength="40" placeholder="Sam"></div>
+    <div id="rowR2"><label for="ct">Your contact (email or phone)</label><input id="ct" class="field" type="text" maxlength="60" placeholder="hello@yourbusiness.com"></div>
+  </div>
+  <div id="boxA"><label>Where will you send it?</label><div class="seg" id="chan" role="group" aria-label="Channel"></div></div>
+  <div id="boxR"><label>Star rating of the review</label><div class="seg" id="stars" role="group" aria-label="Star rating"></div></div>
+  <label>Tone</label><div class="seg" id="tone" role="group" aria-label="Tone"></div>
+  <label for="out">Your message</label>
+  <textarea id="out" class="field"></textarea>
+  <div class="actions" style="margin-top:12px">
+    <button id="cp" class="btn green" type="button">Copy message</button>
+    <button id="nx" class="btn blue" type="button">Another version</button>
+  </div>
+  <div id="msg" role="status" aria-live="polite"></div>
+  <p class="hint">Need your review link? <a href="/google-review-link-generator">Create it here</a>.</p>
+</section>
+<!--GUIDE-->
+<h2>How to use these templates</h2>
+<ol>
+  <li>Choose <b>Ask for a review</b> or <b>Reply to a review</b>.</li>
+  <li>Add your business name. Add your review link or your contact details.</li>
+  <li>Pick the channel or the star rating, and a tone.</li>
+  <li>Press <b>Another version</b> until it sounds like you, then copy it.</li>
+</ol>
+<h2>Tips for asking for reviews</h2>
+<ul>
+  <li>Ask right after a good experience, while it is fresh.</li>
+  <li>Keep it short and make the link one tap away.</li>
+  <li>Ask every customer, not only the happy ones.</li>
+  <li>Never offer rewards for reviews. Google can remove them.</li>
+</ul>
+<h2>Tips for replying to reviews</h2>
+<p>Reply to good and bad reviews. Stay polite, thank the person, and keep it short. For a bad review, apologize and invite them to contact you privately. Never argue in public.</p>
+<!--FAQ-->
+<details><summary>Are these templates free?</summary><p>Yes. Use them as often as you like, with no sign-up.</p></details>
+<details><summary>Is this AI?</summary><p>No. The messages come from ready-written templates, so there is no AI cost and nothing is sent anywhere.</p></details>
+<details><summary>Can I edit the message?</summary><p>Yes. Click in the box and change anything before you copy it.</p></details>
+<details><summary>Should I reply to every review?</summary><p>Replying to most reviews shows customers that you care. Always reply to complaints.</p></details>
+<details><summary>Where do I get my review link?</summary><p>Use the free Google Review Link Generator on this site. Paste your Google Maps link and copy the result.</p></details>
+<!--TAIL-->
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var mode='ask',chan='sms',star='5',tone='friendly',vi=0;
+var ASK={
+ sms:['Thank you for choosing {biz}. If you have a moment, we would appreciate your feedback on Google: {link}','Thanks for visiting {biz}! Would you share your experience on Google? It takes about 30 seconds: {link}','We hope you enjoyed {biz}. Your honest review on Google helps other customers and helps us improve: {link}'],
+ whatsapp:['Thank you for choosing {biz}. If you enjoyed your experience, we would love to hear your thoughts on Google: {link}','We are glad you visited {biz}. Could you spare a minute to leave us an honest review on Google? {link}','Your feedback matters to us at {biz}. A short review on Google helps other people find us: {link}'],
+ email:['Thank you for choosing {biz}. We would appreciate your honest review on Google. It only takes a minute and it helps other customers.\n\n{link}','We hope you enjoyed your experience with {biz}. If you have a minute, please share your feedback on Google.\n\n{link}','Your opinion helps us improve and helps others decide. Would you leave a short review of {biz} on Google?\n\n{link}'],
+ inperson:['"Thank you for coming in. If you enjoyed it, it would help us a lot if you left a short review on Google. You can scan the code on the counter, or I can send you the link."','"Was everything good today? If so, we would really appreciate a quick Google review. The QR code here takes you straight to it."','"Thanks for choosing {biz}. If you have a minute, please tell others about your visit with a Google review. Just scan this code."']
+};
+var SUBJ=['How was your experience with {biz}?','A quick favor from {biz}','Your feedback helps {biz}'];
+var REP={'5':['Thank you so much for your kind words. We are thrilled you enjoyed {biz}, and your feedback means a lot to the whole team. We look forward to welcoming you again soon.','Thank you for the wonderful review. It is great to hear you had a good experience at {biz}. We hope to see you again soon.','We really appreciate you taking the time to share this. Reviews like yours make our day at {biz}. Thank you, and see you next time.'],
+'4':['Thank you for the great rating. We are glad you enjoyed {biz}. If there is anything we could do to make your next visit a perfect one, please let us know.','Thanks for your kind review. We are happy you had a good experience, and we are always working to make it even better.','We appreciate your feedback and your four stars. We would love to hear what would have made it five, so we can keep improving.'],
+'3':['Thank you for your feedback. We are glad some parts of your experience went well, and we are sorry we did not fully meet your expectations. We would like to hear more so we can improve. Please contact us at {contact}.','Thanks for taking the time to review {biz}. We take your comments seriously and want to do better. If you are willing, please contact us at {contact} so we can talk it through.','We appreciate your honest feedback. There is clearly room for us to improve, and we would like to understand more. You can reach us at {contact}.'],
+'2':['We are sorry to hear about your experience. This is not the standard we want at {biz}. Please contact us at {contact} so we can understand what happened and make it right.','Thank you for letting us know. We apologize that we let you down, and we would like to put this right. Please reach out to us at {contact}.','We are sorry your visit was not what you expected. Your feedback is important to us. Please contact us at {contact} so we can look into it and help.']};
+REP['1']=REP['2'];
+function biz(){return $('bn').value.trim()}
+function fill(s){var b=biz()||'our business',l=$('lk').value.trim()||'[your review link]',c=$('ct').value.trim()||'[your email or phone]';return s.replace(/\{biz\}/g,b).replace(/\{link\}/g,l).replace(/\{contact\}/g,c)}
+function sign(){return biz()||'The team'}
+function build(){var f=tone==='friendly',t,cn=$('cn').value.trim();
+ if(mode==='ask'){var arr=ASK[chan],b=arr[vi%arr.length],g=f?'Hi!':'Hello,';
+  if(chan==='sms')t=b;
+  else if(chan==='inperson')t=b;
+  else if(chan==='whatsapp')t=g+' '+b+(f?'\n\nThank you!':'\n\nKind regards,\n'+sign());
+  else t='Subject: '+SUBJ[vi%SUBJ.length]+'\n\n'+(f?'Hi,':'Hello,')+'\n\n'+b+'\n\n'+(f?'Thank you,\n':'Kind regards,\n')+sign();
+ }else{var a=REP[star],b2=a[vi%a.length],g2=f?(cn?'Hi '+cn+',':'Hello,'):(cn?'Dear '+cn+',':'Dear customer,');
+  t=g2+'\n\n'+b2+'\n\n'+(f?'\u2014 '+(biz()?'The team at '+biz():'The team'):'Kind regards,\n'+sign())}
+ $('out').value=fill(t)}
+function seg(el,items,get,set){el.innerHTML='';items.forEach(function(it){var b=document.createElement('button');b.type='button';b.textContent=it[1];b.setAttribute('aria-pressed',get()===it[0]);
+ b.onclick=function(){set(it[0]);[].forEach.call(el.children,function(x){x.setAttribute('aria-pressed',x===b)});vi=0;view();build()};el.appendChild(b)})}
+function view(){var a=mode==='ask';$('rowA').style.display=$('boxA').style.display=a?'':'none';$('rowR1').style.display=$('rowR2').style.display=$('boxR').style.display=a?'none':''}
+seg($('mode'),[['ask','Ask for a review'],['reply','Reply to a review']],function(){return mode},function(k){mode=k});
+seg($('chan'),[['sms','Text (SMS)'],['whatsapp','WhatsApp'],['email','Email'],['inperson','In person']],function(){return chan},function(k){chan=k});
+seg($('stars'),[['5','5 stars'],['4','4 stars'],['3','3 stars'],['2','2 stars'],['1','1 star']],function(){return star},function(k){star=k});
+seg($('tone'),[['friendly','Friendly'],['pro','Professional']],function(){return tone},function(k){tone=k});
+['bn','lk','cn','ct'].forEach(function(i){$(i).addEventListener('input',build)});
+$('nx').onclick=function(){vi++;build()};
+$('cp').onclick=function(){var t=$('out').value,m=$('msg');function ok(){m.textContent='Copied.';m.className='ok'}
+ function fb(){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');ok()}catch(e){m.textContent='Copy was blocked. Select the text and copy it manually.';m.className='err'}a.remove()}
+ try{navigator.clipboard.writeText(t).then(ok,fb)}catch(e){fb()}};
+view();build();
+})();
+</script>

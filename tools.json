@@ -3,14 +3,13 @@
     "name": "Toolzweb",
     "url": "https://toolzweb.com",
     "tagline": "Free online tools for business, design and creators.",
-    "blogUrl": "https://toolzweb.com/blog/",
+    "blogUrl": "https://nicolakamel.wordpress.com/",
     "blogName": "The Ultimate Guide",
     "logo": "https://nicolakamel.wordpress.com/wp-content/uploads/2024/04/blue-and-black-modern-chip-technology-logo.png?w=50",
     "kitHost": "the-ultimate-guide.kit.com",
     "analyticsToken": "",
     "googleVerification": "",
     "contactEmail": ""
-   
   },
   "categories": [
     {
@@ -124,14 +123,43 @@
       "name": "Wi-Fi QR Code Sign Maker",
       "category": "local-business-reviews",
       "description": "Make a printable Wi-Fi QR code sign for guests.",
-      "status": "soon"
+      "status": "live",
+      "kit": "395b469fd0",
+      "seo": {
+        "title": "Free Wi-Fi QR Code Sign Maker (Printable Poster with Logo)",
+        "description": "Make a printable Wi-Fi QR code sign for guests. Add your logo, pick a design and size, and download a PNG. Free, and your password stays in your browser.",
+        "h1": "Free Wi-Fi QR Code Sign Maker",
+        "lead": "Make a printable Wi-Fi sign with a QR code. Guests scan it and connect. Add your logo and download."
+      },
+      "affiliate": {
+        "items": []
+      },
+      "related": [
+        "review-sign-maker",
+        "google-review-qr-code-generator"
+      ]
     },
     {
       "slug": "review-request-reply-templates",
       "name": "Review Request & Reply Templates",
       "category": "local-business-reviews",
       "description": "Ready-to-use messages to ask for reviews and to reply to them.",
-      "status": "soon"
+      "status": "live",
+      "kit": "395b469fd0",
+      "seo": {
+        "title": "Free Google Review Request & Reply Templates (No AI)",
+        "description": "Ready-to-use messages to ask customers for Google reviews and to reply to good and bad reviews. Text, WhatsApp, email and in person. Free.",
+        "h1": "Free Review Request &amp; Reply Templates",
+        "lead": "Copy ready-made messages to ask for reviews and to reply to them. Pick a channel, a star rating and a tone."
+      },
+      "affiliate": {
+        "items": []
+      },
+      "related": [
+        "google-review-link-generator",
+        "google-review-qr-code-generator",
+        "review-sign-maker"
+      ]
     },
     {
       "slug": "color-palette-generator",
@@ -156,28 +184,88 @@
       "name": "Color Palette from Image",
       "category": "design-branding",
       "description": "Pull a color palette out of any photo or logo.",
-      "status": "soon"
+      "status": "live",
+      "kit": "395b469fd0",
+      "seo": {
+        "title": "Free Color Palette from Image Generator (Extract Colors)",
+        "description": "Upload a photo or logo and get its main colors as HEX codes. Click the image to pick exact colors. Copy as CSS or JSON. Free, your image stays private.",
+        "h1": "Free Color Palette from Image",
+        "lead": "Upload a photo or logo and get its main colors. Click the image to pick exact colors. Your image stays on your device."
+      },
+      "affiliate": {
+        "items": []
+      },
+      "related": [
+        "color-palette-generator",
+        "color-contrast-checker",
+        "favicon-generator"
+      ]
     },
     {
       "slug": "color-contrast-checker",
       "name": "Color Contrast Checker",
       "category": "design-branding",
       "description": "Check text and background contrast against WCAG.",
-      "status": "soon"
+      "status": "live",
+      "kit": "395b469fd0",
+      "seo": {
+        "title": "Free Color Contrast Checker (WCAG AA and AAA)",
+        "description": "Check the contrast ratio between text and background colors against WCAG AA and AAA. Get the closest passing color. Free, no sign-up.",
+        "h1": "Free Color Contrast Checker",
+        "lead": "Check if your text and background colors are easy to read. See WCAG AA and AAA results and get a fix."
+      },
+      "affiliate": {
+        "items": []
+      },
+      "related": [
+        "color-palette-generator",
+        "color-palette-from-image",
+        "css-gradient-generator"
+      ]
     },
     {
       "slug": "favicon-generator",
       "name": "Favicon Generator",
       "category": "design-branding",
       "description": "Turn text, an emoji or a logo into a favicon.",
-      "status": "soon"
+      "status": "live",
+      "kit": "395b469fd0",
+      "seo": {
+        "title": "Free Favicon Generator (ICO and PNG from Text, Emoji or Logo)",
+        "description": "Make a favicon from a letter, emoji or your logo. Download favicon.ico, Apple touch icon and PNG sizes. Free, made in your browser.",
+        "h1": "Free Favicon Generator",
+        "lead": "Make a favicon from a letter, emoji or logo. Download .ico and PNG files and copy the code for your site."
+      },
+      "affiliate": {
+        "items": []
+      },
+      "related": [
+        "color-palette-generator",
+        "color-contrast-checker",
+        "css-gradient-generator"
+      ]
     },
     {
       "slug": "css-gradient-generator",
       "name": "CSS Gradient Generator",
       "category": "design-branding",
       "description": "Design a gradient and copy the CSS.",
-      "status": "soon"
+      "status": "live",
+      "kit": "395b469fd0",
+      "seo": {
+        "title": "Free CSS Gradient Generator (Linear, Radial, Conic)",
+        "description": "Create linear, radial and conic CSS gradients with up to six colors. Copy the CSS or download a PNG. Free, no sign-up.",
+        "h1": "Free CSS Gradient Generator",
+        "lead": "Design a gradient, copy the CSS and download it as a PNG. Linear, radial and conic."
+      },
+      "affiliate": {
+        "items": []
+      },
+      "related": [
+        "color-palette-generator",
+        "color-contrast-checker",
+        "favicon-generator"
+      ]
     },
     {
       "slug": "landed-cost-calculator",

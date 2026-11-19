@@ -45,6 +45,7 @@
     <p class="sm">Your logo stays on your device. It is never uploaded.</p>
     <label class="chk"><input type="checkbox" id="bd" checked> White badge behind logo</label>
     <label class="chk"><input type="checkbox" id="st" checked> Show 5 stars</label>
+    <label class="chk"><input type="checkbox" id="cr" checked> Show toolzweb.com at the bottom</label>
     <button id="rm" class="btn ghost" type="button" style="margin-top:10px;display:none">Remove logo</button>
   </section>
 
@@ -93,7 +94,7 @@ Object.keys(T).forEach(function(k){var b=document.createElement('button');b.type
  b.onclick=function(){theme=k;[].forEach.call($('sw').children,function(x){x.setAttribute('aria-pressed',x===b)});$('pick').className='pick'+(k==='custom'?' on':'');sched()};$('sw').appendChild(b)});
 Object.keys(FM).forEach(function(k){var b=document.createElement('button');b.type='button';b.textContent=FM[k].n;b.setAttribute('aria-pressed',k===fmt);
  b.onclick=function(){fmt=k;[].forEach.call($('fm').children,function(x){x.setAttribute('aria-pressed',x===b)});sched()};$('fm').appendChild(b)});
-['bn','hl','sb','c1','c2','c3','c4','bd','st'].forEach(function(i){$(i).addEventListener('input',sched);$(i).addEventListener('change',sched)});
+['bn','hl','sb','c1','c2','c3','c4','bd','st','cr'].forEach(function(i){$(i).addEventListener('input',sched);$(i).addEventListener('change',sched)});
 $('lg').onchange=function(e){var f=e.target.files[0];if(!f)return;if(f.size>5e6){say('That logo is over 5 MB. Please use a smaller file.',false);return}
  var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){logo=im;$('rm').style.display='inline-block';sched()};im.onerror=function(){say('Could not read that image.',false)};im.src=r.result};r.readAsDataURL(f)};
 $('rm').onclick=function(){logo=null;$('lg').value='';$('rm').style.display='none';sched()};
@@ -150,10 +151,11 @@ function stack(c,t,b,al,wq){var nm=v('bn').trim(),hl=v('hl').trim(),sb=v('sb').t
 function render(){var F=FM[fmt],W=F.w,H=F.h,c=cv.getContext('2d'),t=th();cv.width=W;cv.height=H;makeQR(url||SAMPLE);
  c.save();if(F.round){c.beginPath();c.arc(W/2,H/2,W/2,0,7);c.clip()}
  var g=c.createLinearGradient(0,0,W*.6,H);g.addColorStop(0,t.bg[0]);g.addColorStop(1,t.bg[1]);c.fillStyle=g;c.fillRect(0,0,W,H);deco(c,W,H,t);
- if(F.land){stack(c,t,{x:W*.06,y:H*.08,w:W*.46,h:H*.84},'left',false);var qs=H*.5,sd=qs*1.18;qrCard(c,t,W*.76-sd/2,H/2-sd/2,qs)}
+ if(F.land){stack(c,t,{x:W*.06,y:H*.07,w:W*.46,h:H*.78},'left',false);var qs=H*.5,sd=qs*1.18;qrCard(c,t,W*.76-sd/2,H/2-sd/2,qs)}
  else if(F.round)stack(c,t,{x:W*.2,y:H*.17,w:W*.6,h:H*.66},'center',true);
- else if(fmt==='square')stack(c,t,{x:W*.08,y:H*.06,w:W*.84,h:H*.88},'center',true);
- else stack(c,t,{x:W*.08,y:H*.05,w:W*.84,h:H*.9},'center',true);
+ else if(fmt==='square')stack(c,t,{x:W*.08,y:H*.05,w:W*.84,h:H*.84},'center',true);
+ else stack(c,t,{x:W*.08,y:H*.04,w:W*.84,h:H*.87},'center',true);
+ if($('cr').checked){c.save();c.textAlign='center';c.textBaseline='alphabetic';c.globalAlpha=.7;c.fillStyle=t.fg;c.font='600 '+Math.round(Math.min(W,H)*.024)+'px '+FONT;c.fillText('toolzweb.com',W/2,F.round?H*.92:H*.968);c.restore()}
  c.restore()}
 function sched(){clearTimeout(timer);timer=setTimeout(render,40)}
 $('dl').onclick=function(){if(!url){say('Add your Google Maps link and press Load first.',false);$('u').focus();return}

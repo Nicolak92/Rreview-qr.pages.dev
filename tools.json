@@ -102,7 +102,21 @@
       "name": "Google Review Link Generator",
       "category": "local-business-reviews",
       "description": "Create a direct link that opens your Google review form.",
-      "status": "soon"
+      "status": "live",
+      "kit": "395b469fd0",
+      "seo": {
+        "title": "Free Google Review Link Generator (Direct Review Link)",
+        "description": "Create a direct Google review link from any Google Maps link, even a short one. Copy ready-made messages and website code. Free, no sign-up.",
+        "h1": "Free Google Review Link Generator",
+        "lead": "Paste your Google Maps link and get a direct link that opens your review form. Short links work too."
+      },
+      "affiliate": {
+        "items": []
+      },
+      "related": [
+        "google-review-qr-code-generator",
+        "review-sign-maker"
+      ]
     },
     {
       "slug": "wifi-qr-code-sign-maker",

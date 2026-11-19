@@ -136,7 +136,12 @@ for (const pg of cfg.pages) {
     + `<section class="card prose">${body}</section>\n</main>\n${footer()}\n` + tail);
   sitemap.push('/' + pg.slug);
 }
-
+// ---- blog (copied from the blog/ folder)
+if (fs.existsSync(path.join(root, 'blog'))) {
+  fs.cpSync(path.join(root, 'blog'), path.join(OUT, 'blog'), {recursive: true});
+  sitemap.push('/blog/');
+  for (const f of fs.readdirSync(path.join(root, 'blog'))) if (f.endsWith('.html') && f !== 'index.html') sitemap.push('/blog/' + f.slice(0, -5));
+}
 // ---- 404, sitemap, robots
 write('404.html', head({title: `Page not found | ${S.name}`, desc: 'This page could not be found.', p: '/404', extra: '<meta name="robots" content="noindex">'})
   + nav() + hero('404', 'Page not found', 'That page does not exist. Pick a tool below.', true)

@@ -1,0 +1,131 @@
+<!--CSS-->
+.t2 .field{width:100%;flex:none}
+.t2 .row .field{flex:1 1 240px;width:auto}
+.t2 textarea.field{min-height:130px;resize:vertical;line-height:1.5}
+.blk{margin-top:26px;padding-top:20px;border-top:1px solid var(--line)}
+.blk h3{margin:0 0 4px;font-size:17px}
+.blk .sm{margin:0 0 12px;font-size:13px;color:var(--mute)}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 12px}
+.seg button{font:600 13px 'Poppins',sans-serif;padding:8px 14px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true]{background:#0b5cff;border-color:#0b5cff;color:#fff}
+.seg button:focus-visible{outline:3px solid #13a8ff;outline-offset:2px}
+.actions a.btn{display:inline-block;text-decoration:none}
+<!--MARKUP-->
+<section class="card t2">
+  <label for="u">Google Maps link or Place ID</label>
+  <div class="row"><input id="u" class="field" type="text" placeholder="https://maps.app.goo.gl/..." autocomplete="off" spellcheck="false"><button id="go" class="btn main" type="button">Create review link</button></div>
+  <div id="msg" role="status" aria-live="polite"></div>
+  <p class="hint">Open your business in Google Maps, tap Share, copy the link and paste it here. Short links, full links and Place IDs (starting with <code>ChIJ</code>) all work.</p>
+</section>
+
+<section class="card t2" id="res" style="display:none">
+  <h2 style="margin:0 0 8px;font-size:20px">Your Google review link</h2>
+  <div class="urlbox" id="lnk"></div>
+  <div class="actions">
+    <button id="cp" class="btn green" type="button">Copy link</button>
+    <button id="op" class="btn ghost" type="button">Test link</button>
+    <a id="qrb" class="btn blue" href="/google-review-qr-code-generator">Make a QR code</a>
+    <a id="sgb" class="btn blue" href="/review-sign-maker">Make a printable sign</a>
+  </div>
+  <p id="note" class="hint"></p>
+
+  <div class="blk">
+    <h3>Ask customers for a review</h3>
+    <p class="sm">Pick a message, add your business name and edit the text if you like.</p>
+    <label for="bn">Business name (optional)</label>
+    <input id="bn" class="field" type="text" maxlength="50" placeholder="Maria's Cafe">
+    <div class="seg" id="kinds" role="group" aria-label="Message type"></div>
+    <textarea id="mt" class="field" aria-label="Message text"></textarea>
+    <div class="actions" style="margin-top:12px">
+      <button id="cpm" class="btn blue" type="button">Copy message</button>
+      <button id="wa" class="btn ghost" type="button">Send on WhatsApp</button>
+      <button id="em" class="btn ghost" type="button">Open in email</button>
+    </div>
+  </div>
+
+  <div class="blk">
+    <h3>Add it to your website</h3>
+    <p class="sm">Copy this code into your website, email signature or link-in-bio page.</p>
+    <div class="seg" id="codes" role="group" aria-label="Code type"></div>
+    <textarea id="cd" class="field" readonly aria-label="HTML code"></textarea>
+    <div class="actions" style="margin-top:12px"><button id="cpc" class="btn blue" type="button">Copy code</button></div>
+  </div>
+</section>
+<!--GUIDE-->
+<h2>What is a Google review link?</h2>
+<p>A Google review link is a direct web address that opens the "write a review" box for your business. Customers do not have to search for you, find your listing and look for the review button. They tap the link and write.</p>
+<h2>How to create your Google review link</h2>
+<ol>
+  <li>Open your business in Google Maps and tap <b>Share</b>, then copy the link.</li>
+  <li>Paste it in the box above and press <b>Create review link</b>.</li>
+  <li>Copy the link, or copy one of the ready-made messages.</li>
+  <li>Press <b>Test link</b> to check it opens the review form for the right business.</li>
+</ol>
+<h2>Where to use your review link</h2>
+<ul>
+  <li>In text messages and WhatsApp after a sale or a visit</li>
+  <li>In follow-up emails and email signatures</li>
+  <li>On your website, invoices, receipts and thank-you pages</li>
+  <li>Turned into a QR code for your counter, menu or packaging</li>
+</ul>
+<h2>Follow Google's review rules</h2>
+<p>Do not offer discounts or gifts in exchange for reviews, and do not ask only your happiest customers. Ask everyone and let people write what they really think. Reviews that break Google's rules can be removed.</p>
+<!--FAQ-->
+<details><summary>Is the Google review link generator free?</summary><p>Yes. Create as many links as you like, with no sign-up.</p></details>
+<details><summary>Does it work with short maps.app.goo.gl links?</summary><p>Yes. Paste the short link, a full Google Maps link, or a Place ID that starts with ChIJ.</p></details>
+<details><summary>How do I know the link opens the right business?</summary><p>Press Test link before you share it. If it opens the wrong business, paste the full link from your browser's address bar instead of the short link.</p></details>
+<details><summary>Do I need a Google Business Profile?</summary><p>Yes. Customers can only review a business that has a listing on Google Maps.</p></details>
+<details><summary>Does the link expire?</summary><p>No. It keeps working as long as your Google Business Profile exists.</p></details>
+<details><summary>Can I turn the link into a QR code?</summary><p>Yes. Use the Make a QR code button after you create the link, or make a printable sign with your logo.</p></details>
+<!--TAIL-->
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var link='',kind='friendly',code='text';
+function say(t,ok){var m=$('msg');m.textContent=t;m.className=ok?'ok':'err'}
+function ftid(a,b){var by=[10,18,9],i;function le(h){var n=BigInt('0x'+h),r=[];for(i=0;i<8;i++){r.push(Number(n&0xFFn));n>>=8n}return r}by=by.concat(le(a),[17],le(b));var s='';for(i=0;i<by.length;i++)s+=String.fromCharCode(by[i]);return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+function extract(s){var d=s;try{d=decodeURIComponent(s)}catch(e){}
+ if(/^ChIJ[\w-]{15,}$/.test(s))return {id:s,how:'Place ID entered directly.'};
+ var m=d.match(/(?:place_id[:=]|query_place_id=|placeid=)(ChIJ[\w-]+)/i)||d.match(/(ChIJ[\w-]{20,})/);if(m)return {id:m[1],how:'Place ID found in the link.'};
+ m=d.match(/(?:!1s|ftid=)0x([0-9a-f]+):0x([0-9a-f]+)/i);if(m){try{return {id:ftid(m[1],m[2]),how:'Place ID derived from the Maps link. Press Test link to confirm it opens the right business.'}}catch(e){}}return null}
+async function load(){var s=$('u').value.trim();if(!s){say('Paste a Google Maps link first.',false);return}
+ var b=$('go');b.disabled=true;b.textContent='Working...';
+ try{var r=extract(s);
+  if(!r&&/^https?:\/\//i.test(s)){var res=await fetch('/api/resolve?url='+encodeURIComponent(s)),d=await res.json();if(!res.ok||d.error)throw new Error(d.error||'Could not open that link.');r=extract(d.url)}
+  if(!r)throw new Error('No Place ID found. Use the link of a business page from Google Maps, or paste a Place ID starting with ChIJ.');
+  link='https://search.google.com/local/writereview?placeid='+encodeURIComponent(r.id);
+  $('lnk').textContent=link;$('note').textContent=r.how;
+  $('qrb').href='/google-review-qr-code-generator?link='+encodeURIComponent(link);
+  $('sgb').href='/review-sign-maker?link='+encodeURIComponent(link);
+  $('res').style.display='block';fill();code_();say('Your review link is ready.',true);
+  $('res').scrollIntoView({behavior:'smooth',block:'start'});
+ }catch(e){$('res').style.display='none';say(e.message==='Failed to fetch'?'Could not reach the link expander. Try again in a moment.':e.message,false)}
+ b.disabled=false;b.textContent='Create review link'}
+var K={friendly:'Friendly',sms:'Short text',whatsapp:'WhatsApp',email:'Email'};
+function nm(){return $('bn').value.trim()||'us'}
+function tpl(k){var n=nm(),l=link||'[your review link]';
+ if(k==='sms')return 'Thanks for visiting '+n+'! Would you share your feedback on Google? It takes 30 seconds: '+l;
+ if(k==='whatsapp')return 'Hi! Thank you for choosing '+n+'. If you enjoyed your experience, we would love to hear your thoughts on Google: '+l+'\n\nThank you!';
+ if(k==='email')return 'Subject: How was your experience with '+n+'?\n\nHello,\n\nThank you for choosing '+n+'. We would appreciate your honest review on Google. It only takes a minute and it helps other customers.\n\n'+l+'\n\nThank you,\n'+(nm()==='us'?'The team':nm());
+ return 'Hi! Thank you for choosing '+n+'. If you have a minute, we would really appreciate your honest feedback on Google. It helps other customers find us: '+l}
+function fill(){$('mt').value=tpl(kind)}
+function code_(){var t='Leave us a Google review';
+ $('cd').value=code==='text'?'<a href="'+link+'" target="_blank" rel="noopener">'+t+'</a>':'<a href="'+link+'" target="_blank" rel="noopener" style="display:inline-block;padding:12px 22px;background:#0b5cff;color:#ffffff;border-radius:8px;text-decoration:none;font-family:Arial,sans-serif;font-weight:bold">Review us on Google</a>'}
+function seg(el,obj,get,set){Object.keys(obj).forEach(function(k){var b=document.createElement('button');b.type='button';b.textContent=obj[k];b.setAttribute('aria-pressed',get()===k);
+ b.onclick=function(){set(k);[].forEach.call(el.children,function(x){x.setAttribute('aria-pressed',x===b)})};el.appendChild(b)})}
+seg($('kinds'),K,function(){return kind},function(k){kind=k;fill()});
+seg($('codes'),{text:'Text link',button:'Button'},function(){return code},function(k){code=k;code_()});
+$('bn').addEventListener('input',fill);
+function copy(t,btn,label){function ok(){var o=btn.textContent;btn.textContent='Copied';setTimeout(function(){btn.textContent=label},1400)}
+ function fb(){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');ok()}catch(e){say('Copy was blocked. Select the text and copy it manually.',false)}a.remove()}
+ try{navigator.clipboard.writeText(t).then(ok,fb)}catch(e){fb()}}
+$('go').onclick=load;$('u').addEventListener('keydown',function(e){if(e.key==='Enter')load()});
+$('cp').onclick=function(){copy(link,$('cp'),'Copy link')};
+$('op').onclick=function(){if(link)window.open(link,'_blank','noopener')};
+$('cpm').onclick=function(){copy($('mt').value,$('cpm'),'Copy message')};
+$('cpc').onclick=function(){copy($('cd').value,$('cpc'),'Copy code')};
+$('wa').onclick=function(){var t=$('mt').value.replace(/^Subject:.*\n\n/,'');window.open('https://wa.me/?text='+encodeURIComponent(t),'_blank','noopener')};
+$('em').onclick=function(){var t=$('mt').value,s='',b=t,m=t.match(/^Subject: (.*)\n\n([\s\S]*)$/);if(m){s=m[1];b=m[2]}window.open('mailto:?subject='+encodeURIComponent(s)+'&body='+encodeURIComponent(b))};
+var q=new URLSearchParams(location.search).get('link');if(q){$('u').value=q;load()}
+})();
+</script>

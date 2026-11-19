@@ -126,5 +126,6 @@ $('dl').onclick=function(){
   var a=document.createElement('a');a.download='google-review-qr.png';a.href=canvas.toDataURL('image/png');
   document.body.appendChild(a);a.click();a.remove();
 };
+var ql=new URLSearchParams(location.search).get('link');if(ql){input.value=ql;run()}
 })();
 </script>

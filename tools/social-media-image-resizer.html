@@ -1,0 +1,98 @@
+<!--CSS-->
+.t .field{width:100%;flex:none}
+.t label{display:block;margin:14px 0 6px;font-size:14px}.t label:first-child{margin-top:0}
+.t label.drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:120px;border:2px dashed var(--line);border-radius:16px;cursor:pointer;text-align:center;padding:18px;font-weight:600;position:relative;margin:0}
+.t label.drop:hover,.t label.drop.on{border-color:#0b5cff;background:var(--code)}
+.t label.drop input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.t label.drop span{font-weight:400;font-size:13px;color:var(--mute)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.g2{grid-template-columns:1fr}}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.seg button{font:600 13px 'Poppins',sans-serif;padding:8px 14px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true]{background:#0b5cff;border-color:#0b5cff;color:#fff}
+.seg button:focus-visible{outline:3px solid #13a8ff;outline-offset:2px}
+.pr{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;margin-top:6px}
+.pr label{display:flex;align-items:center;gap:8px;margin:0;border:1px solid var(--line);border-radius:12px;padding:8px 10px;cursor:pointer;font-size:13px;font-weight:500}
+.pr label.act{border-color:#0b5cff;background:var(--code)}
+.pr small{display:block;color:var(--mute);font-size:11px}
+.pr .vw{margin-left:auto;font:600 11px 'Poppins',sans-serif;border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:3px 8px;cursor:pointer}
+#cv{display:block;max-width:100%;max-height:60vh;width:auto;height:auto;margin:0 auto;border-radius:10px;box-shadow:0 6px 20px rgba(7,20,46,.3);background:repeating-conic-gradient(rgba(127,127,127,.18) 0 25%,transparent 0 50%) 0 0/16px 16px;image-rendering:auto}
+input[type=range]{width:100%}
+.col{width:100%;height:42px;border:2px solid var(--line);border-radius:10px;padding:2px;background:none;cursor:pointer}
+<!--MARKUP-->
+<section class="card t">
+  <label class="drop" id="drop" for="f">Drop an image here, or click to choose<span>JPG, PNG, WebP. It stays on your device.</span><input id="f" type="file" accept="image/*"></label>
+  <div id="msg" role="status" aria-live="polite"></div>
+</section>
+<section class="card t" id="res" style="display:none">
+  <h2 style="margin:0 0 6px;font-size:18px">1. Pick the sizes you need</h2>
+  <div class="pr" id="pr"></div>
+  <h2 style="margin:22px 0 0;font-size:18px">2. Fit the image</h2>
+  <div class="g2">
+    <div><label>How to fit</label><div class="seg" id="md" role="group" aria-label="Fit"></div></div>
+    <div><label>File type</label><div class="seg" id="fmt" role="group" aria-label="File type"></div></div>
+  </div>
+  <div class="g2">
+    <div><label for="fx">Move left / right</label><input id="fx" type="range" min="0" max="100" value="50"></div>
+    <div><label for="fy">Move up / down</label><input id="fy" type="range" min="0" max="100" value="50"></div>
+  </div>
+  <div id="bgw"><label for="bg">Background color (for "Fit inside")</label><input id="bg" class="col" type="color" value="#ffffff"></div>
+  <h2 style="margin:22px 0 10px;font-size:18px">3. Preview and download</h2>
+  <canvas id="cv" aria-label="Preview"></canvas>
+  <p class="sm" id="info" style="text-align:center;margin:8px 0 0"></p>
+  <div class="actions" style="margin-top:12px"><button id="d1" class="btn green" type="button">Download this size</button><button id="dall" class="btn blue" type="button">Download all selected</button></div>
+</section>
+<!--GUIDE-->
+<h2>How to resize an image for social media</h2>
+<ol>
+  <li>Choose your image.</li>
+  <li>Tick every size you need, such as an Instagram post and a YouTube thumbnail.</li>
+  <li>Choose <b>Fill and crop</b> or <b>Fit inside</b>, and move the image to choose what is kept.</li>
+  <li>Download one size, or all the sizes you ticked.</li>
+</ol>
+<h2>Fill and crop or fit inside?</h2>
+<ul>
+  <li><b>Fill and crop:</b> the image covers the whole area and the edges may be cut off.</li>
+  <li><b>Fit inside:</b> the whole image is shown, with a background color around it.</li>
+</ul>
+<h2>Check the current sizes</h2>
+<p>Platforms change their recommended sizes from time to time. The sizes here are common choices. Check the platform's help page for its latest guidance.</p>
+<!--FAQ-->
+<details><summary>Is the social media image resizer free?</summary><p>Yes. Resize as many images as you like, with no sign-up.</p></details>
+<details><summary>Is my image uploaded?</summary><p>No. Everything happens in your browser, so your image never leaves your device.</p></details>
+<details><summary>Can I make several sizes at once?</summary><p>Yes. Tick all the sizes you need and press Download all selected.</p></details>
+<details><summary>PNG or JPG?</summary><p>JPG makes smaller files and suits photos. PNG keeps sharp edges and suits graphics and text.</p></details>
+<details><summary>Will it make my image blurry?</summary><p>If the image is smaller than the size you choose, it will be enlarged and may look soft. Start with a large image for the best result.</p></details>
+<!--TAIL-->
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var PS=[['ig','Instagram post (square)',1080,1080],['igp','Instagram portrait',1080,1350],['st','Story / Reels / TikTok',1080,1920],['fb','Facebook post',1200,630],['fbc','Facebook cover',820,312],['xp','X (Twitter) post',1600,900],['xh','X (Twitter) header',1500,500],['lp','LinkedIn post',1200,627],['lb','LinkedIn banner',1584,396],['yt','YouTube thumbnail',1280,720],['yb','YouTube banner',2560,1440],['pin','Pinterest pin',1000,1500],['pp','Profile picture',400,400]];
+var img=null,sel={ig:1,st:1,yt:1},act='ig',mode='cover',fmt='png';
+function say(t,ok){var m=$('msg');m.textContent=t;m.className=t?(ok?'ok':'err'):''}
+function get(k){return PS.filter(function(p){return p[0]===k})[0]}
+function draw(c,W,H){c.canvas.width=W;c.canvas.height=H;var fx=$('fx').value/100,fy=$('fy').value/100;
+ if(mode==='contain'||fmt==='jpg'){c.fillStyle=mode==='contain'?$('bg').value:'#ffffff';c.fillRect(0,0,W,H)}
+ if(mode==='cover'){var s=Math.max(W/img.width,H/img.height),sw=W/s,sh=H/s;c.drawImage(img,(img.width-sw)*fx,(img.height-sh)*fy,sw,sh,0,0,W,H)}
+ else{var s2=Math.min(W/img.width,H/img.height),dw=img.width*s2,dh=img.height*s2;c.drawImage(img,(W-dw)*fx,(H-dh)*fy,dw,dh)}}
+function preview(){if(!img)return;var p=get(act),cv=$('cv');draw(cv.getContext('2d'),p[2],p[3]);$('info').textContent=p[1]+': '+p[2]+' x '+p[3]+' px'+(img.width<p[2]||img.height<p[3]?'. Your image is smaller than this size and may look soft.':'');
+ [].forEach.call($('pr').children,function(l){l.className=l.dataset.k===act?'act':''});$('bgw').style.display=mode==='contain'?'':'none'}
+function list(){var h='';PS.forEach(function(p){h+='<label data-k="'+p[0]+'"><input type="checkbox" data-c="'+p[0]+'"'+(sel[p[0]]?' checked':'')+'><span>'+p[1]+'<small>'+p[2]+' x '+p[3]+'</small></span><button type="button" class="vw" data-v="'+p[0]+'">Preview</button></label>'});$('pr').innerHTML=h}
+$('pr').addEventListener('change',function(e){var c=e.target.dataset.c;if(c){if(e.target.checked)sel[c]=1;else delete sel[c]}});
+$('pr').addEventListener('click',function(e){var v=e.target.dataset.v;if(v){e.preventDefault();act=v;preview()}});
+function save(p){var c=document.createElement('canvas').getContext('2d');draw(c,p[2],p[3]);c.canvas.toBlob(function(b){var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=p[1].toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'-'+p[2]+'x'+p[3]+'.'+fmt;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},2000)},fmt==='jpg'?'image/jpeg':'image/png',.92)}
+$('d1').onclick=function(){save(get(act))};
+$('dall').onclick=function(){var k=Object.keys(sel);if(!k.length){say('Tick at least one size.',false);return}k.forEach(function(x,i){setTimeout(function(){save(get(x))},i*400)});say('Downloading '+k.length+' images. Allow multiple downloads if your browser asks.',true)};
+function seg(id,items,getv,set){var el=$(id);items.forEach(function(o){var b=document.createElement('button');b.type='button';b.textContent=o[1];b.setAttribute('aria-pressed',getv()===o[0]);b.onclick=function(){set(o[0]);[].forEach.call(el.children,function(x){x.setAttribute('aria-pressed',x===b)});preview()};el.appendChild(b)})}
+seg('md',[['cover','Fill and crop'],['contain','Fit inside']],function(){return mode},function(v){mode=v});
+seg('fmt',[['png','PNG'],['jpg','JPG']],function(){return fmt},function(v){fmt=v});
+['fx','fy','bg'].forEach(function(i){$(i).addEventListener('input',preview)});
+function load(f){if(!f||!/^image\//.test(f.type)){say('Please choose an image file.',false);return}var u=URL.createObjectURL(f),im=new Image();
+ im.onerror=function(){say('Could not read that image.',false)};
+ im.onload=function(){img=im;URL.revokeObjectURL(u);$('res').style.display='block';say('',true);list();preview();$('res').scrollIntoView({behavior:'smooth',block:'start'})};im.src=u}
+$('f').onchange=function(e){load(e.target.files[0])};
+var dr=$('drop');['dragenter','dragover'].forEach(function(t){dr.addEventListener(t,function(e){e.preventDefault();dr.classList.add('on')})});
+['dragleave','drop'].forEach(function(t){dr.addEventListener(t,function(e){e.preventDefault();dr.classList.remove('on')})});
+dr.addEventListener('drop',function(e){load(e.dataTransfer.files[0])});
+})();
+</script>

@@ -1,0 +1,90 @@
+<!--CSS-->
+.t .field{width:100%;flex:none}
+.t label{display:block;margin:14px 0 6px;font-size:14px}.t label:first-child{margin-top:0}
+.g2,.g3{display:grid;gap:12px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:560px){.g2,.g3{grid-template-columns:1fr}}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.seg button{font:600 13px 'Poppins',sans-serif;padding:8px 14px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true]{background:#0b5cff;border-color:#0b5cff;color:#fff}
+.seg button:focus-visible{outline:3px solid #13a8ff;outline-offset:2px}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:16px 0}
+.kpi div{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--code)}
+.kpi b{display:block;font-size:22px;line-height:1.2}.kpi span{font-size:12px;color:var(--mute)}
+table.tb{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+.tb th,.tb td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left}
+.tb th{font-size:12px;color:var(--mute);font-weight:600}
+.tb td:not(:first-child),.tb th:not(:first-child){text-align:right}
+.tb tr.tot td{font-weight:700;border-top:2px solid var(--line)}
+.wrapx{overflow-x:auto}
+.note{font-size:13px;color:var(--mute);margin:10px 0 0}
+.chk{display:flex;gap:8px;align-items:center;font-weight:500;margin-top:12px;font-size:14px}
+<!--MARKUP-->
+<section class="card t">
+  <label>Start from an example (edit the fees to match yours)</label>
+  <div class="seg" id="ps" role="group" aria-label="Fee examples"></div>
+  <div class="g3">
+    <div><label for="cu">Currency symbol</label><input id="cu" class="field" type="text" value="$" maxlength="4"></div>
+    <div><label for="pr">Selling price</label><input id="pr" class="field" type="number" step="any" min="0" inputmode="decimal" value="30"></div>
+    <div><label for="sh">Shipping charged to buyer</label><input id="sh" class="field" type="number" step="any" min="0" inputmode="decimal" value="5"></div>
+    <div><label for="cg">Item cost</label><input id="cg" class="field" type="number" step="any" min="0" inputmode="decimal" value="9"></div>
+    <div><label for="sc">Shipping cost you pay</label><input id="sc" class="field" type="number" step="any" min="0" inputmode="decimal" value="5"></div>
+    <div><label for="pk">Packaging and other costs</label><input id="pk" class="field" type="number" step="any" min="0" inputmode="decimal" value="1"></div>
+  </div>
+  <h2 style="margin:22px 0 0;font-size:18px">Fees</h2>
+  <div class="g3">
+    <div><label for="mp">Marketplace fee (%)</label><input id="mp" class="field" type="number" step="any" min="0" inputmode="decimal" value="6.5"></div>
+    <div><label for="pp">Payment fee (%)</label><input id="pp" class="field" type="number" step="any" min="0" inputmode="decimal" value="3"></div>
+    <div><label for="pf">Payment fee, fixed per order</label><input id="pf" class="field" type="number" step="any" min="0" inputmode="decimal" value="0.25"></div>
+    <div><label for="lf">Listing fee per sale</label><input id="lf" class="field" type="number" step="any" min="0" inputmode="decimal" value="0.2"></div>
+    <div><label for="ad">Ads (% of sale)</label><input id="ad" class="field" type="number" step="any" min="0" inputmode="decimal" value="0"></div>
+    <div><label for="tm">Target profit margin (%)</label><input id="tm" class="field" type="number" step="any" min="0" max="90" inputmode="decimal" value="30"></div>
+  </div>
+  <label class="chk"><input type="checkbox" id="fs" checked> Percentage fees also apply to the shipping I charge</label>
+</section>
+<section class="card t">
+  <div class="kpi" id="kpi"></div>
+  <div class="wrapx"><table class="tb" id="tb"></table></div>
+  <p class="note">The examples are only starting points. Fees change often and differ by country, category, seller plan and payment method. Check your marketplace's current fee page and edit the numbers.</p>
+</section>
+<!--GUIDE-->
+<h2>How to calculate your profit after marketplace fees</h2>
+<ol>
+  <li>Enter your selling price, shipping, and what the item costs you.</li>
+  <li>Enter your marketplace and payment fees, or start from an example and edit it.</li>
+  <li>Read your profit per sale, margin and markup.</li>
+  <li>Check the break-even price and the price needed for your target margin.</li>
+</ol>
+<h2>What fees to include</h2>
+<ul>
+  <li>Marketplace or transaction fee (a percentage)</li>
+  <li>Payment processing fee (a percentage plus a fixed amount)</li>
+  <li>Listing fees and advertising</li>
+  <li>Shipping, packaging and returns</li>
+</ul>
+<h2>Margin and markup are different</h2>
+<p><b>Margin</b> is profit divided by the money you receive. <b>Markup</b> is profit divided by your cost. A 50% markup is only a 33% margin.</p>
+<!--FAQ-->
+<details><summary>Is the marketplace fee calculator free?</summary><p>Yes. Use it as often as you like, with no sign-up.</p></details>
+<details><summary>Does it work for Etsy, eBay, Amazon and Shopify?</summary><p>Yes. It works for any marketplace. Enter the fee rates for the one you use, or start from an example and edit it.</p></details>
+<details><summary>Are the example fees up to date?</summary><p>They are only examples. Marketplace fees change, so always check the current rates on the marketplace's own fee page.</p></details>
+<details><summary>What is the break-even price?</summary><p>It is the lowest selling price at which you make zero profit after all fees and costs.</p></details>
+<details><summary>How is the target price worked out?</summary><p>The tool finds the price that gives your chosen profit margin after fees, shipping and costs.</p></details>
+<!--TAIL-->
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var P={etsy:['Etsy example',{mp:6.5,pp:3,pf:.25,lf:.2,ad:0}],ebay:['eBay example',{mp:13.25,pp:0,pf:.3,lf:0,ad:0}],amazon:['Amazon referral example',{mp:15,pp:0,pf:0,lf:0,ad:0}],shopify:['Shopify + cards example',{mp:0,pp:2.9,pf:.3,lf:0,ad:0}]};
+function n(i){var v=parseFloat($(i).value);return isFinite(v)&&v>0?v:0}
+function calc(o){var R=o.pr+o.sh,fm=(o.mp+o.pp)/100,a=o.ad/100,base=o.fs?R:o.pr,fee=base*fm+o.pf+o.lf+o.pr*a,costs=o.cg+o.sc+o.pk,profit=R-fee-costs,F=o.pf+o.lf+costs;
+ function priceFor(m){return (F-o.sh*(1-(o.fs?fm:0)-m))/(1-fm-a-m)}
+ return {R:R,fee:fee,costs:costs,profit:profit,margin:R?profit/R*100:0,markup:costs?profit/costs*100:0,be:priceFor(0),tp:priceFor(o.tm/100),priceFor:priceFor}}
+function f(x,cu){return (x<0?'-':'')+cu+Math.abs(x).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}
+function render(){var cu=$('cu').value||'',o={pr:n('pr'),sh:n('sh'),cg:n('cg'),sc:n('sc'),pk:n('pk'),mp:n('mp'),pp:n('pp'),pf:n('pf'),lf:n('lf'),ad:n('ad'),tm:Math.min(90,n('tm')),fs:$('fs').checked},r=calc(o);
+ var feeP=o.fs?(o.pr+o.sh)*(o.mp+o.pp)/100:o.pr*(o.mp+o.pp)/100;
+ $('kpi').innerHTML='<div><b>'+f(r.profit,cu)+'</b><span>Profit per sale</span></div><div><b>'+(Math.round(r.margin*10)/10)+'%</b><span>Margin</span></div><div><b>'+(Math.round(r.markup*10)/10)+'%</b><span>Markup on cost</span></div><div><b>'+f(r.be,cu)+'</b><span>Break-even price</span></div><div><b>'+f(r.tp,cu)+'</b><span>Price for '+o.tm+'% margin</span></div>';
+ $('tb').innerHTML='<tr><th>Item</th><th>Amount</th></tr><tr><td>Money from buyer (price + shipping)</td><td>'+f(r.R,cu)+'</td></tr><tr><td>Marketplace and payment percentage fees</td><td>-'+f(feeP,cu)+'</td></tr><tr><td>Fixed fees (payment + listing)</td><td>-'+f(o.pf+o.lf,cu)+'</td></tr><tr><td>Ads</td><td>-'+f(o.pr*o.ad/100,cu)+'</td></tr><tr><td>Item cost</td><td>-'+f(o.cg,cu)+'</td></tr><tr><td>Shipping you pay</td><td>-'+f(o.sc,cu)+'</td></tr><tr><td>Packaging and other</td><td>-'+f(o.pk,cu)+'</td></tr><tr class="tot"><td>Profit</td><td>'+f(r.profit,cu)+'</td></tr>'}
+var ps=$('ps');Object.keys(P).forEach(function(k){var b=document.createElement('button');b.type='button';b.textContent=P[k][0];b.onclick=function(){var v=P[k][1];Object.keys(v).forEach(function(i){$(i).value=v[i]});render()};ps.appendChild(b)});
+document.querySelectorAll('.t input').forEach(function(e){e.addEventListener('input',render);e.addEventListener('change',render)});
+render();
+})();
+</script>

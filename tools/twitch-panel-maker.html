@@ -1,0 +1,107 @@
+<!--CSS-->
+.t .field{width:100%;flex:none}
+.t label{display:block;margin:14px 0 6px;font-size:14px}.t label:first-child{margin-top:0}
+.t textarea.field{min-height:150px;resize:vertical;line-height:1.5}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.g2{grid-template-columns:1fr}}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.seg button{font:600 13px 'Poppins',sans-serif;padding:8px 14px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true]{background:#0b5cff;border-color:#0b5cff;color:#fff}
+.seg button:focus-visible{outline:3px solid #13a8ff;outline-offset:2px}
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.sw button{height:42px;border-radius:10px;border:2px solid var(--line);cursor:pointer;font:600 11px 'Poppins',sans-serif;color:#fff;text-shadow:0 1px 2px #000a}
+.sw button.lt{color:#222;text-shadow:none}
+.sw button[aria-pressed=true]{outline:3px solid #13a8ff;outline-offset:2px}
+.pick{display:none;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;font-size:12px;color:var(--mute)}
+.pick.on{display:grid}.pick input{width:100%;height:38px;border:2px solid var(--line);border-radius:8px;padding:0;background:none}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-top:14px}
+.pcell{text-align:center;font-size:12px;color:var(--mute)}
+.pcell canvas{display:block;width:100%;max-width:320px;height:auto;margin:0 auto 8px;border-radius:6px;box-shadow:0 4px 14px rgba(7,20,46,.25);image-rendering:auto}
+.pcell button{font:600 12px 'Poppins',sans-serif;padding:6px 12px;border-radius:8px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+<!--MARKUP-->
+<section class="card t">
+  <label for="pl">Your panels (one per line: Title | small text)</label>
+  <textarea id="pl" class="field" spellcheck="false">About Me | Who I am and what I play
+Schedule | When I go live
+Rules | Chat rules
+Socials | Find me everywhere
+Support | Subs, bits and donations</textarea>
+  <label>Design</label>
+  <div class="sw" id="sw"></div>
+  <div class="pick" id="pick"><div>Back 1<input type="color" id="c1" value="#4a1fb8"></div><div>Back 2<input type="color" id="c2" value="#b13cff"></div><div>Text<input type="color" id="c3" value="#ffffff"></div></div>
+  <div class="g2">
+    <div><label>Panel height</label><div class="seg" id="hh" role="group" aria-label="Height"></div></div>
+    <div><label>Image size</label><div class="seg" id="sc" role="group" aria-label="Scale"></div></div>
+  </div>
+  <label for="ic">Icon (emoji, optional)</label>
+  <input id="ic" class="field" type="text" maxlength="4" placeholder="🎮">
+  <label>Border</label>
+  <div class="seg" id="bd" role="group" aria-label="Border"></div>
+</section>
+<section class="card t">
+  <div class="actions"><button id="all" class="btn green" type="button">Download all</button></div>
+  <div id="msg" role="status" aria-live="polite"></div>
+  <div class="pgrid" id="grid"></div>
+  <p class="sm" style="margin:12px 0 0">Twitch panels are 320 pixels wide. Choose the 2x size for sharper images on large screens.</p>
+</section>
+<!--GUIDE-->
+<h2>How to make Twitch panels</h2>
+<ol>
+  <li>Write one panel per line. Use a bar to add small text, like <i>About Me | Who I am</i>.</li>
+  <li>Pick a design, a height and a border style. Add an emoji icon if you like.</li>
+  <li>Download each panel, or press <b>Download all</b>.</li>
+  <li>On Twitch, open your channel, turn on Edit Panels, add an image panel and upload the file.</li>
+</ol>
+<h2>Which panels should a channel have?</h2>
+<ul>
+  <li>About me and what you stream</li>
+  <li>Schedule</li>
+  <li>Chat rules</li>
+  <li>Social links and Discord</li>
+  <li>Donations, subs and support</li>
+</ul>
+<h2>Design tips</h2>
+<p>Keep the same colors and fonts on every panel so your channel looks tidy. Use short titles, because panels are small.</p>
+<!--FAQ-->
+<details><summary>Is the Twitch panel maker free?</summary><p>Yes. Make and download as many panels as you like, with no sign-up.</p></details>
+<details><summary>What size is a Twitch panel?</summary><p>Twitch panels are 320 pixels wide. The height is up to you. This tool offers common heights and a 2x size for sharper images.</p></details>
+<details><summary>Can I add links?</summary><p>Add the link on Twitch when you upload the panel. In Twitch's panel editor, you can set a link for each image panel.</p></details>
+<details><summary>Are my panels uploaded anywhere?</summary><p>No. They are made in your browser and never leave your device.</p></details>
+<details><summary>Can I use my own colors?</summary><p>Yes. Choose Custom in the design list and pick your own colors.</p></details>
+<!--TAIL-->
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var T={ocean:['Ocean',['#003d5b','#00b4a6'],'#ffffff','#ffe14a'],purple:['Purple',['#4a1fb8','#b13cff'],'#ffffff','#ffe14a'],sunset:['Sunset',['#ff512f','#dd2476'],'#ffffff','#ffe082'],night:['Night',['#07142e','#0b5cff'],'#ffffff','#13a8ff'],gold:['Gold',['#0b0b0f','#1f1f2b'],'#f5e6b8','#d4af37'],green:['Green',['#0b6b3a','#27c26a'],'#ffffff','#fff3a0'],clean:['Clean',['#ffffff','#eef2f8'],'#10213f','#0b5cff'],coral:['Coral',['#ff6b6b','#ffa36c'],'#ffffff','#ffffff'],custom:['Custom']};
+var theme='purple',hh=100,sc=1,bd='glow',timer=0;
+function say(t,ok){var m=$('msg');m.textContent=t;m.className=t?(ok?'ok':'err'):''}
+function th(){if(theme!=='custom')return {bg:T[theme][1],fg:T[theme][2],ac:T[theme][3],light:theme==='clean'};return {bg:[$('c1').value,$('c2').value],fg:$('c3').value,ac:$('c3').value,light:false}}
+function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+function fitText(c,t,wt,maxW,s,min){while(s>min){c.font=wt+' '+s+'px Poppins,"Segoe UI Emoji",Arial,sans-serif';if(c.measureText(t).width<=maxW)break;s-=1}c.font=wt+' '+s+'px Poppins,"Segoe UI Emoji",Arial,sans-serif';return s}
+function draw(cv,title,sub){var k=sc,W=320*k,H=hh*k,c=cv.getContext('2d'),t=th(),ic=$('ic').value.trim();cv.width=W;cv.height=H;
+ var g=c.createLinearGradient(0,0,W,H);g.addColorStop(0,t.bg[0]);g.addColorStop(1,t.bg[1]);c.fillStyle=g;c.fillRect(0,0,W,H);
+ if(bd==='solid'||bd==='glow'){c.save();if(bd==='glow'){c.shadowColor=t.ac;c.shadowBlur=10*k}c.strokeStyle=t.ac;c.lineWidth=3*k;rr(c,4*k,4*k,W-8*k,H-8*k,10*k);c.stroke();c.restore()}
+ var left=ic?H*.95:0,x0=left+(W-left)/2,maxW=W-left-28*k;
+ if(ic){c.font=Math.round(H*.46)+'px "Segoe UI Emoji","Apple Color Emoji",Arial,sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillStyle=t.fg;c.fillText(ic,H*.55,H/2+H*.03)}
+ c.textAlign='center';c.textBaseline='alphabetic';c.fillStyle=t.fg;
+ var s1=fitText(c,title,800,maxW,H*(sub?.3:.38),10*k);var y1=sub?H*.5:H/2+s1*.34;c.fillText(title,x0,y1);
+ if(sub){c.fillStyle=t.fg;c.globalAlpha=.85;var s2=fitText(c,sub,500,maxW,H*.16,8*k);c.fillText(sub,x0,y1+s2*1.5);c.globalAlpha=1}}
+function lines(){return $('pl').value.split('\n').map(function(l){return l.trim()}).filter(Boolean).slice(0,12).map(function(l){var p=l.split('|');return [p[0].trim(),(p[1]||'').trim()]})}
+var list=[];
+function render(){list=lines();var g=$('grid');g.innerHTML='';list.forEach(function(p,i){var d=document.createElement('div');d.className='pcell';var cv=document.createElement('canvas');cv.setAttribute('aria-label','Panel '+p[0]);d.appendChild(cv);draw(cv,p[0],p[1]);
+ var b=document.createElement('button');b.type='button';b.textContent='Download '+p[0];b.onclick=function(){dl(i)};d.appendChild(b);g.appendChild(d)})}
+function sched(){clearTimeout(timer);timer=setTimeout(render,40)}
+function name(t){return 'twitch-panel-'+(t.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'panel')+'.png'}
+function dl(i){var p=list[i],c=document.createElement('canvas');draw(c,p[0],p[1]);c.toBlob(function(b){var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name(p[0]);document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},2000)},'image/png')}
+$('all').onclick=function(){if(!list.length){say('Add at least one panel.',false);return}list.forEach(function(p,i){setTimeout(function(){dl(i)},i*400)});say('Downloading '+list.length+' panels. Allow multiple downloads if your browser asks.',true)};
+var sw=$('sw');Object.keys(T).forEach(function(k){var b=document.createElement('button');b.type='button';b.textContent=T[k][0];b.setAttribute('aria-pressed',k===theme);
+ if(k==='custom')b.style.background='conic-gradient(#ff512f,#ffd54a,#27c26a,#13a8ff,#b13cff,#ff512f)';else{b.style.background='linear-gradient(135deg,'+T[k][1][0]+','+T[k][1][1]+')';if(k==='clean')b.className='lt'}
+ b.onclick=function(){theme=k;[].forEach.call(sw.children,function(x){x.setAttribute('aria-pressed',x===b)});$('pick').className='pick'+(k==='custom'?' on':'');sched()};sw.appendChild(b)});
+function seg(id,items,get,set){var el=$(id);items.forEach(function(o){var b=document.createElement('button');b.type='button';b.textContent=o[1];b.setAttribute('aria-pressed',get()===o[0]);b.onclick=function(){set(o[0]);[].forEach.call(el.children,function(x){x.setAttribute('aria-pressed',x===b)});sched()};el.appendChild(b)})}
+seg('hh',[[80,'80 px'],[100,'100 px'],[130,'130 px'],[160,'160 px']],function(){return hh},function(v){hh=v});
+seg('sc',[[1,'320 wide (1x)'],[2,'640 wide (2x)']],function(){return sc},function(v){sc=v});
+seg('bd',[['none','None'],['solid','Line'],['glow','Glow']],function(){return bd},function(v){bd=v});
+['pl','ic','c1','c2','c3'].forEach(function(i){$(i).addEventListener('input',sched)});
+render();try{document.fonts.load('800 20px Poppins').then(sched)}catch(e){}
+})();
+</script>

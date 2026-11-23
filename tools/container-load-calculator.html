@@ -1,0 +1,82 @@
+<!--CSS-->
+.t .field{width:100%;flex:none}
+.t label{display:block;margin:14px 0 6px;font-size:14px}.t label:first-child{margin-top:0}
+.g2,.g3{display:grid;gap:12px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:560px){.g2,.g3{grid-template-columns:1fr}}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.seg button{font:600 13px 'Poppins',sans-serif;padding:8px 14px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true]{background:#0b5cff;border-color:#0b5cff;color:#fff}
+.seg button:focus-visible{outline:3px solid #13a8ff;outline-offset:2px}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:16px 0}
+.kpi div{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--code)}
+.kpi b{display:block;font-size:22px;line-height:1.2}.kpi span{font-size:12px;color:var(--mute)}
+table.tb{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+.tb th,.tb td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left}
+.tb th{font-size:12px;color:var(--mute);font-weight:600}
+.tb td:not(:first-child),.tb th:not(:first-child){text-align:right}
+.tb tr.tot td{font-weight:700;border-top:2px solid var(--line)}
+.wrapx{overflow-x:auto}
+.note{font-size:13px;color:var(--mute);margin:10px 0 0}
+.chk{display:flex;gap:8px;align-items:center;font-weight:500;margin-top:12px;font-size:14px}
+<!--MARKUP-->
+<section class="card t">
+  <label>Units</label>
+  <div class="seg" id="un" role="group" aria-label="Units"></div>
+  <div class="g3">
+    <div><label for="cl">Carton length (<span class="du">cm</span>)</label><input id="cl" class="field" type="number" step="any" min="0" inputmode="decimal" value="60"></div>
+    <div><label for="cw">Carton width (<span class="du">cm</span>)</label><input id="cw" class="field" type="number" step="any" min="0" inputmode="decimal" value="40"></div>
+    <div><label for="ch">Carton height (<span class="du">cm</span>)</label><input id="ch" class="field" type="number" step="any" min="0" inputmode="decimal" value="40"></div>
+  </div>
+  <div class="g2">
+    <div><label for="wt">Weight per carton (<span class="wu">kg</span>)</label><input id="wt" class="field" type="number" step="any" min="0" inputmode="decimal" value="18"></div>
+    <div><label for="qt">Number of cartons</label><input id="qt" class="field" type="number" step="1" min="1" inputmode="numeric" value="1000"></div>
+  </div>
+  <label class="chk"><input type="checkbox" id="up"> Keep cartons upright (this side up)</label>
+</section>
+<section class="card t">
+  <div class="kpi" id="kpi"></div>
+  <div class="wrapx"><table class="tb" id="tb"></table></div>
+  <p class="note">Container sizes are typical inside measurements and weight limits. Real loads fit a little less because of gaps and pallets. Confirm with your carrier or forwarder.</p>
+</section>
+<!--GUIDE-->
+<h2>How to calculate how many cartons fit in a container</h2>
+<ol>
+  <li>Choose cm and kg, or inches and pounds.</li>
+  <li>Enter the carton size, the weight per carton and how many cartons you have.</li>
+  <li>Tick "keep cartons upright" if they cannot be turned on their side.</li>
+  <li>See how many fit in a 20 ft, 40 ft and 40 ft high cube container, and how many containers you need.</li>
+</ol>
+<h2>How it works</h2>
+<p>The tool tries every way to turn the carton and counts how many fit along the length, width and height of each container. It then checks the weight limit and shows the smaller of the two numbers.</p>
+<h2>CBM and LCL</h2>
+<p>CBM means cubic meters. Total CBM is the volume of all your cartons. If you ship less than a full container (LCL), freight is often charged per CBM.</p>
+<!--FAQ-->
+<details><summary>Is the container load calculator free?</summary><p>Yes. Use it as often as you like, with no sign-up.</p></details>
+<details><summary>How many cartons fit in a 40 ft container?</summary><p>It depends on the carton size and weight. Enter your carton size and the tool shows the number for each container type.</p></details>
+<details><summary>What is a high cube container?</summary><p>A 40 ft high cube is about 30 cm (1 ft) taller inside than a standard 40 ft container, so it fits more tall cartons.</p></details>
+<details><summary>Does it include pallets?</summary><p>No. It packs loose cartons. If you use pallets, enter the pallet size and weight as one carton.</p></details>
+<details><summary>Why is the real number lower?</summary><p>Real loads need gaps, and container walls are not perfectly square. Plan for a little less than the result.</p></details>
+<!--TAIL-->
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var unit='metric';
+var CT=[{n:'20 ft',l:589.8,w:235.2,h:239.3,pay:28200},{n:'40 ft',l:1203.2,w:235.2,h:239.3,pay:26700},{n:'40 ft high cube',l:1203.2,w:235.2,h:269.8,pay:26500}];
+function n(i){var v=parseFloat($(i).value);return isFinite(v)&&v>0?v:0}
+function orient(d,upright){var a=d[0],b=d[1],c=d[2],o=upright?[[a,b,c],[b,a,c]]:[[a,b,c],[a,c,b],[b,a,c],[b,c,a],[c,a,b],[c,b,a]];return o}
+function fit(ct,d,upright){var best=0;orient(d,upright).forEach(function(o){var k=Math.floor(ct.l/o[0])*Math.floor(ct.w/o[1])*Math.floor(ct.h/o[2]);if(k>best)best=k});return best}
+function calc(d,wkg,qty,upright){var vol=d[0]*d[1]*d[2]/1e6;
+ return {vol:vol,totalCbm:vol*qty,totalKg:wkg*qty,rows:CT.map(function(ct){var g=fit(ct,d,upright),w=wkg>0?Math.floor(ct.pay/wkg):Infinity,k=Math.min(g,w),cv=ct.l*ct.w*ct.h/1e6;
+  return {n:ct.n,geo:g,wlim:w,fit:k,limit:k===0?'Does not fit':(w<g?'Weight':'Space'),need:k?Math.ceil(qty/k):0,util:k?k*vol/cv*100:0}})}}
+function render(){var im=unit==='imperial',d=[n('cl'),n('cw'),n('ch')].map(function(x){return im?x*2.54:x}),wkg=im?n('wt')/2.20462:n('wt'),qty=Math.max(1,Math.floor(n('qt'))||1);
+ [].forEach.call(document.querySelectorAll('.du'),function(e){e.textContent=im?'in':'cm'});[].forEach.call(document.querySelectorAll('.wu'),function(e){e.textContent=im?'lb':'kg'});
+ if(!d[0]||!d[1]||!d[2]){$('kpi').innerHTML='';$('tb').innerHTML='<tr><td>Enter the carton length, width and height.</td></tr>';return}
+ var r=calc(d,wkg,qty,$('up').checked),tw=im?r.totalKg*2.20462:r.totalKg;
+ $('kpi').innerHTML='<div><b>'+r.totalCbm.toFixed(2)+'</b><span>Total CBM</span></div><div><b>'+Math.round(tw).toLocaleString()+'</b><span>Total weight ('+(im?'lb':'kg')+')</span></div><div><b>'+(r.vol).toFixed(3)+'</b><span>CBM per carton</span></div>';
+ $('tb').innerHTML='<tr><th>Container</th><th>Cartons per container</th><th>Limited by</th><th>Containers needed</th><th>Space used</th></tr>'+r.rows.map(function(x){return '<tr><td>'+x.n+'</td><td>'+x.fit.toLocaleString()+'</td><td>'+x.limit+'</td><td>'+(x.need||'-')+'</td><td>'+(x.fit?Math.round(x.util)+'%':'-')+'</td></tr>'}).join('')}
+var un=$('un');[['metric','cm and kg'],['imperial','inches and lb']].forEach(function(o){var b=document.createElement('button');b.type='button';b.textContent=o[1];b.setAttribute('aria-pressed',o[0]===unit);
+ b.onclick=function(){if(o[0]===unit)return;var f=o[0]==='imperial'?1/2.54:2.54,wf=o[0]==='imperial'?2.20462:1/2.20462;['cl','cw','ch'].forEach(function(i){var v=n(i);if(v)$(i).value=Math.round(v*f*100)/100});var w=n('wt');if(w)$('wt').value=Math.round(w*wf*100)/100;unit=o[0];[].forEach.call(un.children,function(x){x.setAttribute('aria-pressed',x===b)});render()};un.appendChild(b)});
+document.querySelectorAll('.t input').forEach(function(e){e.addEventListener('input',render);e.addEventListener('change',render)});
+render();
+})();
+</script>

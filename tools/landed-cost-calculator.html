@@ -1,0 +1,92 @@
+<!--CSS-->
+.t .field{width:100%;flex:none}
+.t label{display:block;margin:14px 0 6px;font-size:14px}.t label:first-child{margin-top:0}
+.g2,.g3{display:grid;gap:12px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:560px){.g2,.g3{grid-template-columns:1fr}}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.seg button{font:600 13px 'Poppins',sans-serif;padding:8px 14px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true]{background:#0b5cff;border-color:#0b5cff;color:#fff}
+.seg button:focus-visible{outline:3px solid #13a8ff;outline-offset:2px}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:16px 0}
+.kpi div{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--code)}
+.kpi b{display:block;font-size:22px;line-height:1.2}.kpi span{font-size:12px;color:var(--mute)}
+table.tb{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+.tb th,.tb td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left}
+.tb th{font-size:12px;color:var(--mute);font-weight:600}
+.tb td:not(:first-child),.tb th:not(:first-child){text-align:right}
+.tb tr.tot td{font-weight:700;border-top:2px solid var(--line)}
+.wrapx{overflow-x:auto}
+.note{font-size:13px;color:var(--mute);margin:10px 0 0}
+.chk{display:flex;gap:8px;align-items:center;font-weight:500;margin-top:12px;font-size:14px}
+<!--MARKUP-->
+<section class="card t">
+  <div class="g3">
+    <div><label for="cu">Currency symbol</label><input id="cu" class="field" type="text" value="$" maxlength="4"></div>
+    <div><label for="uc">Unit cost</label><input id="uc" class="field" type="number" step="any" min="0" inputmode="decimal" value="5"></div>
+    <div><label for="qy">Quantity (units)</label><input id="qy" class="field" type="number" step="any" min="1" inputmode="decimal" value="1000"></div>
+    <div><label for="fr">Freight (total)</label><input id="fr" class="field" type="number" step="any" min="0" inputmode="decimal" value="800"></div>
+    <div><label for="ins">Insurance (total)</label><input id="ins" class="field" type="number" step="any" min="0" inputmode="decimal" value="30"></div>
+    <div><label for="dty">Import duty rate (%)</label><input id="dty" class="field" type="number" step="any" min="0" inputmode="decimal" value="5"></div>
+    <div><label for="vat">VAT / GST rate (%)</label><input id="vat" class="field" type="number" step="any" min="0" inputmode="decimal" value="0"></div>
+    <div><label for="bro">Brokerage and customs fees</label><input id="bro" class="field" type="number" step="any" min="0" inputmode="decimal" value="150"></div>
+    <div><label for="oth">Port, inland transport, other</label><input id="oth" class="field" type="number" step="any" min="0" inputmode="decimal" value="200"></div>
+  </div>
+  <label for="base">Duty is calculated on</label>
+  <select id="base" class="field"><option value="cif">Goods + freight + insurance (CIF, used by many countries)</option><option value="fob">Goods only (FOB, used by some countries)</option></select>
+  <label class="chk"><input type="checkbox" id="rc" checked> I can reclaim VAT / GST (leave it out of my cost)</label>
+  <label for="sp">Your selling price per unit (optional)</label>
+  <input id="sp" class="field" type="number" step="any" min="0" inputmode="decimal" value="15">
+</section>
+<section class="card t">
+  <div class="kpi" id="kpi"></div>
+  <div class="wrapx"><table class="tb" id="tb"></table></div>
+  <div class="actions" style="margin-top:14px"><button id="cp" class="btn blue" type="button">Copy summary</button></div>
+  <div id="msg" role="status" aria-live="polite"></div>
+  <p class="note">Rules differ by country and product. Check the duty rate for your product code and the customs value rule for your country.</p>
+</section>
+<!--GUIDE-->
+<h2>How to calculate landed cost</h2>
+<ol>
+  <li>Enter your unit cost and quantity.</li>
+  <li>Add freight, insurance, duty, VAT or GST, and other fees.</li>
+  <li>Read the landed cost per unit and the cost breakdown.</li>
+  <li>Add your selling price to see profit and margin per unit.</li>
+</ol>
+<h2>What is landed cost?</h2>
+<p>Landed cost is the full price of getting a product to your door. It is the product cost plus freight, insurance, import duty, taxes, customs fees and other costs. Knowing it stops you from pricing too low.</p>
+<h2>Common mistakes</h2>
+<ul>
+  <li>Using only the supplier price and forgetting freight and duty</li>
+  <li>Using the wrong customs value rule for your country</li>
+  <li>Counting VAT or GST as a cost when you can reclaim it</li>
+  <li>Forgetting port, broker and delivery fees</li>
+</ul>
+<!--FAQ-->
+<details><summary>Is the landed cost calculator free?</summary><p>Yes. Use it as often as you like, with no sign-up.</p></details>
+<details><summary>What is included in landed cost?</summary><p>Product cost, freight, insurance, import duty, taxes that you cannot reclaim, customs and broker fees, and delivery or handling costs.</p></details>
+<details><summary>How is import duty calculated?</summary><p>Duty is a percentage of the customs value. Many countries use goods + freight + insurance (CIF). Some use goods only (FOB). Choose the rule that applies to you.</p></details>
+<details><summary>Should I include VAT or GST?</summary><p>Only if you cannot reclaim it. Businesses that can reclaim import VAT or GST should leave it out of their cost.</p></details>
+<details><summary>Can I use any currency?</summary><p>Yes. Use one currency for every field and change the symbol at the top.</p></details>
+<!--TAIL-->
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+function n(i){var v=parseFloat($(i).value);return isFinite(v)&&v>0?v:0}
+function calc(o){var goods=o.uc*o.qy,cv=o.base==='cif'?goods+o.fr+o.ins:goods,duty=cv*o.dty/100,vat=(cv+duty)*o.vat/100,vc=o.reclaim?0:vat,total=goods+o.fr+o.ins+duty+vc+o.bro+o.oth;
+ return {goods:goods,fr:o.fr,ins:o.ins,duty:duty,vat:vat,vc:vc,bro:o.bro,oth:o.oth,total:total,unit:o.qy?total/o.qy:0}}
+function fmt(x){return x.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}
+var last='';
+function render(){var cu=$('cu').value||'',o={uc:n('uc'),qy:n('qy')||1,fr:n('fr'),ins:n('ins'),dty:n('dty'),vat:n('vat'),bro:n('bro'),oth:n('oth'),base:$('base').value,reclaim:$('rc').checked},r=calc(o),sp=n('sp');
+ var rows=[['Goods',r.goods],['Freight',r.fr],['Insurance',r.ins],['Import duty',r.duty],[o.reclaim?'VAT / GST (reclaimed, not counted)':'VAT / GST',r.vc],['Brokerage and customs fees',r.bro],['Port, inland transport, other',r.oth]];
+ var k='<div><b>'+cu+fmt(r.unit)+'</b><span>Landed cost per unit</span></div><div><b>'+cu+fmt(r.total)+'</b><span>Total landed cost</span></div><div><b>'+cu+fmt(r.duty+r.vc)+'</b><span>Duty and taxes</span></div><div><b>+'+(r.goods?Math.round((r.total/r.goods-1)*1000)/10:0)+'%</b><span>Above goods price</span></div>';
+ var s=last='Landed cost per unit: '+cu+fmt(r.unit)+'\nTotal landed cost: '+cu+fmt(r.total)+'\n';
+ if(sp>0){var pr=sp-r.unit,mg=pr/sp*100;k+='<div><b>'+cu+fmt(pr)+'</b><span>Profit per unit</span></div><div><b>'+(Math.round(mg*10)/10)+'%</b><span>Gross margin</span></div>';last+='Selling price: '+cu+fmt(sp)+'\nProfit per unit: '+cu+fmt(pr)+' ('+(Math.round(mg*10)/10)+'% margin)\n'}
+ $('kpi').innerHTML=k;
+ $('tb').innerHTML='<tr><th>Cost</th><th>Amount</th><th>Share</th></tr>'+rows.map(function(x){return '<tr><td>'+x[0]+'</td><td>'+cu+fmt(x[1])+'</td><td>'+(r.total?Math.round(x[1]/r.total*1000)/10:0)+'%</td></tr>'}).join('')+'<tr class="tot"><td>Total</td><td>'+cu+fmt(r.total)+'</td><td>100%</td></tr>'}
+document.querySelectorAll('.t input,.t select').forEach(function(e){e.addEventListener('input',render);e.addEventListener('change',render)});
+$('cp').onclick=function(){var m=$('msg');function ok(){m.textContent='Copied.';m.className='ok'}
+ function fb(){var a=document.createElement('textarea');a.value=last;document.body.appendChild(a);a.select();try{document.execCommand('copy');ok()}catch(e){m.textContent='Copy was blocked.';m.className='err'}a.remove()}
+ try{navigator.clipboard.writeText(last).then(ok,fb)}catch(e){fb()}};
+render();
+})();
+</script>

@@ -1,0 +1,102 @@
+<!--CSS-->
+.t .field{width:100%;flex:none}
+.t label{display:block;margin:14px 0 6px;font-size:14px}.t label:first-child{margin-top:0}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.g2{grid-template-columns:1fr}}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.seg button{font:600 13px 'Poppins',sans-serif;padding:8px 14px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true]{background:#0b5cff;border-color:#0b5cff;color:#fff}
+.seg button:focus-visible{outline:3px solid #13a8ff;outline-offset:2px}
+.names{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-top:12px}
+.nm{display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:4px 4px 4px 12px;min-height:46px}
+.nm .cpy{flex:1;text-align:left;background:none;border:0;color:var(--ink);font:600 14px 'Poppins',sans-serif;cursor:pointer;padding:6px 0;word-break:break-word}
+.nm .cpy:hover{color:#0b5cff}
+.nm .st,.nm a{width:34px;height:34px;display:grid;place-items:center;border:0;background:none;border-radius:8px;cursor:pointer;color:var(--mute);text-decoration:none;font-size:16px}
+.nm .st[aria-pressed=true]{color:#f5a300}
+.nm .st:hover,.nm a:hover{background:var(--code)}
+.nm .cpy:focus-visible,.nm .st:focus-visible,.nm a:focus-visible{outline:3px solid #13a8ff;outline-offset:1px}
+.sm2{font-size:13px;color:var(--mute);margin:8px 0 0}
+.chk{display:flex;gap:8px;align-items:center;font-weight:500;margin-top:12px;font-size:14px}
+<!--MARKUP-->
+<section class="card t">
+  <div class="g2">
+    <div><label for="nm">Your name or main word</label><input id="nm" class="field" type="text" maxlength="24" placeholder="Alex" autocomplete="off" value="Alex"></div>
+    <div><label for="k2">An interest or second word (optional)</label><input id="k2" class="field" type="text" maxlength="24" placeholder="Travel, Chess, Art..." autocomplete="off"></div>
+  </div>
+  <label>Style</label>
+  <div class="seg" id="sty" role="group" aria-label="Style"></div>
+  <label for="pf">Platform (sets length and allowed characters)</label>
+  <select id="pf" class="field"></select>
+  <label class="chk"><input type="checkbox" id="num" checked> Allow numbers</label>
+  <div class="actions" style="margin-top:12px"><button id="go" class="btn main" type="button">Generate usernames</button><button id="cf" class="btn ghost" type="button">Copy favorites</button></div>
+  <div id="msg" role="status" aria-live="polite"></div>
+  <div class="names" id="list"></div>
+  <p class="sm2">Click a name to copy it. Click the star to save it. The tool cannot check if a name is free. Try it on the platform before you decide.</p>
+</section>
+<!--GUIDE-->
+<h2>How to find a username</h2>
+<ol>
+  <li>Type your name or a word you like.</li>
+  <li>Add an interest to make it more personal. This is optional.</li>
+  <li>Pick a style and the platform you will use.</li>
+  <li>Press <b>Generate usernames</b>, star your favorites and check them on the platform.</li>
+</ol>
+<h2>Tips for a good username</h2>
+<ul>
+  <li>Keep it short and easy to say out loud</li>
+  <li>Avoid too many numbers and symbols</li>
+  <li>Use the same name on every platform if you can</li>
+  <li>Do not use private details such as your birth date or address</li>
+</ul>
+<h2>Platform rules</h2>
+<p>Each platform limits length and characters. Choose a platform above and the tool removes characters it does not allow and keeps names within the limit. Rules can change, so check the platform when you sign up.</p>
+<!--FAQ-->
+<details><summary>Is the username generator free?</summary><p>Yes. Generate as many names as you like, with no sign-up.</p></details>
+<details><summary>Does it check if a username is taken?</summary><p>No. Try the name on the platform. Popular names are often taken, so keep a few favorites ready.</p></details>
+<details><summary>Is my name stored?</summary><p>No. Everything happens in your browser. Nothing is sent or saved.</p></details>
+<details><summary>Which platforms are supported?</summary><p>Instagram, TikTok, X, Twitch, YouTube and a general option that works almost everywhere.</p></details>
+<details><summary>How do I make a username more unique?</summary><p>Add an interest word, use a short suffix, or choose a different style. Avoid long strings of numbers.</p></details>
+<!--TAIL-->
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var style='cool',fav={};
+var PF={any:['Any platform (general)',/[^a-z0-9_.]/g,20,3],ig:['Instagram',/[^a-z0-9_.]/g,30,3],tt:['TikTok',/[^a-z0-9_.]/g,24,3],x:['X (Twitter)',/[^a-z0-9_]/g,15,3],tw:['Twitch',/[^a-z0-9_]/g,25,4],yt:['YouTube handle',/[^a-z0-9_.\-]/g,30,3]};
+var W={cool:{pre:['real','the','its','mr','just','official','iam'],suf:['hq','x','zone','official','plays','vibes','core','nation'],mid:['_','.','']},
+cute:{pre:['little','sweet','tiny','happy','lucky','soft'],suf:['bear','bunny','pie','bee','star','cloud','love','pop'],mid:['_','']},
+gamer:{pre:['pro','dark','xx','alpha','ninja','epic','toxic'],suf:['gaming','tv','plays','gg','clutch','slayer','ace','king'],mid:['_','']},
+pro:{pre:['hello','meet','team','with'],suf:['studio','works','media','designs','writes','hq','pro','co'],mid:['.','_','']},
+short:{pre:['i','x','z'],suf:['x','z','o','io','ly','hq'],mid:['']}};
+function pick(a){return a[Math.floor(Math.random()*a.length)]}
+function clean(s){return s.toLowerCase().replace(/[^a-z0-9]/g,'')}
+function fit(n,p){n=n.toLowerCase().replace(p[1],'').replace(/([._\-])\1+/g,'$1').replace(/^[._\-]+|[._\-]+$/g,'');return n.length>p[2]?n.slice(0,p[2]).replace(/[._\-]+$/,''):n}
+function gen(){var p=PF[$('pf').value],b=clean($('nm').value),k=clean($('k2').value),w=W[style],out=[],t=0,nums=$('num').checked;
+ if(!b)return out;
+ var init=b.slice(0,1);
+ while(out.length<30&&t<600){t++;var m=pick(w.mid),r=Math.random(),n;
+  if(r<.2)n=b+m+pick(w.suf);
+  else if(r<.38)n=pick(w.pre)+m+b;
+  else if(r<.52&&k)n=b+m+k;
+  else if(r<.64&&k)n=k+m+b;
+  else if(r<.76&&nums)n=b+m+(Math.floor(Math.random()*90)+10);
+  else if(r<.86&&nums)n=b+m+pick(w.suf)+m+(Math.floor(Math.random()*99)+1);
+  else if(r<.93)n=b+m+(k?k.slice(0,3):pick(w.suf));
+  else n=pick(w.pre)+m+b+m+pick(w.suf);
+  n=fit(n,p);if(n.length>=p[3]&&out.indexOf(n)<0&&n!==b)out.push(n)}
+ return out}
+function say(t,ok){var m=$('msg');m.textContent=t;m.className=t?(ok?'ok':'err'):'';clearTimeout(say.t);say.t=setTimeout(function(){m.textContent='';m.className=''},1800)}
+function copy(t,ok){function d(){say(ok,true)}function fb(){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');d()}catch(e){say('Copy was blocked.',false)}a.remove()}
+ try{navigator.clipboard.writeText(t).then(d,fb)}catch(e){fb()}}
+function run(){if(!clean($('nm').value)){say('Type your name or a word first.',false);return}
+ $('list').innerHTML=gen().map(function(n){return '<div class="nm"><button type="button" class="cpy" data-n="'+n+'">'+n+'</button><button type="button" class="st" data-f="'+n+'" aria-pressed="'+(!!fav[n])+'" aria-label="Save '+n+'">\u2605</button></div>'}).join('')}
+$('go').onclick=run;['nm','k2'].forEach(function(i){$(i).addEventListener('keydown',function(e){if(e.key==='Enter')run()})});
+$('pf').addEventListener('change',run);$('num').addEventListener('change',run);
+$('list').addEventListener('click',function(e){var c=e.target.closest('.cpy'),s=e.target.closest('.st');if(c)copy(c.dataset.n,'Copied '+c.dataset.n);
+ if(s){var n=s.dataset.f;if(fav[n])delete fav[n];else fav[n]=1;s.setAttribute('aria-pressed',!!fav[n])}});
+$('cf').onclick=function(){var k=Object.keys(fav);if(!k.length){say('Star some names first.',false);return}copy(k.join('\n'),'Favorites copied')};
+Object.keys(PF).forEach(function(k){var o=document.createElement('option');o.value=k;o.textContent=PF[k][0];$('pf').appendChild(o)});
+var sty=$('sty');[['cool','Cool'],['cute','Cute'],['gamer','Gamer'],['pro','Professional'],['short','Short']].forEach(function(o){var b=document.createElement('button');b.type='button';b.textContent=o[1];b.setAttribute('aria-pressed',o[0]===style);
+ b.onclick=function(){style=o[0];[].forEach.call(sty.children,function(x){x.setAttribute('aria-pressed',x===b)});run()};sty.appendChild(b)});
+run();
+})();
+</script>

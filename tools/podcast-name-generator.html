@@ -1,0 +1,85 @@
+<!--CSS-->
+.t .field{width:100%;flex:none}
+.t label{display:block;margin:14px 0 6px;font-size:14px}.t label:first-child{margin-top:0}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.g2{grid-template-columns:1fr}}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.seg button{font:600 13px 'Poppins',sans-serif;padding:8px 14px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true]{background:#0b5cff;border-color:#0b5cff;color:#fff}
+.seg button:focus-visible{outline:3px solid #13a8ff;outline-offset:2px}
+.names{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-top:12px}
+.nm{display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:4px 4px 4px 12px;min-height:46px}
+.nm .cpy{flex:1;text-align:left;background:none;border:0;color:var(--ink);font:600 14px 'Poppins',sans-serif;cursor:pointer;padding:6px 0;word-break:break-word}
+.nm .cpy:hover{color:#0b5cff}
+.nm .st,.nm a{width:34px;height:34px;display:grid;place-items:center;border:0;background:none;border-radius:8px;cursor:pointer;color:var(--mute);text-decoration:none;font-size:16px}
+.nm .st[aria-pressed=true]{color:#f5a300}
+.nm .st:hover,.nm a:hover{background:var(--code)}
+.nm .cpy:focus-visible,.nm .st:focus-visible,.nm a:focus-visible{outline:3px solid #13a8ff;outline-offset:1px}
+.sm2{font-size:13px;color:var(--mute);margin:8px 0 0}
+.chk{display:flex;gap:8px;align-items:center;font-weight:500;margin-top:12px;font-size:14px}
+<!--MARKUP-->
+<section class="card t">
+  <label for="tp">What is your podcast about? (1 to 3 words)</label>
+  <input id="tp" class="field" type="text" maxlength="40" placeholder="Coffee, Fitness, Startups..." autocomplete="off" value="Coffee">
+  <label>Style</label>
+  <div class="seg" id="sty" role="group" aria-label="Name style"></div>
+  <div class="actions" style="margin-top:6px"><button id="go" class="btn main" type="button">Generate names</button><button id="cf" class="btn ghost" type="button">Copy favorites</button></div>
+  <div id="msg" role="status" aria-live="polite"></div>
+  <div class="names" id="list"></div>
+  <p class="sm2">Click a name to copy it. Click the star to save it. Use the magnifier to search Google and see if the name is taken. Always check Apple Podcasts and Spotify before you commit.</p>
+</section>
+<!--GUIDE-->
+<h2>How to pick a good podcast name</h2>
+<ol>
+  <li>Type your topic in one to three words.</li>
+  <li>Choose a style: catchy, professional, funny or short.</li>
+  <li>Press <b>Generate names</b> until something sparks. Star the ones you like.</li>
+  <li>Search each favorite to check that the name is not already taken.</li>
+</ol>
+<h2>What makes a good podcast name?</h2>
+<ul>
+  <li>Easy to say and to spell</li>
+  <li>Tells people what the show is about</li>
+  <li>Short enough to read in a podcast app</li>
+  <li>Not too close to a well-known show</li>
+</ul>
+<h2>Before you launch</h2>
+<p>Check the name on podcast apps, social media and as a web address. Make sure the name does not copy someone else's trademark.</p>
+<!--FAQ-->
+<details><summary>Is the podcast name generator free?</summary><p>Yes. Generate as many names as you like, with no sign-up.</p></details>
+<details><summary>Does it use AI?</summary><p>No. It combines your topic with proven name patterns, so there is no AI cost and nothing is stored.</p></details>
+<details><summary>Are the names available?</summary><p>The tool cannot check availability. Use the search link beside each name, and check podcast apps and social media.</p></details>
+<details><summary>How long should a podcast name be?</summary><p>Two to four words works well. Shorter names are easier to remember and fit better in apps.</p></details>
+<details><summary>Can I use the names commercially?</summary><p>The patterns are generic, but you are responsible for checking that a name does not infringe someone else's trademark.</p></details>
+<!--TAIL-->
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var style='catchy',fav={},seen=0;
+var A={catchy:['Daily','Unfiltered','Wild','Bold','Real','Raw','Fresh','Next','Big','Smart'],pro:['Modern','Applied','Essential','Practical','Strategic','Expert','Advanced','Insider'],funny:['Slightly','Totally','Mostly','Barely','Accidentally','Overthinking','Questionable','Chaotic'],short:['Pure','Core','Next','Prime','Zen','Pulse']};
+var P={catchy:['The {T} Show','{T} Unplugged','{T} Uncut','Talking {T}','{T} Daily','The {T} Hour','Beyond {T}','The {T} Beat','The {T} Files','All Things {T}','{T} After Dark','{A} {T}','{T} Weekly','Let\'s Talk {T}','{T} Real Talk','The {T} Lab','{T} Stories','{T} Insider','The {T} Hub','{T} Break'],
+pro:['The {T} Playbook','{T} Insights','The {T} Briefing','The {T} Report','{T} Strategy','{T} Decoded','{A} {T}','The {T} Edge','{T} Perspectives','{T} Masterclass','The {T} Brief','{T} Leaders','{T} in Practice','The {T} Review','Why {T} Matters'],
+funny:['{T} But Make It Fun','{A} {T}','I Can\'t Stop Talking About {T}','{T} Gone Wrong','Just {T} Things','{T} Shenanigans','The {T} Rabbit Hole','Send Help: {T}','{T} Hot Takes','Why Is {T} Like This','Oops, {T}','{T} Therapy','{T} Nonsense','Not Another {T} Podcast'],
+short:['{F}ly','{F}Cast','{F}FM','{T} Pod','{F}Talk','{A}{F}','{F}ish','Pod{F}','{T} 101','{F}Wave','{T} Now','{F}Hub']};
+function cap(s){return s.replace(/\b\w/g,function(c){return c.toUpperCase()})}
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function gen(topic,sty,count){var T=cap(topic.trim().replace(/\s+/g,' ')),F=T.split(' ')[0],out=[],pats=shuffle(P[sty].slice()),ads=shuffle(A[sty].slice());
+ pats.forEach(function(p,i){var n=p.replace(/\{T\}/g,T).replace(/\{F\}/g,F).replace(/\{A\}/g,ads[i%ads.length]);if(out.indexOf(n)<0)out.push(n)});
+ if(out.length<count)pats.forEach(function(p,i){if(out.length>=count)return;var n=p.replace(/\{T\}/g,T).replace(/\{F\}/g,F).replace(/\{A\}/g,ads[(i+3)%ads.length]);if(out.indexOf(n)<0)out.push(n)});
+ return out.slice(0,count)}
+function say(t,ok){var m=$('msg');m.textContent=t;m.className=t?(ok?'ok':'err'):'';clearTimeout(say.t);say.t=setTimeout(function(){m.textContent='';m.className=''},1800)}
+function copy(t,ok){function d(){say(ok,true)}function fb(){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');d()}catch(e){say('Copy was blocked.',false)}a.remove()}
+ try{navigator.clipboard.writeText(t).then(d,fb)}catch(e){fb()}}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
+function show(list){$('list').innerHTML=list.map(function(n){return '<div class="nm"><button type="button" class="cpy" data-n="'+esc(n)+'">'+esc(n)+'</button><button type="button" class="st" data-f="'+esc(n)+'" aria-pressed="'+(!!fav[n])+'" aria-label="Save '+esc(n)+'">\u2605</button><a href="https://www.google.com/search?q='+encodeURIComponent('"'+n+'" podcast')+'" target="_blank" rel="noopener" aria-label="Search for '+esc(n)+'">\uD83D\uDD0D</a></div>'}).join('')}
+var cur=[];
+function run(){var t=$('tp').value.trim();if(!t){say('Type your topic first.',false);return}cur=gen(t,style,24);show(cur)}
+$('go').onclick=run;$('tp').addEventListener('keydown',function(e){if(e.key==='Enter')run()});
+$('list').addEventListener('click',function(e){var c=e.target.closest('.cpy'),s=e.target.closest('.st');if(c)copy(c.dataset.n,'Copied '+c.dataset.n);
+ if(s){var n=s.dataset.f;if(fav[n])delete fav[n];else fav[n]=1;s.setAttribute('aria-pressed',!!fav[n])}});
+$('cf').onclick=function(){var k=Object.keys(fav);if(!k.length){say('Star some names first.',false);return}copy(k.join('\n'),'Favorites copied')};
+var sty=$('sty');[['catchy','Catchy'],['pro','Professional'],['funny','Funny'],['short','Short']].forEach(function(o){var b=document.createElement('button');b.type='button';b.textContent=o[1];b.setAttribute('aria-pressed',o[0]===style);
+ b.onclick=function(){style=o[0];[].forEach.call(sty.children,function(x){x.setAttribute('aria-pressed',x===b)});run()};sty.appendChild(b)});
+run();
+})();
+</script>

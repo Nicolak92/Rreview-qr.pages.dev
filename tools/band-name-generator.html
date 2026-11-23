@@ -1,0 +1,90 @@
+<!--CSS-->
+.t .field{width:100%;flex:none}
+.t label{display:block;margin:14px 0 6px;font-size:14px}.t label:first-child{margin-top:0}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.g2{grid-template-columns:1fr}}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.seg button{font:600 13px 'Poppins',sans-serif;padding:8px 14px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true]{background:#0b5cff;border-color:#0b5cff;color:#fff}
+.seg button:focus-visible{outline:3px solid #13a8ff;outline-offset:2px}
+.names{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-top:12px}
+.nm{display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:4px 4px 4px 12px;min-height:46px}
+.nm .cpy{flex:1;text-align:left;background:none;border:0;color:var(--ink);font:600 14px 'Poppins',sans-serif;cursor:pointer;padding:6px 0;word-break:break-word}
+.nm .cpy:hover{color:#0b5cff}
+.nm .st,.nm a{width:34px;height:34px;display:grid;place-items:center;border:0;background:none;border-radius:8px;cursor:pointer;color:var(--mute);text-decoration:none;font-size:16px}
+.nm .st[aria-pressed=true]{color:#f5a300}
+.nm .st:hover,.nm a:hover{background:var(--code)}
+.nm .cpy:focus-visible,.nm .st:focus-visible,.nm a:focus-visible{outline:3px solid #13a8ff;outline-offset:1px}
+.sm2{font-size:13px;color:var(--mute);margin:8px 0 0}
+.chk{display:flex;gap:8px;align-items:center;font-weight:500;margin-top:12px;font-size:14px}
+<!--MARKUP-->
+<section class="card t">
+  <label>Genre</label>
+  <div class="seg" id="gn" role="group" aria-label="Genre"></div>
+  <label for="kw">A word to include (optional)</label>
+  <input id="kw" class="field" type="text" maxlength="24" placeholder="Fox, Ocean, Midnight..." autocomplete="off">
+  <div class="actions" style="margin-top:12px"><button id="go" class="btn main" type="button">Generate names</button><button id="cf" class="btn ghost" type="button">Copy favorites</button></div>
+  <div id="msg" role="status" aria-live="polite"></div>
+  <div class="names" id="list"></div>
+  <p class="sm2">Click a name to copy it. Click the star to save it. Use the magnifier to search Google and see if the name is taken. Check streaming services and social media before you commit.</p>
+</section>
+<!--GUIDE-->
+<h2>How to find a band name</h2>
+<ol>
+  <li>Choose the genre closest to your sound.</li>
+  <li>Add a word you like, such as a place, an animal or a mood. This is optional.</li>
+  <li>Press <b>Generate names</b> until something fits. Star your favorites.</li>
+  <li>Search each favorite to check it is not already used.</li>
+</ol>
+<h2>Tips for a great band name</h2>
+<ul>
+  <li>Make it easy to say, spell and remember</li>
+  <li>Make sure it fits your sound and your look</li>
+  <li>Say it out loud, and check how it looks on a poster</li>
+  <li>Check streaming apps, social media and domain names</li>
+</ul>
+<h2>Check before you commit</h2>
+<p>Many bands share similar names. Search before you print shirts, and avoid names that are close to a well-known act.</p>
+<!--FAQ-->
+<details><summary>Is the band name generator free?</summary><p>Yes. Generate as many names as you like, with no sign-up.</p></details>
+<details><summary>Does it use AI?</summary><p>No. It mixes word lists and name patterns for each genre, so nothing is sent or stored.</p></details>
+<details><summary>Are the names available?</summary><p>The tool cannot check. Use the search link beside each name, then check streaming apps and social media.</p></details>
+<details><summary>Can I add my own word?</summary><p>Yes. Type a word in the box and it will be used in many of the names.</p></details>
+<details><summary>Can I use the names for a fictional band?</summary><p>Yes. They work for real bands, game characters, stories and school projects.</p></details>
+<!--TAIL-->
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var genre='rock',fav={};
+var G={rock:['Rock',['Electric','Burning','Wild','Rusty','Neon','Velvet','Broken','Midnight','Iron','Loud'],['Riot','Wolf','Engine','Highway','Thunder','Saint','Echo','Revolver','Outlaw','Fire']],
+metal:['Metal',['Black','Iron','Savage','Dark','Crimson','Eternal','Grim'],['Throne','Abyss','Hammer','Serpent','Ash','Reign','Blade']],
+pop:['Pop',['Neon','Glitter','Pastel','Sweet','Golden','Electric','Lucky'],['Heart','Dream','Tide','Light','Spark','Doll','Wave']],
+indie:['Indie',['Quiet','Paper','Soft','Hollow','Little','Pale','Sleepy'],['River','Garden','Map','Letter','Fox','Lantern','Bird']],
+hiphop:['Hip-hop',['Young','Real','Gold','Street','Royal','Smooth'],['King','Empire','Syndicate','Collective','Dynasty','Union']],
+electronic:['Electronic',['Digital','Pulse','Neon','Cyber','Static','Lunar','Binary'],['Drift','Circuit','Signal','Wave','Grid','Echo','Orbit']],
+jazz:['Jazz',['Blue','Midnight','Velvet','Smoky','Golden','Late'],['Quartet','Trio','Note','Session','Lounge','Collective']],
+country:['Country',['Dusty','Old','Lonesome','Whiskey','Rusty','Southern'],['Road','Mule','Pine','River','Boot','Fence']],
+punk:['Punk',['Dead','Angry','Rotten','Cheap','Loud','Sick'],['Kid','Rat','Youth','Riot','Pigeon','Mess']]};
+function pick(a){return a[Math.floor(Math.random()*a.length)]}
+function pl(n){if(!n||/s$/i.test(n))return n;if(/(x|z|ch|sh)$/i.test(n))return n+'es';if(/[^aeiou]y$/i.test(n))return n.slice(0,-1)+'ies';return n+'s'}
+function cap(s){return s.replace(/\b\w/g,function(c){return c.toUpperCase()})}
+function one(g,k){var A=pick(g[1]),N=pick(g[2]),N2=pick(g[2]),K=k;
+ var base=['The {A} {N}s','{A} {N}','The {N}s','{N} & The {N2}s','{A} {N} Club','{N} Theory','Dead {N}s','{N} Society','The {A} {N2}','{A} {N}s','No {N}','{N} Season'],
+ withK=['{K} & The {N}s','The {K} {N}s','{A} {K}','{K} Club','{K} Theory','The {K}s','{K} {N}','{K} Society','{A} {K}s','Last {K}'];
+ var p=pick(K&&Math.random()<.65?withK:base);
+ return p.replace(/\{A\}/g,A).replace(/\{N2\}/g,N2).replace(/\{N\}s/g,pl(N)).replace(/\{N\}/g,N).replace(/\{K\}s/g,pl(K||'')).replace(/\{K\}/g,K||'')}
+function gen(){var g=G[genre],k=cap($('kw').value.trim()),out=[],tries=0;while(out.length<24&&tries<400){tries++;var n=one(g,k).replace(/\s+/g,' ').trim();if(out.indexOf(n)<0)out.push(n)}return out}
+function say(t,ok){var m=$('msg');m.textContent=t;m.className=t?(ok?'ok':'err'):'';clearTimeout(say.t);say.t=setTimeout(function(){m.textContent='';m.className=''},1800)}
+function copy(t,ok){function d(){say(ok,true)}function fb(){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');d()}catch(e){say('Copy was blocked.',false)}a.remove()}
+ try{navigator.clipboard.writeText(t).then(d,fb)}catch(e){fb()}}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
+function run(){$('list').innerHTML=gen().map(function(n){return '<div class="nm"><button type="button" class="cpy" data-n="'+esc(n)+'">'+esc(n)+'</button><button type="button" class="st" data-f="'+esc(n)+'" aria-pressed="'+(!!fav[n])+'" aria-label="Save '+esc(n)+'">\u2605</button><a href="https://www.google.com/search?q='+encodeURIComponent('"'+n+'" band')+'" target="_blank" rel="noopener" aria-label="Search for '+esc(n)+'">\uD83D\uDD0D</a></div>'}).join('')}
+$('go').onclick=run;$('kw').addEventListener('keydown',function(e){if(e.key==='Enter')run()});
+$('list').addEventListener('click',function(e){var c=e.target.closest('.cpy'),s=e.target.closest('.st');if(c)copy(c.dataset.n,'Copied '+c.dataset.n);
+ if(s){var n=s.dataset.f;if(fav[n])delete fav[n];else fav[n]=1;s.setAttribute('aria-pressed',!!fav[n])}});
+$('cf').onclick=function(){var k=Object.keys(fav);if(!k.length){say('Star some names first.',false);return}copy(k.join('\n'),'Favorites copied')};
+var gn=$('gn');Object.keys(G).forEach(function(k){var b=document.createElement('button');b.type='button';b.textContent=G[k][0];b.setAttribute('aria-pressed',k===genre);
+ b.onclick=function(){genre=k;[].forEach.call(gn.children,function(x){x.setAttribute('aria-pressed',x===b)});run()};gn.appendChild(b)});
+run();
+})();
+</script>

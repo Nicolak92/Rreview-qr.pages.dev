@@ -1,0 +1,84 @@
+<!--CSS-->
+.t .field{width:100%;flex:none}
+.t label{display:block;margin:14px 0 6px;font-size:14px}.t label:first-child{margin-top:0}
+.g2,.g3{display:grid;gap:12px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:560px){.g2,.g3{grid-template-columns:1fr}}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.seg button{font:600 13px 'Poppins',sans-serif;padding:8px 14px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true]{background:#0b5cff;border-color:#0b5cff;color:#fff}
+.seg button:focus-visible{outline:3px solid #13a8ff;outline-offset:2px}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:16px 0}
+.kpi div{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--code)}
+.kpi b{display:block;font-size:22px;line-height:1.2}.kpi span{font-size:12px;color:var(--mute)}
+table.tb{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+.tb th,.tb td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left}
+.tb th{font-size:12px;color:var(--mute);font-weight:600}
+.tb td:not(:first-child),.tb th:not(:first-child){text-align:right}
+.tb tr.tot td{font-weight:700;border-top:2px solid var(--line)}
+.wrapx{overflow-x:auto}
+.note{font-size:13px;color:var(--mute);margin:10px 0 0}
+.chk{display:flex;gap:8px;align-items:center;font-weight:500;margin-top:12px;font-size:14px}
+<!--MARKUP-->
+<section class="card t">
+  <label>Units</label>
+  <div class="seg" id="un" role="group" aria-label="Units"></div>
+  <div class="g3">
+    <div><label for="l">Length (<span class="du">cm</span>)</label><input id="l" class="field" type="number" step="any" min="0" inputmode="decimal" value="50"></div>
+    <div><label for="w">Width (<span class="du">cm</span>)</label><input id="w" class="field" type="number" step="any" min="0" inputmode="decimal" value="40"></div>
+    <div><label for="h">Height (<span class="du">cm</span>)</label><input id="h" class="field" type="number" step="any" min="0" inputmode="decimal" value="30"></div>
+  </div>
+  <div class="g3">
+    <div><label for="aw">Actual weight (<span class="wu">kg</span>)</label><input id="aw" class="field" type="number" step="any" min="0" inputmode="decimal" value="8"></div>
+    <div><label for="qt">Number of boxes</label><input id="qt" class="field" type="number" step="1" min="1" inputmode="numeric" value="1"></div>
+    <div><label for="cd">Your own divisor (cm&sup3; per kg)</label><input id="cd" class="field" type="number" step="any" min="1" inputmode="decimal" placeholder="Optional, e.g. 5000"></div>
+  </div>
+</section>
+<section class="card t">
+  <div class="kpi" id="kpi"></div>
+  <div class="wrapx"><table class="tb" id="tb"></table></div>
+  <p class="note">Carriers choose their own divisor and rounding rules. Check your carrier's current terms. A divisor of 5000 cm&sup3; per kg is about 139 in&sup3; per lb, and 6000 is about 166.</p>
+</section>
+<!--GUIDE-->
+<h2>How to calculate volumetric weight</h2>
+<ol>
+  <li>Enter the box length, width and height.</li>
+  <li>Enter the actual weight and the number of boxes.</li>
+  <li>See the volumetric weight for the common divisors 4000, 5000 and 6000.</li>
+  <li>The chargeable weight is the higher of the actual weight and the volumetric weight.</li>
+</ol>
+<h2>The formula</h2>
+<p><b>Volumetric weight (kg)</b> = length x width x height (cm) / divisor. Air and express carriers charge for whichever is greater: the real weight or the volumetric weight.</p>
+<h2>How to lower shipping cost</h2>
+<ul>
+  <li>Use the smallest box that protects the product</li>
+  <li>Remove empty space and extra packaging</li>
+  <li>Ship light but bulky items by the cheapest service for volume</li>
+</ul>
+<!--FAQ-->
+<details><summary>Is the volumetric weight calculator free?</summary><p>Yes. Use it as often as you like, with no sign-up.</p></details>
+<details><summary>What is volumetric weight?</summary><p>It is a weight worked out from the size of a package. Carriers use it so that large, light parcels are charged fairly for the space they take.</p></details>
+<details><summary>Which divisor should I use?</summary><p>Use the one your carrier states. Common values are 5000 for many express services and 6000 for air freight. Check the current terms.</p></details>
+<details><summary>What is chargeable weight?</summary><p>It is the higher of the actual weight and the volumetric weight. It is the weight your freight price is based on.</p></details>
+<details><summary>How does this relate to sea freight?</summary><p>Sea freight often uses a rule of 1 CBM per 1000 kg. Whichever is greater is charged. The table shows the CBM of your boxes.</p></details>
+<!--TAIL-->
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var unit='metric';
+function n(i){var v=parseFloat($(i).value);return isFinite(v)&&v>0?v:0}
+function calc(L,W,H,kg,qty,div){var cm3=L*W*H,vol=cm3/div;return {vol:vol,ch:Math.max(vol,kg),bill:vol>kg?'Volumetric':'Actual',tv:vol*qty,tch:Math.max(vol,kg)*qty}}
+function render(){var im=unit==='imperial',k=im?2.54:1,L=n('l')*k,W=n('w')*k,H=n('h')*k,kg=im?n('aw')/2.20462:n('aw'),qty=Math.max(1,Math.floor(n('qt'))||1);
+ [].forEach.call(document.querySelectorAll('.du'),function(e){e.textContent=im?'in':'cm'});[].forEach.call(document.querySelectorAll('.wu'),function(e){e.textContent=im?'lb':'kg'});
+ var show=function(x){return im?(x*2.20462).toFixed(2)+' lb':x.toFixed(2)+' kg'};
+ if(!L||!W||!H){$('kpi').innerHTML='';$('tb').innerHTML='<tr><td>Enter the length, width and height.</td></tr>';return}
+ var cbm=L*W*H/1e6*qty,divs=[4000,5000,6000],cd=n('cd');if(cd)divs.push(cd);
+ var rows=divs.map(function(d){var r=calc(L,W,H,kg,qty,d);return '<tr><td>'+d+(d===cd&&[4000,5000,6000].indexOf(d)<0?' (yours)':'')+'</td><td>'+show(r.vol)+'</td><td>'+show(r.ch)+'</td><td>'+r.bill+'</td></tr>'});
+ var r5=calc(L,W,H,kg,qty,cd||5000);
+ $('kpi').innerHTML='<div><b>'+show(r5.vol*qty)+'</b><span>Volumetric weight (divisor '+(cd||5000)+', all boxes)</span></div><div><b>'+show(r5.tch)+'</b><span>Chargeable weight (all boxes)</span></div><div><b>'+cbm.toFixed(3)+'</b><span>Total CBM</span></div><div><b>'+Math.round(Math.max(cbm,kg*qty/1000)*1000)/1000+'</b><span>Sea freight W/M (CBM or tonnes)</span></div>';
+ $('tb').innerHTML='<tr><th>Divisor (cm&sup3;/kg)</th><th>Volumetric weight per box</th><th>Chargeable per box</th><th>Based on</th></tr>'+rows.join('')}
+var un=$('un');[['metric','cm and kg'],['imperial','inches and lb']].forEach(function(o){var b=document.createElement('button');b.type='button';b.textContent=o[1];b.setAttribute('aria-pressed',o[0]===unit);
+ b.onclick=function(){if(o[0]===unit)return;var f=o[0]==='imperial'?1/2.54:2.54,wf=o[0]==='imperial'?2.20462:1/2.20462;['l','w','h'].forEach(function(i){var v=n(i);if(v)$(i).value=Math.round(v*f*100)/100});var a=n('aw');if(a)$('aw').value=Math.round(a*wf*100)/100;unit=o[0];[].forEach.call(un.children,function(x){x.setAttribute('aria-pressed',x===b)});render()};un.appendChild(b)});
+document.querySelectorAll('.t input').forEach(function(e){e.addEventListener('input',render)});
+render();
+})();
+</script>

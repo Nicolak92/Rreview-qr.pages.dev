@@ -1,0 +1,107 @@
+<!--CSS-->
+.t .field{width:100%;flex:none}
+.t label{display:block;margin:14px 0 6px;font-size:14px}.t label:first-child{margin-top:0}
+.g2,.g3{display:grid;gap:12px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:560px){.g2,.g3{grid-template-columns:1fr}}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.seg button{font:600 13px 'Poppins',sans-serif;padding:8px 14px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true]{background:#0b5cff;border-color:#0b5cff;color:#fff}
+.seg button:focus-visible{outline:3px solid #13a8ff;outline-offset:2px}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:16px 0}
+.kpi div{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--code)}
+.kpi b{display:block;font-size:22px;line-height:1.2}.kpi span{font-size:12px;color:var(--mute)}
+table.tb{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+.tb th,.tb td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left}
+.tb th{font-size:12px;color:var(--mute);font-weight:600}
+.tb td:not(:first-child),.tb th:not(:first-child){text-align:right}
+.tb tr.tot td{font-weight:700;border-top:2px solid var(--line)}
+.wrapx{overflow-x:auto}
+.note{font-size:13px;color:var(--mute);margin:10px 0 0}
+.chk{display:flex;gap:8px;align-items:center;font-weight:500;margin-top:12px;font-size:14px}
+<!--MARKUP-->
+<section class="card t">
+  <div class="g2">
+    <div><label for="dd">Average daily demand (units per day)</label><input id="dd" class="field" type="number" step="any" min="0" inputmode="decimal" value="40"></div>
+    <div><label for="lt">Average lead time (days)</label><input id="lt" class="field" type="number" step="any" min="0" inputmode="decimal" value="14"></div>
+  </div>
+  <label>Safety stock method</label>
+  <div class="seg" id="mt" role="group" aria-label="Method"></div>
+  <div id="mSimple" class="g2">
+    <div><label for="mxd">Highest daily demand</label><input id="mxd" class="field" type="number" step="any" min="0" inputmode="decimal" value="60"></div>
+    <div><label for="mxl">Longest lead time (days)</label><input id="mxl" class="field" type="number" step="any" min="0" inputmode="decimal" value="21"></div>
+  </div>
+  <div id="mStat">
+    <div class="g3">
+      <div><label for="sl">Service level (%)</label><input id="sl" class="field" type="number" step="any" min="50" max="99.99" inputmode="decimal" value="95"></div>
+      <div><label for="sd">Std. deviation of daily demand</label><input id="sd" class="field" type="number" step="any" min="0" inputmode="decimal" value="12"></div>
+      <div><label for="sdl">Std. deviation of lead time (days)</label><input id="sdl" class="field" type="number" step="any" min="0" inputmode="decimal" value="3"></div>
+    </div>
+  </div>
+  <h2 style="margin:24px 0 0;font-size:18px">Order quantity (EOQ), optional</h2>
+  <div class="g3">
+    <div><label for="od">Selling days per year</label><input id="od" class="field" type="number" step="any" min="1" inputmode="decimal" value="365"></div>
+    <div><label for="oc">Cost per order</label><input id="oc" class="field" type="number" step="any" min="0" inputmode="decimal" value="50"></div>
+    <div><label for="uc">Unit cost</label><input id="uc" class="field" type="number" step="any" min="0" inputmode="decimal" value="10"></div>
+  </div>
+  <label for="hp">Holding cost (% of unit cost per year)</label>
+  <input id="hp" class="field" type="number" step="any" min="0" inputmode="decimal" value="20">
+</section>
+<section class="card t">
+  <div class="kpi" id="kpi"></div>
+  <div class="wrapx"><table class="tb" id="tb"></table></div>
+  <p class="note" id="nt"></p>
+</section>
+<!--GUIDE-->
+<h2>How to calculate your reorder point</h2>
+<ol>
+  <li>Enter your average daily demand and your supplier lead time.</li>
+  <li>Choose a safety stock method. Simple uses your worst case. Statistical uses a service level.</li>
+  <li>Read the safety stock and the reorder point.</li>
+  <li>Add your order cost and unit cost to see the best order quantity.</li>
+</ol>
+<h2>The formulas</h2>
+<ul>
+  <li><b>Reorder point</b> = daily demand x lead time + safety stock</li>
+  <li><b>Simple safety stock</b> = highest daily demand x longest lead time - average daily demand x average lead time</li>
+  <li><b>Statistical safety stock</b> = Z x square root of (lead time x demand variance + demand squared x lead time variance)</li>
+  <li><b>EOQ</b> = square root of (2 x annual demand x order cost / holding cost per unit)</li>
+</ul>
+<h2>When to use which method</h2>
+<p>Use the simple method if you have little data. Use the statistical method when you know how much your demand and lead time vary, and you want to choose a service level such as 95%.</p>
+<!--FAQ-->
+<details><summary>Is the reorder point calculator free?</summary><p>Yes. Use it as often as you like, with no sign-up.</p></details>
+<details><summary>What is a reorder point?</summary><p>It is the stock level at which you should place a new order, so that new stock arrives before you run out.</p></details>
+<details><summary>What is safety stock?</summary><p>Extra stock you keep to cover higher demand or late deliveries.</p></details>
+<details><summary>What service level should I choose?</summary><p>95% is a common starting point. A higher level means fewer stockouts but more stock to hold.</p></details>
+<details><summary>What is EOQ?</summary><p>Economic order quantity is the order size that gives the lowest total of ordering and holding costs. It assumes steady demand.</p></details>
+<!--TAIL-->
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var method='stat';
+function n(i){var v=parseFloat($(i).value);return isFinite(v)&&v>0?v:0}
+function zinv(p){var a=[-3.969683028665376e+01,2.209460984245205e+02,-2.759285104469687e+02,1.383577518672690e+02,-3.066479806614716e+01,2.506628277459239e+00],b=[-5.447609879822406e+01,1.615858368580409e+02,-1.556989798598866e+02,6.680131188771972e+01,-1.328068155288572e+01],c=[-7.784894002430293e-03,-3.223964580411365e-01,-2.400758277161838e+00,-2.549732539343734e+00,4.374664141464968e+00,2.938163982698783e+00],d=[7.784695709041462e-03,3.224671290700398e-01,2.445134137142996e+00,3.754408661907416e+00],pl=0.02425,q,r;
+ if(p<pl){q=Math.sqrt(-2*Math.log(p));return (((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}
+ if(p>1-pl){q=Math.sqrt(-2*Math.log(1-p));return -(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}
+ q=p-.5;r=q*q;return (((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q/(((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1)}
+function calc(o){var ss,z=null;
+ if(o.method==='simple')ss=Math.max(0,o.mxd*o.mxl-o.dd*o.lt);
+ else{z=zinv(Math.min(.9999,Math.max(.5,o.sl/100)));ss=Math.max(0,z*Math.sqrt(o.lt*o.sd*o.sd+o.dd*o.dd*o.sdl*o.sdl))}
+ var rop=o.dd*o.lt+ss,D=o.dd*o.od,H=o.uc*o.hp/100,eoq=(H>0&&o.oc>0&&D>0)?Math.sqrt(2*D*o.oc/H):0;
+ return {ss:ss,z:z,rop:rop,D:D,H:H,eoq:eoq,orders:eoq?D/eoq:0,cycle:o.dd&&eoq?eoq/o.dd:0,cost:eoq?(D/eoq)*o.oc+(eoq/2)*H:0}}
+function f0(x){return Math.ceil(x-1e-9).toLocaleString()}
+function f2(x){return x.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}
+function render(){var o={method:method,dd:n('dd'),lt:n('lt'),mxd:n('mxd'),mxl:n('mxl'),sl:n('sl')||95,sd:n('sd'),sdl:n('sdl'),od:n('od')||365,oc:n('oc'),uc:n('uc'),hp:n('hp')},r=calc(o);
+ $('mSimple').style.display=method==='simple'?'':'none';$('mStat').style.display=method==='stat'?'':'none';
+ $('kpi').innerHTML='<div><b>'+f0(r.rop)+'</b><span>Reorder point (units)</span></div><div><b>'+f0(r.ss)+'</b><span>Safety stock (units)</span></div>'+(r.eoq?'<div><b>'+f0(r.eoq)+'</b><span>Best order quantity (EOQ)</span></div>':'');
+ var rows=[['Demand during lead time',f0(o.dd*o.lt)+' units'],['Safety stock',f0(r.ss)+' units'],['Reorder point',f0(r.rop)+' units']];
+ if(r.z!==null)rows.splice(1,0,['Z value for '+o.sl+'% service',f2(r.z)]);
+ if(r.eoq)rows.push(['Annual demand',f0(r.D)+' units'],['Holding cost per unit per year',f2(r.H)],['Orders per year',f2(r.orders)],['Days between orders',f2(r.cycle)],['Yearly ordering + holding cost',f2(r.cost)]);
+ $('tb').innerHTML=rows.map(function(x){return '<tr><td>'+x[0]+'</td><td>'+x[1]+'</td></tr>'}).join('');
+ $('nt').textContent='When your stock falls to '+f0(r.rop)+' units, place a new order.'}
+var mt=$('mt');[['stat','Statistical (service level)'],['simple','Simple (worst case)']].forEach(function(o){var b=document.createElement('button');b.type='button';b.textContent=o[1];b.setAttribute('aria-pressed',o[0]===method);
+ b.onclick=function(){method=o[0];[].forEach.call(mt.children,function(x){x.setAttribute('aria-pressed',x===b)});render()};mt.appendChild(b)});
+document.querySelectorAll('.t input').forEach(function(e){e.addEventListener('input',render)});
+render();
+})();
+</script>

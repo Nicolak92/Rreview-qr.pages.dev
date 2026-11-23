@@ -272,70 +272,220 @@
       "name": "Landed Cost Calculator",
       "category": "sellers-supply-chain",
       "description": "Work out the true cost per unit of imported goods.",
-      "status": "soon"
+      "status": "live",
+      "kit": "395b469fd0",
+      "seo": {
+        "title": "Free Landed Cost Calculator for Importers (Per Unit)",
+        "description": "Work out the true landed cost per unit of imported goods: freight, insurance, duty, VAT or GST and fees. See profit and margin. Free, no sign-up.",
+        "h1": "Free Landed Cost Calculator",
+        "lead": "Add freight, duty, taxes and fees to your product cost and see the true cost per unit and your margin."
+      },
+      "affiliate": {
+        "items": []
+      },
+      "related": [
+        "reorder-point-calculator",
+        "container-load-calculator",
+        "volumetric-weight-calculator"
+      ]
     },
     {
       "slug": "reorder-point-calculator",
       "name": "Reorder Point & Safety Stock Calculator",
       "category": "sellers-supply-chain",
       "description": "Calculate reorder point, safety stock and order quantity.",
-      "status": "soon"
+      "status": "live",
+      "kit": "395b469fd0",
+      "seo": {
+        "title": "Free Reorder Point, Safety Stock and EOQ Calculator",
+        "description": "Calculate your reorder point, safety stock and economic order quantity. Simple and service-level methods. Free, no sign-up.",
+        "h1": "Free Reorder Point &amp; Safety Stock Calculator",
+        "lead": "Find out when to reorder and how much to order. Reorder point, safety stock and EOQ in one place."
+      },
+      "affiliate": {
+        "items": []
+      },
+      "related": [
+        "landed-cost-calculator",
+        "container-load-calculator",
+        "marketplace-fee-profit-calculator"
+      ]
     },
     {
       "slug": "container-load-calculator",
       "name": "Container Load Calculator",
       "category": "sellers-supply-chain",
       "description": "Estimate how many cartons fit in a shipping container.",
-      "status": "soon"
+      "status": "live",
+      "kit": "395b469fd0",
+      "seo": {
+        "title": "Free Container Load Calculator: How Many Cartons Fit (CBM)",
+        "description": "See how many cartons fit in a 20 ft, 40 ft or 40 ft high cube container, with total CBM and weight limits. Free, no sign-up.",
+        "h1": "Free Container Load Calculator",
+        "lead": "Enter your carton size and weight to see how many fit in a 20 ft, 40 ft or 40 ft high cube container."
+      },
+      "affiliate": {
+        "items": []
+      },
+      "related": [
+        "volumetric-weight-calculator",
+        "landed-cost-calculator",
+        "reorder-point-calculator"
+      ]
     },
     {
       "slug": "volumetric-weight-calculator",
       "name": "Volumetric Weight Calculator",
       "category": "sellers-supply-chain",
       "description": "Calculate volumetric weight and compare carriers.",
-      "status": "soon"
+      "status": "live",
+      "kit": "395b469fd0",
+      "seo": {
+        "title": "Free Volumetric Weight Calculator (Chargeable Weight, CBM)",
+        "description": "Calculate volumetric (dimensional) weight and chargeable weight for air, express and sea freight. Compare divisors 4000, 5000 and 6000. Free.",
+        "h1": "Free Volumetric Weight Calculator",
+        "lead": "Work out volumetric and chargeable weight from box size, and compare common carrier divisors."
+      },
+      "affiliate": {
+        "items": []
+      },
+      "related": [
+        "container-load-calculator",
+        "landed-cost-calculator",
+        "marketplace-fee-profit-calculator"
+      ]
     },
     {
       "slug": "marketplace-fee-profit-calculator",
       "name": "Marketplace Fee & Profit Calculator",
       "category": "sellers-supply-chain",
       "description": "Estimate fees and profit on Etsy, eBay and other marketplaces.",
-      "status": "soon"
+      "status": "live",
+      "kit": "395b469fd0",
+      "seo": {
+        "title": "Free Marketplace Fee and Profit Calculator (Etsy, eBay, Amazon)",
+        "description": "Work out your profit, margin and break-even price after marketplace fees, payment fees, shipping and costs. Free, no sign-up.",
+        "h1": "Free Marketplace Fee &amp; Profit Calculator",
+        "lead": "Enter your price, costs and fees to see profit, margin, break-even price and the price for your target margin."
+      },
+      "affiliate": {
+        "items": []
+      },
+      "related": [
+        "landed-cost-calculator",
+        "volumetric-weight-calculator",
+        "reorder-point-calculator"
+      ]
     },
     {
       "slug": "podcast-name-generator",
       "name": "Podcast Name Generator",
       "category": "content-creators",
       "description": "Get podcast name ideas from keywords and styles.",
-      "status": "soon"
+      "status": "live",
+      "kit": "395b469fd0",
+      "seo": {
+        "title": "Free Podcast Name Generator (Catchy, Funny, Professional)",
+        "description": "Get podcast name ideas from your topic. Choose catchy, professional, funny or short names, save favorites and check if a name is taken. Free, no sign-up.",
+        "h1": "Free Podcast Name Generator",
+        "lead": "Type your topic and get podcast name ideas in the style you choose. Star favorites and check if they are taken."
+      },
+      "affiliate": {
+        "items": []
+      },
+      "related": [
+        "username-generator",
+        "band-name-generator",
+        "twitch-panel-maker"
+      ]
     },
     {
       "slug": "band-name-generator",
       "name": "Band Name Generator",
       "category": "content-creators",
       "description": "Generate band name ideas by genre and mood.",
-      "status": "soon"
+      "status": "live",
+      "kit": "395b469fd0",
+      "seo": {
+        "title": "Free Band Name Generator (Rock, Metal, Pop, Indie and More)",
+        "description": "Generate band name ideas by genre: rock, metal, pop, indie, hip-hop, electronic, jazz, country and punk. Add your own word. Free, no sign-up.",
+        "h1": "Free Band Name Generator",
+        "lead": "Pick a genre, add a word if you like, and get band name ideas. Star favorites and check if they are taken."
+      },
+      "affiliate": {
+        "items": []
+      },
+      "related": [
+        "podcast-name-generator",
+        "username-generator",
+        "twitch-panel-maker"
+      ]
     },
     {
       "slug": "twitch-panel-maker",
       "name": "Twitch Panel Maker",
       "category": "content-creators",
       "description": "Design Twitch channel panels and download them.",
-      "status": "soon"
+      "status": "live",
+      "kit": "395b469fd0",
+      "seo": {
+        "title": "Free Twitch Panel Maker (320 px Channel Panels)",
+        "description": "Make Twitch channel panels in minutes: About, Schedule, Rules, Socials and more. Pick a design, add an icon and download PNG files. Free.",
+        "h1": "Free Twitch Panel Maker",
+        "lead": "Make matching Twitch panels with titles, icons and colors. Download one or all as PNG files."
+      },
+      "affiliate": {
+        "items": []
+      },
+      "related": [
+        "social-media-image-resizer",
+        "username-generator",
+        "color-palette-generator"
+      ]
     },
     {
       "slug": "social-media-image-resizer",
       "name": "Social Media Image Resizer",
       "category": "content-creators",
       "description": "Resize one image to every social media size in your browser.",
-      "status": "soon"
+      "status": "live",
+      "kit": "395b469fd0",
+      "seo": {
+        "title": "Free Social Media Image Resizer (Instagram, YouTube, X and More)",
+        "description": "Resize one image to Instagram, Facebook, X, LinkedIn, YouTube and Pinterest sizes in your browser. Crop or fit, then download. Free, private.",
+        "h1": "Free Social Media Image Resizer",
+        "lead": "Resize one image for Instagram, YouTube, X, LinkedIn and more. Everything happens in your browser."
+      },
+      "affiliate": {
+        "items": []
+      },
+      "related": [
+        "twitch-panel-maker",
+        "color-palette-from-image",
+        "favicon-generator"
+      ]
     },
     {
       "slug": "username-generator",
       "name": "Username Generator",
       "category": "content-creators",
       "description": "Find username and handle ideas for social profiles.",
-      "status": "soon"
+      "status": "live",
+      "kit": "395b469fd0",
+      "seo": {
+        "title": "Free Username Generator (Instagram, TikTok, X, Twitch, YouTube)",
+        "description": "Generate username ideas from your name or interest. Pick a style and platform to match length and character rules. Free, no sign-up.",
+        "h1": "Free Username Generator",
+        "lead": "Turn your name or interest into username ideas that fit Instagram, TikTok, X, Twitch or YouTube."
+      },
+      "affiliate": {
+        "items": []
+      },
+      "related": [
+        "podcast-name-generator",
+        "band-name-generator",
+        "twitch-panel-maker"
+      ]
     },
     {
       "slug": "meta-description-generator",

@@ -8,6 +8,8 @@ const root = path.dirname(fileURLToPath(import.meta.url));
 const read = f => fs.readFileSync(path.join(root, f), 'utf8');
 const cfg = JSON.parse(read('tools.json'));
 const S = cfg.site;
+// A tool whose file is missing is shown as coming soon, so a missing upload never breaks the build.
+for (const t of cfg.tools) if (t.status === 'live' && !fs.existsSync(path.join(root, `tools/${t.slug}.html`))) { console.warn(`WARNING: tools/${t.slug}.html is missing. Showing "${t.name}" as coming soon.`); t.status = 'soon'; }
 const OUT = path.join(root, 'public');
 const today = new Date().toISOString().slice(0, 10);
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -136,12 +138,7 @@ for (const pg of cfg.pages) {
     + `<section class="card prose">${body}</section>\n</main>\n${footer()}\n` + tail);
   sitemap.push('/' + pg.slug);
 }
-// ---- blog (copied from the blog/ folder)
-if (fs.existsSync(path.join(root, 'blog'))) {
-  fs.cpSync(path.join(root, 'blog'), path.join(OUT, 'blog'), {recursive: true});
-  sitemap.push('/blog/');
-  for (const f of fs.readdirSync(path.join(root, 'blog'))) if (f.endsWith('.html') && f !== 'index.html') sitemap.push('/blog/' + f.slice(0, -5));
-}
+
 // ---- 404, sitemap, robots
 write('404.html', head({title: `Page not found | ${S.name}`, desc: 'This page could not be found.', p: '/404', extra: '<meta name="robots" content="noindex">'})
   + nav() + hero('404', 'Page not found', 'That page does not exist. Pick a tool below.', true)

@@ -1,0 +1,103 @@
+<!--CSS-->
+.t .field{width:100%;flex:none}
+.t label{display:block;margin:14px 0 6px;font-size:14px}.t label:first-child{margin-top:0}
+.g2,.g3{display:grid;gap:12px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:560px){.g2,.g3{grid-template-columns:1fr}}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.seg button{font:600 13px 'Poppins',sans-serif;padding:8px 14px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true]{background:#0b5cff;border-color:#0b5cff;color:#fff}
+.seg button:focus-visible{outline:3px solid #13a8ff;outline-offset:2px}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:16px 0}
+.kpi div{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--code)}
+.kpi b{display:block;font-size:22px;line-height:1.2}.kpi span{font-size:12px;color:var(--mute)}
+table.tb{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+.tb th,.tb td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left}
+.tb th{font-size:12px;color:var(--mute);font-weight:600}
+.tb td:not(:first-child),.tb th:not(:first-child){text-align:right}
+.tb tr.tot td{font-weight:700;border-top:2px solid var(--line)}
+.wrapx{overflow-x:auto}
+.note{font-size:13px;color:var(--mute);margin:10px 0 0}
+.chk{display:flex;gap:8px;align-items:center;font-weight:500;margin-top:12px;font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 0}
+.chips button{font:600 13px 'Poppins',sans-serif;padding:7px 14px;border-radius:999px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.chips button[aria-pressed=true]{background:#0b5cff;border-color:#0b5cff;color:#fff}
+.lk{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:8px 0}
+.lk div{flex:1;min-width:0}.lk b{display:block;font-size:13px;margin-bottom:2px}
+.lk code{display:block;word-break:break-all;font-size:12.5px;background:none;padding:0}
+.lk button{flex:none;font:600 12px 'Poppins',sans-serif;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:5px 12px;cursor:pointer}
+<!--MARKUP-->
+<section class="card t">
+  <label for="ur">Website address</label>
+  <input id="ur" class="field" type="text" placeholder="https://yourwebsite.com/page" autocomplete="off" value="https://yourwebsite.com/offer">
+  <label for="cm">Campaign name</label>
+  <input id="cm" class="field" type="text" placeholder="spring_sale" autocomplete="off" value="spring_sale">
+  <label>Channels (choose one or more)</label>
+  <div class="chips" id="ch" role="group" aria-label="Channels"></div>
+  <div class="g2">
+    <div><label for="so">Or a custom source</label><input id="so" class="field" type="text" placeholder="partner_site" autocomplete="off"></div>
+    <div><label for="me">Custom medium</label><input id="me" class="field" type="text" placeholder="referral" autocomplete="off"></div>
+  </div>
+  <div class="g2">
+    <div><label for="tm">Term (optional, for paid keywords)</label><input id="tm" class="field" type="text" autocomplete="off"></div>
+    <div><label for="co">Content (optional, to tell ads apart)</label><input id="co" class="field" type="text" autocomplete="off"></div>
+  </div>
+  <label class="chk"><input type="checkbox" id="lc" checked> Make everything lowercase</label>
+  <label class="chk"><input type="checkbox" id="us" checked> Replace spaces with underscores</label>
+</section>
+<section class="card t">
+  <h2 style="margin:0 0 6px;font-size:20px">Your links</h2>
+  <div id="out"></div>
+  <div class="actions" style="margin-top:12px"><button id="all" class="btn blue" type="button">Copy all links</button></div>
+  <div id="msg" role="status" aria-live="polite"></div>
+</section>
+<!--GUIDE-->
+<h2>How to build a UTM link</h2>
+<ol>
+  <li>Enter the page you want people to visit.</li>
+  <li>Name your campaign, for example <i>spring_sale</i>.</li>
+  <li>Choose the channels where you will share the link. Each one gets its own link.</li>
+  <li>Copy the links and use them in your posts, emails and ads.</li>
+</ol>
+<h2>What do the UTM parts mean?</h2>
+<ul>
+  <li><b>utm_source:</b> where the visit comes from, such as facebook or newsletter.</li>
+  <li><b>utm_medium:</b> the type of channel, such as social, email or cpc.</li>
+  <li><b>utm_campaign:</b> the name of the campaign or promotion.</li>
+  <li><b>utm_term and utm_content:</b> optional. Used for paid keywords and to compare ads.</li>
+</ul>
+<h2>Good habits</h2>
+<p>Use lowercase and the same names every time, so your reports stay clean. Do not use UTM links for links inside your own website, because they can break your analytics sessions.</p>
+<!--FAQ-->
+<details><summary>Is the UTM link builder free?</summary><p>Yes. Build as many links as you like, with no sign-up.</p></details>
+<details><summary>Do I need Google Analytics?</summary><p>UTM tags are read by Google Analytics and most other analytics tools. The tags only work if your site uses one of them.</p></details>
+<details><summary>Can I build links for several channels at once?</summary><p>Yes. Choose several channels and you get one link for each.</p></details>
+<details><summary>Why use lowercase?</summary><p>Analytics tools treat Facebook and facebook as two different sources. Lowercase keeps your data in one place.</p></details>
+<details><summary>Does my link keep its existing parameters?</summary><p>Yes. Existing query parameters and anchors in your address are kept.</p></details>
+<!--TAIL-->
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var PS=[['Facebook','facebook','social'],['Instagram','instagram','social'],['LinkedIn','linkedin','social'],['X (Twitter)','twitter','social'],['TikTok','tiktok','social'],['Pinterest','pinterest','social'],['YouTube','youtube','video'],['Newsletter','newsletter','email'],['Google Ads','google','cpc'],['WhatsApp','whatsapp','messaging']],sel={},last=[];
+function clean(s){s=String(s).trim();if($('lc').checked)s=s.toLowerCase();if($('us').checked)s=s.replace(/\s+/g,'_');return s}
+function base(){var u=$('ur').value.trim();if(!u)return null;if(!/^https?:\/\//i.test(u))u='https://'+u;try{return new URL(u)}catch(e){return null}}
+function mk(b,s,m){var u=new URL(b.href);u.searchParams.set('utm_source',clean(s));u.searchParams.set('utm_medium',clean(m));u.searchParams.set('utm_campaign',clean($('cm').value));
+ if($('tm').value.trim())u.searchParams.set('utm_term',clean($('tm').value));if($('co').value.trim())u.searchParams.set('utm_content',clean($('co').value));return u.toString()}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
+function render(){var b=base(),o=$('out');last=[];
+ if(!b){o.innerHTML='<p class="note">Enter a valid website address.</p>';return}
+ if(!$('cm').value.trim()){o.innerHTML='<p class="note">Enter a campaign name.</p>';return}
+ PS.forEach(function(p){if(sel[p[1]+'|'+p[2]])last.push([p[0],mk(b,p[1],p[2])])});
+ if($('so').value.trim()&&$('me').value.trim())last.push(['Custom: '+clean($('so').value)+' / '+clean($('me').value),mk(b,$('so').value,$('me').value)]);
+ if(!last.length){o.innerHTML='<p class="note">Choose a channel, or type a custom source and medium.</p>';return}
+ o.innerHTML=last.map(function(x,i){return '<div class="lk"><div><b>'+esc(x[0])+'</b><code>'+esc(x[1])+'</code></div><button type="button" data-i="'+i+'">Copy</button></div>'}).join('')}
+function say(t,ok){var m=$('msg');m.textContent=t;m.className=t?(ok?'ok':'err'):'';clearTimeout(say.t);say.t=setTimeout(function(){m.textContent='';m.className=''},1800)}
+function copy(t,ok){function d(){say(ok,true)}function fb(){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');d()}catch(e){say('Copy was blocked.',false)}a.remove()}
+ try{navigator.clipboard.writeText(t).then(d,fb)}catch(e){fb()}}
+$('out').addEventListener('click',function(e){var b=e.target.closest('button');if(b)copy(last[+b.dataset.i][1],'Link copied.')});
+$('all').onclick=function(){if(!last.length){say('Nothing to copy yet.',false);return}copy(last.map(function(x){return x[0]+'\n'+x[1]}).join('\n\n'),'All links copied.')};
+var ch=$('ch');PS.forEach(function(p,i){var k=p[1]+'|'+p[2],b=document.createElement('button');b.type='button';b.textContent=p[0];b.setAttribute('aria-pressed',false);
+ b.onclick=function(){if(sel[k])delete sel[k];else sel[k]=1;b.setAttribute('aria-pressed',!!sel[k]);render()};ch.appendChild(b);if(i<2){sel[k]=1;b.setAttribute('aria-pressed',true)}});
+document.querySelectorAll('.t input').forEach(function(e){e.addEventListener('input',render);e.addEventListener('change',render)});
+render();
+})();
+</script>

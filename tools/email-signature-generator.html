@@ -1,0 +1,111 @@
+<!--CSS-->
+.t .field{width:100%;flex:none}
+.t label{display:block;margin:14px 0 6px;font-size:14px}.t label:first-child{margin-top:0}
+.g2,.g3{display:grid;gap:12px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:560px){.g2,.g3{grid-template-columns:1fr}}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.seg button{font:600 13px 'Poppins',sans-serif;padding:8px 14px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true]{background:#0b5cff;border-color:#0b5cff;color:#fff}
+.seg button:focus-visible{outline:3px solid #13a8ff;outline-offset:2px}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:16px 0}
+.kpi div{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--code)}
+.kpi b{display:block;font-size:22px;line-height:1.2}.kpi span{font-size:12px;color:var(--mute)}
+table.tb{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+.tb th,.tb td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left}
+.tb th{font-size:12px;color:var(--mute);font-weight:600}
+.tb td:not(:first-child),.tb th:not(:first-child){text-align:right}
+.tb tr.tot td{font-weight:700;border-top:2px solid var(--line)}
+.wrapx{overflow-x:auto}
+.note{font-size:13px;color:var(--mute);margin:10px 0 0}
+.chk{display:flex;gap:8px;align-items:center;font-weight:500;margin-top:12px;font-size:14px}
+.t textarea.field{min-height:130px;font:12.5px/1.5 ui-monospace,Menlo,Consolas,monospace;resize:vertical}
+.col{width:100%;height:46px;border:2px solid var(--line);border-radius:12px;padding:2px;background:none;cursor:pointer}
+#pv{background:#fff;color:#222;border:1px solid var(--line);border-radius:12px;padding:20px;margin-top:10px;overflow-x:auto}
+<!--MARKUP-->
+<section class="card t">
+  <div class="g2">
+    <div><label for="fn">Full name</label><input id="fn" class="field" type="text" maxlength="60" value="Alex Morgan" autocomplete="off"></div>
+    <div><label for="jt">Job title</label><input id="jt" class="field" type="text" maxlength="60" value="Marketing Manager" autocomplete="off"></div>
+    <div><label for="co">Company</label><input id="co" class="field" type="text" maxlength="60" value="Brightline Studio" autocomplete="off"></div>
+    <div><label for="ph">Phone</label><input id="ph" class="field" type="text" maxlength="30" value="+1 555 123 4567" autocomplete="off"></div>
+    <div><label for="em">Email</label><input id="em" class="field" type="text" maxlength="80" value="alex@brightline.com" autocomplete="off"></div>
+    <div><label for="wb">Website</label><input id="wb" class="field" type="text" maxlength="80" value="www.brightline.com" autocomplete="off"></div>
+  </div>
+  <label for="ad">Address (optional)</label><input id="ad" class="field" type="text" maxlength="120" autocomplete="off">
+  <label for="im">Logo or photo address (optional, must be on the web)</label>
+  <input id="im" class="field" type="text" placeholder="https://yourwebsite.com/logo.png" autocomplete="off">
+  <h2 style="margin:22px 0 0;font-size:18px">Social links (optional)</h2>
+  <div class="g2">
+    <div><label for="li">LinkedIn</label><input id="li" class="field" type="text" placeholder="linkedin.com/in/yourname" autocomplete="off"></div>
+    <div><label for="tw">X (Twitter)</label><input id="tw" class="field" type="text" autocomplete="off"></div>
+    <div><label for="ig">Instagram</label><input id="ig" class="field" type="text" autocomplete="off"></div>
+    <div><label for="fb">Facebook</label><input id="fb" class="field" type="text" autocomplete="off"></div>
+  </div>
+  <h2 style="margin:22px 0 0;font-size:18px">Style</h2>
+  <div class="g3">
+    <div><label>Layout</label><div class="seg" id="ly" role="group" aria-label="Layout"></div></div>
+    <div><label for="ff">Font</label><select id="ff" class="field"><option value="Arial,Helvetica,sans-serif">Arial</option><option value="Georgia,serif">Georgia</option><option value="Verdana,Geneva,sans-serif">Verdana</option><option value="Tahoma,Geneva,sans-serif">Tahoma</option><option value="'Trebuchet MS',sans-serif">Trebuchet</option></select></div>
+    <div><label for="ac">Accent color</label><input id="ac" class="col" type="color" value="#0b5cff"></div>
+  </div>
+</section>
+<section class="card t">
+  <h2 style="margin:0;font-size:20px">Preview</h2>
+  <div id="pv"></div>
+  <div class="actions" style="margin-top:14px"><button id="cr" class="btn green" type="button">Copy signature</button><button id="ch" class="btn blue" type="button">Copy HTML code</button></div>
+  <div id="msg" role="status" aria-live="polite"></div>
+  <label for="cd" style="margin-top:16px">HTML code</label>
+  <textarea id="cd" class="field" readonly></textarea>
+</section>
+<!--GUIDE-->
+<h2>How to make an email signature</h2>
+<ol>
+  <li>Fill in your details. Leave out anything you do not want.</li>
+  <li>Pick a layout, a font and an accent color.</li>
+  <li>Press <b>Copy signature</b> and paste it into your email settings. Or use <b>Copy HTML code</b>.</li>
+</ol>
+<h2>How to add it to your email</h2>
+<ul>
+  <li><b>Gmail:</b> Settings, See all settings, Signature. Paste the copied signature.</li>
+  <li><b>Outlook:</b> Settings, Accounts, Signatures. Paste the copied signature.</li>
+  <li><b>Apple Mail:</b> Settings, Signatures. Paste it, and turn off "Always match my default message font".</li>
+</ul>
+<h2>Tips for a good signature</h2>
+<p>Keep it short. Use one logo or photo that is already hosted on the web, because email programs often block images that are not. Use text for your contact details so it still works when images are off.</p>
+<!--FAQ-->
+<details><summary>Is the email signature generator free?</summary><p>Yes. Make as many signatures as you like, with no sign-up.</p></details>
+<details><summary>Why do I need an image web address?</summary><p>Email programs show images from a web address. They often block images embedded in the signature itself. Upload your logo to your website or an image host and paste its address.</p></details>
+<details><summary>Will it look the same in every email program?</summary><p>It uses simple tables and inline styles, which work in most programs. Small differences are normal.</p></details>
+<details><summary>Is my information stored?</summary><p>No. The signature is built in your browser and nothing is sent anywhere.</p></details>
+<details><summary>Can I edit it later?</summary><p>Yes. Come back, change your details, and copy the new version.</p></details>
+<!--TAIL-->
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var layout='side';
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function v(i){return $(i).value.trim()}
+function href(u){u=u.trim();if(!u)return '';if(/^(https?:)/i.test(u))return u;if(/^(javascript|data):/i.test(u))return '';return 'https://'+u.replace(/^\/+/,'')}
+function build(){var ac=$('ac').value,ff=$('ff').value,fn=v('fn'),jt=v('jt'),co=v('co'),ph=v('ph'),em=v('em'),wb=v('wb'),ad=v('ad'),im=href(v('im')),g='color:#555555;text-decoration:none';
+ var l=[];
+ if(ph)l.push('<span style="color:'+ac+';font-weight:bold">T</span>&nbsp;<a href="tel:'+esc(ph.replace(/[^0-9+]/g,''))+'" style="'+g+'">'+esc(ph)+'</a>');
+ if(em)l.push('<span style="color:'+ac+';font-weight:bold">E</span>&nbsp;<a href="mailto:'+esc(em)+'" style="'+g+'">'+esc(em)+'</a>');
+ if(wb&&href(wb))l.push('<span style="color:'+ac+';font-weight:bold">W</span>&nbsp;<a href="'+esc(href(wb))+'" style="'+g+'">'+esc(wb.replace(/^https?:\/\//i,''))+'</a>');
+ if(ad)l.push('<span style="color:'+ac+';font-weight:bold">A</span>&nbsp;<span style="color:#555555">'+esc(ad)+'</span>');
+ var so=[];[['li','LinkedIn'],['tw','X'],['ig','Instagram'],['fb','Facebook']].forEach(function(p){var h=href(v(p[0]));if(h)so.push('<a href="'+esc(h)+'" style="color:'+ac+';text-decoration:none;font-weight:bold">'+p[1]+'</a>')});
+ var role=[jt,co].filter(Boolean).map(esc).join(' | ');
+ var d='<td style="vertical-align:top;font-family:'+ff+';font-size:14px;line-height:1.5;color:#222222">'+(fn?'<div style="font-size:18px;font-weight:bold;color:#111111">'+esc(fn)+'</div>':'')+(role?'<div style="color:'+ac+';font-weight:bold;margin-bottom:6px">'+role+'</div>':'')+l.map(function(x){return '<div>'+x+'</div>'}).join('')+(so.length?'<div style="margin-top:6px">'+so.join(' &nbsp;|&nbsp; ')+'</div>':'')+'</td>';
+ var img=im?'<td style="vertical-align:top;padding-right:16px'+(layout==='side'?';border-right:3px solid '+ac:'')+'"><img src="'+esc(im)+'" alt="'+esc(fn||co||'Logo')+'" width="90" style="display:block;width:90px;height:auto;border:0"></td>'+(layout==='side'?'<td style="width:16px">&nbsp;</td>':''):'';
+ if(layout==='top'&&im)return '<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse"><tr><td style="padding-bottom:10px"><img src="'+esc(im)+'" alt="'+esc(fn||co||'Logo')+'" width="90" style="display:block;width:90px;height:auto;border:0"></td></tr><tr>'+d+'</tr></table>';
+ return '<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse"><tr>'+img+d+'</tr></table>'}
+function render(){var h=build();$('pv').innerHTML=h;$('cd').value=h}
+function say(t,ok){var m=$('msg');m.textContent=t;m.className=t?(ok?'ok':'err'):'';clearTimeout(say.t);say.t=setTimeout(function(){m.textContent='';m.className=''},2000)}
+$('ch').onclick=function(){var t=$('cd').value;function ok(){say('HTML code copied.',true)}function fb(){$('cd').select();try{document.execCommand('copy');ok()}catch(e){say('Copy was blocked.',false)}}
+ try{navigator.clipboard.writeText(t).then(ok,fb)}catch(e){fb()}};
+$('cr').onclick=function(){var el=$('pv');function ok(){say('Signature copied. Paste it into your email settings.',true)}
+ function fb(){var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);try{document.execCommand('copy');ok()}catch(e){say('Copy was blocked. Select the preview and copy it.',false)}s.removeAllRanges()}
+ try{navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([el.innerHTML],{type:'text/html'}),'text/plain':new Blob([el.innerText],{type:'text/plain'})})]).then(ok,fb)}catch(e){fb()}};
+var ly=$('ly');[['side','Logo left'],['top','Logo on top']].forEach(function(o){var b=document.createElement('button');b.type='button';b.textContent=o[1];b.setAttribute('aria-pressed',o[0]===layout);b.onclick=function(){layout=o[0];[].forEach.call(ly.children,function(x){x.setAttribute('aria-pressed',x===b)});render()};ly.appendChild(b)});
+document.querySelectorAll('.t input,.t select').forEach(function(e){e.addEventListener('input',render);e.addEventListener('change',render)});
+render();
+})();
+</script>

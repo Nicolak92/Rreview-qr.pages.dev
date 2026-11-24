@@ -1,0 +1,135 @@
+<!--CSS-->
+.t .field{width:100%;flex:none}
+.t label{display:block;margin:14px 0 6px;font-size:14px}.t label:first-child{margin-top:0}
+.g2,.g3{display:grid;gap:12px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:560px){.g2,.g3{grid-template-columns:1fr}}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.seg button{font:600 13px 'Poppins',sans-serif;padding:8px 14px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true]{background:#0b5cff;border-color:#0b5cff;color:#fff}
+.seg button:focus-visible{outline:3px solid #13a8ff;outline-offset:2px}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:16px 0}
+.kpi div{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--code)}
+.kpi b{display:block;font-size:22px;line-height:1.2}.kpi span{font-size:12px;color:var(--mute)}
+table.tb{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+.tb th,.tb td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left}
+.tb th{font-size:12px;color:var(--mute);font-weight:600}
+.tb td:not(:first-child),.tb th:not(:first-child){text-align:right}
+.tb tr.tot td{font-weight:700;border-top:2px solid var(--line)}
+.wrapx{overflow-x:auto}
+.note{font-size:13px;color:var(--mute);margin:10px 0 0}
+.chk{display:flex;gap:8px;align-items:center;font-weight:500;margin-top:12px;font-size:14px}
+.serp{background:#fff;color:#202124;border:1px solid #dfe1e5;border-radius:12px;padding:16px 18px;margin:12px auto 0;font-family:Arial,sans-serif;max-width:100%}
+.serp.d{width:640px}.serp.m{width:380px}
+.serp .u{display:flex;align-items:center;gap:8px;font-size:12px;color:#202124;line-height:1.3;margin-bottom:6px}
+.serp .u i{width:26px;height:26px;border-radius:50%;background:#e8eaed;display:inline-block;flex:none}
+.serp .u span{color:#4d5156;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.serp .tl{color:#1a0dab;font-size:20px;line-height:1.3;margin:0 0 3px;font-weight:400}
+.serp.d .tl{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.serp.m .tl{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.serp .ds{color:#4d5156;font-size:14px;line-height:1.58;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+.serp.d .ds{-webkit-line-clamp:2}.serp.m .ds{-webkit-line-clamp:3}
+.meter{display:flex;flex-wrap:wrap;gap:8px 18px;margin:12px 0 0;font-size:13px}
+.meter b{font-weight:700}.ok2{color:var(--ok)}.wn{color:#b36b00}.bd{color:var(--err)}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:8px 0;font-size:14px}
+.opt p{margin:0;flex:1}.opt small{color:var(--mute)}
+.opt button{flex:none;font:600 12px 'Poppins',sans-serif;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:5px 12px;cursor:pointer}
+.t textarea.field{min-height:92px;resize:vertical;line-height:1.5}
+.wrapx{overflow-x:auto}
+<!--MARKUP-->
+<section class="card t">
+  <div class="g2">
+    <div><label for="kw">Main keyword or topic</label><input id="kw" class="field" type="text" maxlength="60" value="Free QR code generator" autocomplete="off"></div>
+    <div><label for="br">Brand name (optional)</label><input id="br" class="field" type="text" maxlength="40" value="Toolzweb" autocomplete="off"></div>
+  </div>
+  <label for="wh">What does the page offer?</label>
+  <input id="wh" class="field" type="text" maxlength="120" value="Create a QR code from any link and download it as a PNG" autocomplete="off">
+  <label for="bf">Main benefit (optional)</label>
+  <input id="bf" class="field" type="text" maxlength="100" value="Fast, free and no sign-up" autocomplete="off">
+  <label>Call to action</label><div class="seg" id="ct" role="group" aria-label="Call to action"></div>
+  <div class="actions" style="margin-top:6px"><button id="go" class="btn main" type="button">Suggest titles and descriptions</button></div>
+  <div id="sug"></div>
+</section>
+<section class="card t">
+  <h2 style="margin:0 0 6px;font-size:20px">Your title and description</h2>
+  <label for="tt">Page title</label><input id="tt" class="field" type="text" maxlength="120" autocomplete="off">
+  <label for="dd">Meta description</label><textarea id="dd" class="field" maxlength="400"></textarea>
+  <label for="ur">Page address (for the preview)</label><input id="ur" class="field" type="text" value="https://toolzweb.com/qr-code" autocomplete="off">
+  <div class="seg" id="dv" role="group" aria-label="Preview device"></div>
+  <div class="meter" id="mt"></div>
+  <div class="serp d" id="sp" aria-label="Search result preview"></div>
+  <label for="sn" style="margin-top:18px">HTML to paste in your page</label>
+  <textarea id="sn" class="field" readonly></textarea>
+  <div class="actions" style="margin-top:12px"><button id="cp" class="btn green" type="button">Copy HTML</button></div>
+  <div id="msg" role="status" aria-live="polite"></div>
+  <p class="note">Google may show a different title or description depending on the search. The preview is a guide, not a promise.</p>
+</section>
+<!--GUIDE-->
+<h2>How to write a meta description</h2>
+<ol>
+  <li>Enter the main keyword, what the page offers, and its main benefit.</li>
+  <li>Press <b>Suggest titles and descriptions</b>. Click <b>Use</b> beside the ones you like.</li>
+  <li>Edit the text. Watch the length meters and the search preview.</li>
+  <li>Copy the HTML and paste it into the head of your page.</li>
+</ol>
+<h2>Length guide</h2>
+<ul>
+  <li><b>Title:</b> about 50 to 60 characters, or roughly 580 pixels wide.</li>
+  <li><b>Description:</b> about 120 to 155 characters.</li>
+  <li>Put the important words first, because the end may be cut off.</li>
+</ul>
+<h2>What makes a good meta description?</h2>
+<p>It should describe the page honestly, include the main keyword once, and give a reason to click. Every page should have its own, not a copy of another page.</p>
+<!--FAQ-->
+<details><summary>Is the meta description generator free?</summary><p>Yes. Use it as often as you like, with no sign-up.</p></details>
+<details><summary>Does it use AI?</summary><p>No. It uses proven writing patterns with your words, so nothing is sent anywhere.</p></details>
+<details><summary>Does a meta description help rankings?</summary><p>It is not a direct ranking factor, but a clear description can get more people to click your result.</p></details>
+<details><summary>How long should it be?</summary><p>Aim for 120 to 155 characters. Longer ones are often cut off in search results.</p></details>
+<details><summary>Will Google always use mine?</summary><p>No. Google sometimes writes its own snippet from the page. A good description is used more often.</p></details>
+<!--TAIL-->
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var cta='Learn more',dev='d',meas=document.createElement('canvas').getContext('2d');
+function v(i){return $(i).value.trim()}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function cap(s){return s?s.charAt(0).toUpperCase()+s.slice(1):s}
+function sent(s){s=s.trim();if(!s)return '';s=cap(s);return /[.!?]$/.test(s)?s:s+'.'}
+function px(t,f){meas.font=f;return meas.measureText(t).width}
+function fit(s,max){s=s.replace(/\s+/g,' ').trim();if(s.length<=max)return s;var t=s.slice(0,max),i=t.lastIndexOf(' ');t=(i>max*.6?t.slice(0,i):t).replace(/[,;:\-\s]+$/,'');return /[.!?]$/.test(t)?t:t+'.'}
+function descs(){var k=v('kw'),w=v('wh'),b=v('bf'),br=v('br'),c=cta;
+ return [
+ 'Looking for '+k.toLowerCase()+'? '+sent(w)+' '+sent(b)+' '+c+'.',
+ sent(w)+' '+sent(b)+' Learn more about '+k.toLowerCase()+(br?' at '+br:'')+'.',
+ 'Discover '+k.toLowerCase()+(br?' with '+br:'')+'. '+sent(w)+' '+c+'.',
+ cap(k)+': '+w.charAt(0).toLowerCase()+w.slice(1)+'. '+sent(b)+' '+c+'.',
+ 'Everything you need to know about '+k.toLowerCase()+'. '+sent(w)+' '+c+'.',
+ 'Get '+k.toLowerCase()+' done faster. '+sent(w)+' '+sent(b)].map(function(s){return fit(s.replace(/\s+\./g,'.').replace(/\.\s*\./g,'.').replace(/\s+/g,' '),155)})}
+function titles(){var k=cap(v('kw')),w=cap(v('wh')).replace(/[.]$/,''),b=cap(v('bf')).replace(/[.]$/,''),br=v('br'),a=[];
+ a.push(br?k+' | '+br:k);if(w)a.push(k+': '+w);if(b)a.push(k+' - '+b);a.push(k+' Made Simple'+(br?' | '+br:''));a.push('The Complete Guide to '+k);
+ var ok=a.filter(function(x,i){return x.length<=60&&a.indexOf(x)===i});return ok.length?ok:[fit(a[0],60).replace(/\.$/,'')]}
+function say(t,ok){var m=$('msg');m.textContent=t;m.className=t?(ok?'ok':'err'):'';clearTimeout(say.t);say.t=setTimeout(function(){m.textContent='';m.className=''},1800)}
+function suggest(){if(!v('kw')){say('Enter a main keyword first.',false);return}
+ var T=titles(),D=descs(),h='<h3 style="font-size:15px;margin:18px 0 4px">Titles</h3>';
+ T.forEach(function(t,i){h+='<div class="opt"><p>'+esc(t)+' <small>('+t.length+' characters)</small></p><button type="button" data-t="'+i+'">Use</button></div>'});
+ h+='<h3 style="font-size:15px;margin:18px 0 4px">Descriptions</h3>';
+ D.forEach(function(d,i){h+='<div class="opt"><p>'+esc(d)+' <small>('+d.length+' characters)</small></p><button type="button" data-d="'+i+'">Use</button></div>'});
+ $('sug').innerHTML=h;$('sug').T=T;$('sug').D=D}
+$('go').onclick=suggest;
+$('sug').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;if(b.dataset.t!==undefined)$('tt').value=this.T[+b.dataset.t];if(b.dataset.d!==undefined)$('dd').value=this.D[+b.dataset.d];prev()});
+function dom(u){u=u.trim().replace(/^https?:\/\//i,'');return u}
+function cls(n,a,b){return n<=a?'ok2':n<=b?'wn':'bd'}
+function prev(){var t=v('tt')||'Your page title',d=v('dd')||'Your meta description will appear here.',u=dom(v('ur')||'example.com'),parts=u.split('/'),host=parts[0],path=parts.slice(1).filter(Boolean).join(' \u203a ');
+ var tp=px(t,'20px Arial'),tl=t.length,dl=d.length;
+ $('sp').className='serp '+dev;
+ $('sp').innerHTML='<div class="u"><i></i><span>'+esc(host)+(path?' \u203a '+esc(path):'')+'</span></div><div class="tl">'+esc(t)+'</div><div class="ds">'+esc(d)+'</div>';
+ $('mt').innerHTML='<span>Title: <b class="'+cls(tp,580,640)+'">'+tl+' characters, about '+Math.round(tp)+' px</b> (aim for under 580 px)</span><span>Description: <b class="'+cls(dl,155,180)+'">'+dl+' characters</b> (aim for 120 to 155)</span>';
+ $('sn').value='<title>'+esc(v('tt'))+'</title>\n<meta name="description" content="'+esc(v('dd'))+'">'}
+['tt','dd','ur'].forEach(function(i){$(i).addEventListener('input',prev)});
+$('cp').onclick=function(){var t=$('sn').value;function ok(){say('HTML copied.',true)}function fb(){$('sn').select();try{document.execCommand('copy');ok()}catch(e){say('Copy was blocked.',false)}}
+ try{navigator.clipboard.writeText(t).then(ok,fb)}catch(e){fb()}};
+function seg(id,items,get,set){var el=$(id);items.forEach(function(o){var b=document.createElement('button');b.type='button';b.textContent=o[1];b.setAttribute('aria-pressed',get()===o[0]);b.onclick=function(){set(o[0]);[].forEach.call(el.children,function(x){x.setAttribute('aria-pressed',x===b)})};el.appendChild(b)})}
+seg('ct',[['Learn more','Learn more'],['Try it free','Try it free'],['Get started','Get started'],['Read the guide','Read the guide'],['Shop now','Shop now'],['Contact us','Contact us']],function(){return cta},function(x){cta=x;suggest()});
+seg('dv',[['d','Desktop preview'],['m','Mobile preview']],function(){return dev},function(x){dev=x;prev()});
+suggest();$('tt').value=$('sug').T[0];$('dd').value=$('sug').D[0];prev();
+})();
+</script>

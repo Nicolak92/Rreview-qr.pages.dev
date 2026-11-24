@@ -1,0 +1,75 @@
+<!--CSS-->
+.t .field{width:100%;flex:none}
+.t label{display:block;margin:14px 0 6px;font-size:14px}.t label:first-child{margin-top:0}
+.g2,.g3{display:grid;gap:12px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:560px){.g2,.g3{grid-template-columns:1fr}}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.seg button{font:600 13px 'Poppins',sans-serif;padding:8px 14px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true]{background:#0b5cff;border-color:#0b5cff;color:#fff}
+.seg button:focus-visible{outline:3px solid #13a8ff;outline-offset:2px}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:16px 0}
+.kpi div{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--code)}
+.kpi b{display:block;font-size:22px;line-height:1.2}.kpi span{font-size:12px;color:var(--mute)}
+table.tb{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+.tb th,.tb td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left}
+.tb th{font-size:12px;color:var(--mute);font-weight:600}
+.tb td:not(:first-child),.tb th:not(:first-child){text-align:right}
+.tb tr.tot td{font-weight:700;border-top:2px solid var(--line)}
+.wrapx{overflow-x:auto}
+.note{font-size:13px;color:var(--mute);margin:10px 0 0}
+.chk{display:flex;gap:8px;align-items:center;font-weight:500;margin-top:12px;font-size:14px}
+<!--MARKUP-->
+<section class="card t">
+  <div class="g3">
+    <div><label for="cu">Currency symbol</label><input id="cu" class="field" type="text" value="$" maxlength="4"></div>
+    <div><label for="inc">Yearly income you want to take home</label><input id="inc" class="field" type="number" step="any" min="0" inputmode="decimal" value="50000"></div>
+    <div><label for="exp">Business costs per year</label><input id="exp" class="field" type="number" step="any" min="0" inputmode="decimal" value="6000"></div>
+    <div><label for="tax">Tax and social charges (%)</label><input id="tax" class="field" type="number" step="any" min="0" max="80" inputmode="decimal" value="25"></div>
+    <div><label for="hw">Working hours per week</label><input id="hw" class="field" type="number" step="any" min="1" max="100" inputmode="decimal" value="40"></div>
+    <div><label for="wo">Weeks off per year</label><input id="wo" class="field" type="number" step="any" min="0" max="51" inputmode="decimal" value="5"></div>
+    <div><label for="bp">Billable time (%)</label><input id="bp" class="field" type="number" step="any" min="5" max="100" inputmode="decimal" value="65"></div>
+    <div><label for="bf">Safety buffer (%)</label><input id="bf" class="field" type="number" step="any" min="0" max="100" inputmode="decimal" value="10"></div>
+    <div><label for="ph">Hours for a sample project</label><input id="ph" class="field" type="number" step="any" min="0" inputmode="decimal" value="20"></div>
+  </div>
+  <p class="note">Billable time is the share of your working hours that you can charge for. Admin, marketing and finding clients are not billable, so 50% to 70% is common for freelancers.</p>
+</section>
+<section class="card t">
+  <div class="kpi" id="kpi"></div>
+  <div class="wrapx"><table class="tb" id="tb"></table></div>
+  <p class="note">This is an estimate, not tax or financial advice. Tax rules differ by country. Ask an accountant about your own situation.</p>
+</section>
+<!--GUIDE-->
+<h2>How to work out your freelance hourly rate</h2>
+<ol>
+  <li>Enter the yearly income you want to take home, and your business costs.</li>
+  <li>Add your tax rate, your weekly hours and your weeks off.</li>
+  <li>Set the share of your time that is billable. Be honest: most freelancers bill far less than 100%.</li>
+  <li>Read your hourly rate, day rate and the price for a project.</li>
+</ol>
+<h2>The formula</h2>
+<p>Revenue needed = (take-home income + business costs) / (1 - tax rate), plus a safety buffer. Hourly rate = revenue needed / billable hours per year.</p>
+<h2>Why is it higher than an employee's hourly pay?</h2>
+<p>An employee is paid for every working hour and gets paid time off. A freelancer pays for their own costs, taxes and time off, and cannot bill every hour. That is why a freelance rate needs to be higher.</p>
+<!--FAQ-->
+<details><summary>Is the freelance hourly rate calculator free?</summary><p>Yes. Use it as often as you like, with no sign-up.</p></details>
+<details><summary>What is billable time?</summary><p>It is the share of your working hours that you can charge to clients. Time for admin, sales, learning and unpaid work does not count.</p></details>
+<details><summary>What should I use for tax?</summary><p>Use a rough total for income tax and social charges in your country. Ask an accountant for a better number.</p></details>
+<details><summary>Why add a safety buffer?</summary><p>Work can be uneven, clients pay late and costs rise. A buffer of 10% to 20% protects you.</p></details>
+<details><summary>Should I charge by the hour or by the project?</summary><p>Many freelancers price by project but use their hourly rate to check the price is fair. The sample project shows that price.</p></details>
+<!--TAIL-->
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+function n(i){var v=parseFloat($(i).value);return isFinite(v)&&v>0?v:0}
+function calc(o){var rev=(o.inc+o.exp)/(1-Math.min(.95,o.tax/100))*(1+o.bf/100),weeks=Math.max(1,52-o.wo),hours=weeks*o.hw,bill=hours*o.bp/100,rate=bill?rev/bill:0;
+ return {rev:rev,weeks:weeks,hours:hours,bill:bill,rate:rate,day:rate*(o.hw*o.bp/100/5),month:rev/12,project:rate*o.ph,emp:o.hw*weeks?o.inc/(o.hw*52):0}}
+function f(x,cu){return cu+x.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}
+function f0(x,cu){return cu+Math.round(x).toLocaleString()}
+function render(){var cu=$('cu').value||'',o={inc:n('inc'),exp:n('exp'),tax:n('tax'),hw:n('hw')||40,wo:n('wo'),bp:n('bp')||65,bf:n('bf'),ph:n('ph')},r=calc(o);
+ $('kpi').innerHTML='<div><b>'+f(r.rate,cu)+'</b><span>Hourly rate to charge</span></div><div><b>'+f(r.day,cu)+'</b><span>Day rate (5 days a week)</span></div><div><b>'+f0(r.month,cu)+'</b><span>Monthly revenue needed</span></div>'+(o.ph?'<div><b>'+f0(r.project,cu)+'</b><span>Price for a '+o.ph+' hour project</span></div>':'');
+ var rows=[['Take-home income wanted',f0(o.inc,cu)],['Business costs',f0(o.exp,cu)],['Revenue needed before tax and buffer',f0((o.inc+o.exp)/(1-Math.min(.95,o.tax/100)),cu)],['Revenue needed with buffer',f0(r.rev,cu)],['Working weeks per year',String(r.weeks)],['Working hours per year',Math.round(r.hours).toLocaleString()],['Billable hours per year',Math.round(r.bill).toLocaleString()],['Same income as an employee, per hour',f(r.emp,cu)]];
+ $('tb').innerHTML=rows.map(function(x){return '<tr><td>'+x[0]+'</td><td>'+x[1]+'</td></tr>'}).join('')}
+document.querySelectorAll('.t input').forEach(function(e){e.addEventListener('input',render)});
+render();
+})();
+</script>

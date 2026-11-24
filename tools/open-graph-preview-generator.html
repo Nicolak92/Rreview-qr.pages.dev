@@ -1,0 +1,115 @@
+<!--CSS-->
+.t .field{width:100%;flex:none}
+.t label{display:block;margin:14px 0 6px;font-size:14px}.t label:first-child{margin-top:0}
+.g2,.g3{display:grid;gap:12px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:560px){.g2,.g3{grid-template-columns:1fr}}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.seg button{font:600 13px 'Poppins',sans-serif;padding:8px 14px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true]{background:#0b5cff;border-color:#0b5cff;color:#fff}
+.seg button:focus-visible{outline:3px solid #13a8ff;outline-offset:2px}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:16px 0}
+.kpi div{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--code)}
+.kpi b{display:block;font-size:22px;line-height:1.2}.kpi span{font-size:12px;color:var(--mute)}
+table.tb{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+.tb th,.tb td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left}
+.tb th{font-size:12px;color:var(--mute);font-weight:600}
+.tb td:not(:first-child),.tb th:not(:first-child){text-align:right}
+.tb tr.tot td{font-weight:700;border-top:2px solid var(--line)}
+.wrapx{overflow-x:auto}
+.note{font-size:13px;color:var(--mute);margin:10px 0 0}
+.chk{display:flex;gap:8px;align-items:center;font-weight:500;margin-top:12px;font-size:14px}
+.t textarea.field{min-height:92px;resize:vertical;line-height:1.5}
+.pvw{background:#f0f2f5;border-radius:14px;padding:18px;margin-top:10px}
+.fbc{background:#fff;border:1px solid #dadde1;max-width:500px;margin:0 auto;font-family:Helvetica,Arial,sans-serif;color:#1c1e21;overflow:hidden}
+.fbc .im{aspect-ratio:1.91/1;background:#e4e6eb;display:grid;place-items:center;color:#65676b;font-size:13px;overflow:hidden}
+.fbc .im img{width:100%;height:100%;object-fit:cover;display:block}
+.fbc .tx{padding:10px 12px;background:#f2f3f5;border-top:1px solid #dadde1}
+.fbc .dm{font-size:12px;color:#65676b;text-transform:uppercase}
+.fbc .ti{font-size:16px;font-weight:600;line-height:1.25;margin:3px 0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.fbc .de{font-size:14px;color:#65676b;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.xc{background:#fff;border:1px solid #cfd9de;border-radius:16px;max-width:500px;margin:0 auto;font-family:system-ui,Arial,sans-serif;color:#0f1419;overflow:hidden;position:relative}
+.xc .im{aspect-ratio:2/1;background:#e7ecef;display:grid;place-items:center;color:#536471;font-size:13px;overflow:hidden}
+.xc .im img{width:100%;height:100%;object-fit:cover;display:block}
+.xc .tx{padding:10px 14px;font-size:14px}
+.xc .dm{color:#536471;font-size:13px}.xc .ti{font-weight:500;margin:2px 0;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.xc .de{color:#536471;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.xc.sm .im{width:120px;aspect-ratio:1;float:left;margin:0}.xc.sm .tx{margin-left:120px;min-height:120px}
+.wa{background:#d9fdd3;border-radius:10px;padding:6px;max-width:420px;margin:0 auto;font-family:system-ui,Arial,sans-serif;color:#111b21}
+.wa .cd{background:#cfe9ca;border-radius:8px;overflow:hidden}
+.wa .im{aspect-ratio:1.91/1;background:#bcd9b7;display:grid;place-items:center;font-size:13px;color:#4a6b45;overflow:hidden}.wa .im img{width:100%;height:100%;object-fit:cover;display:block}
+.wa .tx{padding:8px 10px}.wa .ti{font-weight:600;font-size:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wa .de{font-size:13px;color:#54656f;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.wa .dm{font-size:12px;color:#54656f}
+<!--MARKUP-->
+<section class="card t">
+  <label for="ur">Page address</label><input id="ur" class="field" type="text" value="https://toolzweb.com/qr-code" autocomplete="off">
+  <label for="ti">Title</label><input id="ti" class="field" type="text" maxlength="120" value="Free QR Code Generator | Toolzweb" autocomplete="off">
+  <label for="de">Description</label><textarea id="de" class="field" maxlength="300">Create a QR code from any link and download it as a PNG. Fast, free and no sign-up.</textarea>
+  <label for="im">Image address (1200 x 630 px works best)</label><input id="im" class="field" type="text" placeholder="https://yourwebsite.com/share-image.jpg" autocomplete="off">
+  <div class="g2">
+    <div><label for="sn">Site name</label><input id="sn" class="field" type="text" maxlength="60" value="Toolzweb" autocomplete="off"></div>
+    <div><label for="xh">X (Twitter) username (optional)</label><input id="xh" class="field" type="text" maxlength="20" placeholder="@yourname" autocomplete="off"></div>
+  </div>
+  <label>X card type</label><div class="seg" id="xt" role="group" aria-label="Card type"></div>
+</section>
+<section class="card t">
+  <div class="seg" id="pt" role="group" aria-label="Preview type"></div>
+  <div class="pvw" id="pv"></div>
+  <div class="meter" id="mt" style="margin-top:10px;font-size:13px;color:var(--mute)"></div>
+  <label for="cd" style="margin-top:18px">Tags to paste in the head of your page</label>
+  <textarea id="cd" class="field" style="min-height:190px;font:12.5px/1.5 ui-monospace,Menlo,Consolas,monospace" readonly></textarea>
+  <div class="actions" style="margin-top:12px"><button id="cp" class="btn green" type="button">Copy tags</button></div>
+  <div id="msg" role="status" aria-live="polite"></div>
+  <p class="note">Platforms save the image and text for a while. After you change a page, use each platform's sharing debugger to refresh its preview.</p>
+</section>
+<!--GUIDE-->
+<h2>How to create Open Graph tags</h2>
+<ol>
+  <li>Enter your page address, a title, a description and an image address.</li>
+  <li>Check how the link will look on Facebook, LinkedIn, X and WhatsApp.</li>
+  <li>Copy the tags and paste them in the head of your page.</li>
+</ol>
+<h2>What are Open Graph tags?</h2>
+<p>They tell social networks and chat apps which title, description and image to show when someone shares your link. Without them, platforms guess, and often show nothing useful.</p>
+<h2>Tips</h2>
+<ul>
+  <li>Use an image about 1200 x 630 pixels, in JPG or PNG.</li>
+  <li>Keep the title under about 60 characters and the description under about 155.</li>
+  <li>Use a full web address for the image, starting with https://.</li>
+</ul>
+<!--FAQ-->
+<details><summary>Is the Open Graph generator free?</summary><p>Yes. Use it as often as you like, with no sign-up.</p></details>
+<details><summary>Why is my image not showing in the preview?</summary><p>The image address must be a public link to a picture. If the site hosting it blocks other sites, the preview shows a gray box.</p></details>
+<details><summary>What image size should I use?</summary><p>About 1200 x 630 pixels works well for Facebook, LinkedIn, X and WhatsApp.</p></details>
+<details><summary>Do I need the X (Twitter) tags?</summary><p>X can use Open Graph tags, but the card type tag tells it to show a large image. We add it for you.</p></details>
+<details><summary>Where do the tags go?</summary><p>Inside the head section of your page. In WordPress, an SEO plugin usually does this for you.</p></details>
+<!--TAIL-->
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var pt='fb',xt='summary_large_image';
+function v(i){return $(i).value.trim()}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function web(u){u=u.trim();return /^https?:\/\//i.test(u)?u:''}
+function host(u){try{return new URL(/^https?:\/\//i.test(u)?u:'https://'+u).hostname.replace(/^www\./,'')}catch(e){return u||'yourwebsite.com'}}
+function imgHtml(){var u=web(v('im'));return u?'<img alt="" referrerpolicy="no-referrer" src="'+esc(u)+'" onerror="this.parentNode.textContent=\'Image could not be loaded\'">':'Your image appears here'}
+function prev(){var t=v('ti')||'Your page title',d=v('de')||'Your page description',h=host(v('ur')),h2;
+ if(pt==='fb')h2='<div class="fbc"><div class="im">'+imgHtml()+'</div><div class="tx"><div class="dm">'+esc(h)+'</div><div class="ti">'+esc(t)+'</div><div class="de">'+esc(d)+'</div></div></div>';
+ else if(pt==='x')h2='<div class="xc'+(xt==='summary'?' sm':'')+'"><div class="im">'+imgHtml()+'</div><div class="tx"><div class="dm">'+esc(h)+'</div><div class="ti">'+esc(t)+'</div><div class="de">'+esc(d)+'</div></div></div>';
+ else h2='<div class="wa"><div class="cd"><div class="im">'+imgHtml()+'</div><div class="tx"><div class="ti">'+esc(t)+'</div><div class="de">'+esc(d)+'</div><div class="dm">'+esc(h)+'</div></div></div></div>';
+ $('pv').innerHTML=h2;
+ $('mt').innerHTML='<span>Title: '+t.length+' characters (aim for under 60)</span> &nbsp;|&nbsp; <span>Description: '+d.length+' characters (aim for under 155)</span>';
+ var u=web(v('ur')),im=web(v('im')),x=v('xh').replace(/^@?/,'@'),L=[];
+ L.push('<meta property="og:type" content="website">');if(u)L.push('<meta property="og:url" content="'+esc(u)+'">');if(v('sn'))L.push('<meta property="og:site_name" content="'+esc(v('sn'))+'">');
+ L.push('<meta property="og:title" content="'+esc(v('ti'))+'">','<meta property="og:description" content="'+esc(v('de'))+'">');if(im)L.push('<meta property="og:image" content="'+esc(im)+'">');
+ L.push('<meta name="twitter:card" content="'+(im?xt:'summary')+'">','<meta name="twitter:title" content="'+esc(v('ti'))+'">','<meta name="twitter:description" content="'+esc(v('de'))+'">');if(im)L.push('<meta name="twitter:image" content="'+esc(im)+'">');if(v('xh'))L.push('<meta name="twitter:site" content="'+esc(x)+'">');
+ $('cd').value=L.join('\n')}
+function say(t,ok){var m=$('msg');m.textContent=t;m.className=t?(ok?'ok':'err'):'';clearTimeout(say.t);say.t=setTimeout(function(){m.textContent='';m.className=''},1800)}
+$('cp').onclick=function(){var t=$('cd').value;function ok(){say('Tags copied.',true)}function fb(){$('cd').select();try{document.execCommand('copy');ok()}catch(e){say('Copy was blocked.',false)}}
+ try{navigator.clipboard.writeText(t).then(ok,fb)}catch(e){fb()}};
+function seg(id,items,get,set){var el=$(id);items.forEach(function(o){var b=document.createElement('button');b.type='button';b.textContent=o[1];b.setAttribute('aria-pressed',get()===o[0]);b.onclick=function(){set(o[0]);[].forEach.call(el.children,function(x){x.setAttribute('aria-pressed',x===b)});prev()};el.appendChild(b)})}
+seg('pt',[['fb','Facebook / LinkedIn'],['x','X (Twitter)'],['wa','WhatsApp']],function(){return pt},function(x){pt=x});
+seg('xt',[['summary_large_image','Large image'],['summary','Small image']],function(){return xt},function(x){xt=x});
+['ur','ti','de','im','sn','xh'].forEach(function(i){$(i).addEventListener('input',prev)});
+prev();
+})();
+</script>

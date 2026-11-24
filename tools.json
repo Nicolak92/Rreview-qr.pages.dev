@@ -492,35 +492,110 @@
       "name": "Meta Description Generator",
       "category": "marketing-freelancers",
       "description": "Write meta titles and descriptions with a live search preview.",
-      "status": "soon"
+      "status": "live",
+      "kit": "395b469fd0",
+      "seo": {
+        "title": "Free Meta Description Generator with Google Preview (Title Tag Too)",
+        "description": "Write meta titles and descriptions with a live Google search preview, length meters and ready-to-paste HTML. Free, no sign-up, no AI.",
+        "h1": "Free Meta Description Generator",
+        "lead": "Get title and description ideas, see a live search preview, check lengths and copy the HTML."
+      },
+      "affiliate": {
+        "items": []
+      },
+      "related": [
+        "open-graph-preview-generator",
+        "utm-link-builder",
+        "email-signature-generator"
+      ]
     },
     {
       "slug": "email-signature-generator",
       "name": "Email Signature Generator",
       "category": "marketing-freelancers",
       "description": "Create a professional HTML email signature.",
-      "status": "soon"
+      "status": "live",
+      "kit": "395b469fd0",
+      "seo": {
+        "title": "Free Email Signature Generator (HTML for Gmail and Outlook)",
+        "description": "Create a professional HTML email signature with logo, contact details and social links. Copy it into Gmail, Outlook or Apple Mail. Free.",
+        "h1": "Free Email Signature Generator",
+        "lead": "Make a clean email signature with your logo and contact details. Copy it into Gmail, Outlook or Apple Mail."
+      },
+      "affiliate": {
+        "items": []
+      },
+      "related": [
+        "meta-description-generator",
+        "open-graph-preview-generator",
+        "utm-link-builder"
+      ]
     },
     {
       "slug": "utm-link-builder",
       "name": "UTM Link Builder",
       "category": "marketing-freelancers",
       "description": "Build campaign links with UTM tags.",
-      "status": "soon"
+      "status": "live",
+      "kit": "395b469fd0",
+      "seo": {
+        "title": "Free UTM Link Builder (Campaign URL Builder for Many Channels)",
+        "description": "Build UTM tracking links for Facebook, Instagram, LinkedIn, email, Google Ads and more in one go. Lowercase and clean. Free, no sign-up.",
+        "h1": "Free UTM Link Builder",
+        "lead": "Build tracking links with UTM tags for several channels at once and copy them in one click."
+      },
+      "affiliate": {
+        "items": []
+      },
+      "related": [
+        "meta-description-generator",
+        "open-graph-preview-generator",
+        "email-signature-generator"
+      ]
     },
     {
       "slug": "freelance-hourly-rate-calculator",
       "name": "Freelance Hourly Rate Calculator",
       "category": "marketing-freelancers",
       "description": "Work out the hourly rate you need to charge.",
-      "status": "soon"
+      "status": "live",
+      "kit": "395b469fd0",
+      "seo": {
+        "title": "Free Freelance Hourly Rate Calculator (With Taxes and Costs)",
+        "description": "Work out the hourly rate, day rate and project price you need to charge as a freelancer, with taxes, costs, time off and billable hours. Free.",
+        "h1": "Free Freelance Hourly Rate Calculator",
+        "lead": "Find the hourly rate you need to charge to reach your income goal, after costs, taxes and unpaid time."
+      },
+      "affiliate": {
+        "items": []
+      },
+      "related": [
+        "email-signature-generator",
+        "utm-link-builder",
+        "marketplace-fee-profit-calculator"
+      ]
     },
     {
       "slug": "open-graph-preview-generator",
       "name": "Open Graph Preview Generator",
       "category": "marketing-freelancers",
       "description": "Preview and generate social share tags for your pages.",
-      "status": "soon"
+      "status": "live",
+      "kit": "395b469fd0",
+      "seo": {
+        "title": "Free Open Graph Preview and Tag Generator (Facebook, X, WhatsApp)",
+        "description": "Preview how your link looks on Facebook, LinkedIn, X and WhatsApp and copy the Open Graph and Twitter Card tags. Free, no sign-up.",
+        "h1": "Free Open Graph Preview Generator",
+        "lead": "Preview your link on Facebook, X and WhatsApp and copy ready-made Open Graph tags."
+      },
+      "affiliate": {
+        "items": []
+      },
+      "related": [
+        "meta-description-generator",
+        "utm-link-builder",
+        "social-media-image-resizer"
+      ]
     }
   ]
 }

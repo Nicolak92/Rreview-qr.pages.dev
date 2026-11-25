@@ -42,3 +42,5 @@ a.tc:focus-visible{outline:3px solid #13a8ff;outline-offset:2px}
 .sitefoot .fr{margin:6px 0}
 .sitefoot p{margin:12px 0 0;font-size:12px}
 @media (max-width:620px){.top .links{gap:10px}}
+
+.signup{min-height:200px}

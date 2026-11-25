@@ -109,9 +109,9 @@ function titles(){var k=cap(v('kw')),w=cap(v('wh')).replace(/[.]$/,''),b=cap(v('
  var ok=a.filter(function(x,i){return x.length<=60&&a.indexOf(x)===i});return ok.length?ok:[fit(a[0],60).replace(/\.$/,'')]}
 function say(t,ok){var m=$('msg');m.textContent=t;m.className=t?(ok?'ok':'err'):'';clearTimeout(say.t);say.t=setTimeout(function(){m.textContent='';m.className=''},1800)}
 function suggest(){if(!v('kw')){say('Enter a main keyword first.',false);return}
- var T=titles(),D=descs(),h='<h3 style="font-size:15px;margin:18px 0 4px">Titles</h3>';
+ var T=titles(),D=descs(),h='<h2 style="font-size:16px;margin:18px 0 4px">Titles</h2>';
  T.forEach(function(t,i){h+='<div class="opt"><p>'+esc(t)+' <small>('+t.length+' characters)</small></p><button type="button" data-t="'+i+'">Use</button></div>'});
- h+='<h3 style="font-size:15px;margin:18px 0 4px">Descriptions</h3>';
+ h+='<h2 style="font-size:16px;margin:18px 0 4px">Descriptions</h2>';
  D.forEach(function(d,i){h+='<div class="opt"><p>'+esc(d)+' <small>('+d.length+' characters)</small></p><button type="button" data-d="'+i+'">Use</button></div>'});
  $('sug').innerHTML=h;$('sug').T=T;$('sug').D=D}
 $('go').onclick=suggest;

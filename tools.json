@@ -42,22 +42,26 @@
     {
       "slug": "about",
       "title": "About Toolzweb",
-      "description": "What Toolzweb is and who makes it."
+      "description": "Learn what Toolzweb is: a growing set of free online tools for businesses, designers, sellers and creators that run in your browser.",
+      "seoTitle": "About Toolzweb: Free Online Tools Made for You"
     },
     {
       "slug": "privacy-policy",
       "title": "Privacy Policy",
-      "description": "How Toolzweb handles your data."
+      "description": "How Toolzweb handles your data: tools run in your browser, what our server processes, email signups, analytics and third-party services.",
+      "seoTitle": "Privacy Policy | Toolzweb"
     },
     {
       "slug": "affiliate-disclosure",
       "title": "Affiliate Disclosure",
-      "description": "How Toolzweb earns money from recommendations."
+      "description": "How Toolzweb earns money: some pages contain affiliate links that may pay us a commission at no extra cost to you.",
+      "seoTitle": "Affiliate Disclosure | Toolzweb"
     },
     {
       "slug": "contact",
       "title": "Contact",
-      "description": "How to get in touch with Toolzweb."
+      "description": "Contact Toolzweb with questions, tool ideas or bug reports. Find out how to reach us and what to include in your message.",
+      "seoTitle": "Contact Toolzweb | Questions, Ideas and Bug Reports"
     }
   ],
   "tools": [
@@ -231,7 +235,7 @@
       "status": "live",
       "kit": "395b469fd0",
       "seo": {
-        "title": "Free Favicon Generator (ICO and PNG from Text, Emoji or Logo)",
+        "title": "Free Favicon Generator: ICO and PNG from Text or Logo",
         "description": "Make a favicon from a letter, emoji or your logo. Download favicon.ico, Apple touch icon and PNG sizes. Free, made in your browser.",
         "h1": "Free Favicon Generator",
         "lead": "Make a favicon from a letter, emoji or logo. Download .ico and PNG files and copy the code for your site."
@@ -363,7 +367,7 @@
       "status": "live",
       "kit": "395b469fd0",
       "seo": {
-        "title": "Free Marketplace Fee and Profit Calculator (Etsy, eBay, Amazon)",
+        "title": "Free Marketplace Fee and Profit Calculator (Etsy, eBay)",
         "description": "Work out your profit, margin and break-even price after marketplace fees, payment fees, shipping and costs. Free, no sign-up.",
         "h1": "Free Marketplace Fee &amp; Profit Calculator",
         "lead": "Enter your price, costs and fees to see profit, margin, break-even price and the price for your target margin."
@@ -451,7 +455,7 @@
       "status": "live",
       "kit": "395b469fd0",
       "seo": {
-        "title": "Free Social Media Image Resizer (Instagram, YouTube, X and More)",
+        "title": "Free Social Media Image Resizer: Instagram, YouTube, X",
         "description": "Resize one image to Instagram, Facebook, X, LinkedIn, YouTube and Pinterest sizes in your browser. Crop or fit, then download. Free, private.",
         "h1": "Free Social Media Image Resizer",
         "lead": "Resize one image for Instagram, YouTube, X, LinkedIn and more. Everything happens in your browser."
@@ -473,7 +477,7 @@
       "status": "live",
       "kit": "395b469fd0",
       "seo": {
-        "title": "Free Username Generator (Instagram, TikTok, X, Twitch, YouTube)",
+        "title": "Free Username Generator for Instagram, TikTok, X, Twitch",
         "description": "Generate username ideas from your name or interest. Pick a style and platform to match length and character rules. Free, no sign-up.",
         "h1": "Free Username Generator",
         "lead": "Turn your name or interest into username ideas that fit Instagram, TikTok, X, Twitch or YouTube."
@@ -495,7 +499,7 @@
       "status": "live",
       "kit": "395b469fd0",
       "seo": {
-        "title": "Free Meta Description Generator with Google Preview (Title Tag Too)",
+        "title": "Free Meta Description Generator with Google Preview",
         "description": "Write meta titles and descriptions with a live Google search preview, length meters and ready-to-paste HTML. Free, no sign-up, no AI.",
         "h1": "Free Meta Description Generator",
         "lead": "Get title and description ideas, see a live search preview, check lengths and copy the HTML."
@@ -539,7 +543,7 @@
       "status": "live",
       "kit": "395b469fd0",
       "seo": {
-        "title": "Free UTM Link Builder (Campaign URL Builder for Many Channels)",
+        "title": "Free UTM Link Builder: Campaign URLs for Many Channels",
         "description": "Build UTM tracking links for Facebook, Instagram, LinkedIn, email, Google Ads and more in one go. Lowercase and clean. Free, no sign-up.",
         "h1": "Free UTM Link Builder",
         "lead": "Build tracking links with UTM tags for several channels at once and copy them in one click."
@@ -583,7 +587,7 @@
       "status": "live",
       "kit": "395b469fd0",
       "seo": {
-        "title": "Free Open Graph Preview and Tag Generator (Facebook, X, WhatsApp)",
+        "title": "Free Open Graph Preview Generator for Facebook, X, WhatsApp",
         "description": "Preview how your link looks on Facebook, LinkedIn, X and WhatsApp and copy the Open Graph and Twitter Card tags. Free, no sign-up.",
         "h1": "Free Open Graph Preview Generator",
         "lead": "Preview your link on Facebook, X and WhatsApp and copy ready-made Open Graph tags."

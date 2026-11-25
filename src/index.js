@@ -3,6 +3,8 @@ const HOST = 'toolzweb.com';
 const OLD = {'/sign-maker': '/review-sign-maker', '/palette-generator': '/color-palette-generator'};
 const OK_HOSTS = ['maps.app.goo.gl','goo.gl','g.co','google.com','www.google.com','maps.google.com','consent.google.com'];
 const okHost = h => OK_HOSTS.includes(h.toLowerCase()) || /^(www\.)?google\.[a-z.]{2,6}$/i.test(h);
+const SEC = {'x-content-type-options': 'nosniff', 'referrer-policy': 'strict-origin-when-cross-origin', 'strict-transport-security': 'max-age=31536000', 'permissions-policy': 'camera=(), microphone=(), geolocation=()'};
+const STATIC_ICON = /^\/(og-image\.png|apple-touch-icon\.png|icon-\d+\.png|favicon\.(svg|ico))$/;
 const json = (o, s = 200) => new Response(JSON.stringify(o), {status: s, headers: {'content-type': 'application/json'}});
 
 async function resolve(input) {
@@ -29,7 +31,11 @@ export default {
   async fetch(request, env) {
     const u = new URL(request.url);
     if (u.hostname !== HOST && (u.hostname === 'www.' + HOST || u.hostname.endsWith('.workers.dev'))) {
+      const fromWd = u.hostname.endsWith('.workers.dev');
       u.hostname = HOST; u.protocol = 'https:'; u.port = '';
+      // the old workers.dev home page was the QR generator, so send it to the same tool
+      if (fromWd && u.pathname === '/') u.pathname = '/google-review-qr-code-generator';
+      if (OLD[u.pathname]) u.pathname = OLD[u.pathname];
       return Response.redirect(u.toString(), 301);
     }
     if (OLD[u.pathname]) { u.pathname = OLD[u.pathname]; return Response.redirect(u.toString(), 301); }
@@ -39,6 +45,13 @@ export default {
       try { const r = await resolve(target); return json(r, r.error ? 400 : 200); }
       catch (e) { return json({error: 'Could not open that link.'}, 502); }
     }
-    return env.ASSETS.fetch(request);
+    // One address per page: /page.html and /page/ go to /page (and /index.html to /)
+    if (u.pathname.endsWith('.html')) { u.pathname = u.pathname.replace(/\/index\.html$/, '/').replace(/\.html$/, ''); return Response.redirect(u.toString(), 301); }
+    if (u.pathname.length > 1 && u.pathname.endsWith('/')) { u.pathname = u.pathname.replace(/\/+$/, ''); return Response.redirect(u.toString(), 301); }
+    const res = await env.ASSETS.fetch(request);
+    const h = new Headers(res.headers);
+    for (const [k, v] of Object.entries(SEC)) h.set(k, v);
+    if (STATIC_ICON.test(u.pathname)) h.set('cache-control', 'public, max-age=604800');
+    return new Response(res.body, {status: res.status, statusText: res.statusText, headers: h});
   }
 };

@@ -35,6 +35,7 @@ for (const f of ['og-image.png', 'apple-touch-icon.png', 'icon-192.png', 'icon-5
 const head = ({title, desc, p, extra = '', noindex = false}) => `<!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="p:domain_verify" content="130697f401f10d3da9f63bd9ddd64e0a"/>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(title)}</title>

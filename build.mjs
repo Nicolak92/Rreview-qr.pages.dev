@@ -19,6 +19,8 @@ const byCat = Object.fromEntries(cfg.categories.map(c => [c.id, c]));
 const bySlug = Object.fromEntries(cfg.tools.map(t => [t.slug, t]));
 const live = cfg.tools.filter(t => t.status === 'live');
 
+const PINS_TMP = path.join(root, 'pins-tmp');
+if (fs.existsSync(path.join(OUT, 'pins'))) fs.cpSync(path.join(OUT, 'pins'), PINS_TMP, {recursive: true});
 fs.rmSync(OUT, {recursive: true, force: true});
 fs.mkdirSync(path.join(OUT, 'assets'), {recursive: true});
 const write = (f, c) => { fs.mkdirSync(path.dirname(path.join(OUT, f)), {recursive: true}); fs.writeFileSync(path.join(OUT, f), c); };
@@ -168,7 +170,7 @@ if (hasBlog) {
   sitemap.push('/blog/');
   for (const f of fs.readdirSync(path.join(root, 'blog'))) if (f.endsWith('.html') && f !== 'index.html') sitemap.push('/blog/' + f.slice(0, -5));
 }
-
+if (fs.existsSync(PINS_TMP)) { fs.cpSync(PINS_TMP, path.join(OUT, 'pins'), {recursive: true}); fs.rmSync(PINS_TMP, {recursive: true, force: true}); }
 // ---- 404, sitemap, robots
 write('404.html', head({title: `Page not found | ${S.name}`, desc: 'This page could not be found.', p: '/404', noindex: true})
   + nav() + hero('404', 'Page not found', 'That page does not exist. Pick a tool below.', true)

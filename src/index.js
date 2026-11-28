@@ -47,7 +47,9 @@ export default {
     }
     // One address per page: /page.html and /page/ go to /page (and /index.html to /)
     if (u.pathname.endsWith('.html')) { u.pathname = u.pathname.replace(/\/index\.html$/, '/').replace(/\.html$/, ''); return Response.redirect(u.toString(), 301); }
-    if (u.pathname.length > 1 && u.pathname.endsWith('/')) { u.pathname = u.pathname.replace(/\/+$/, ''); return Response.redirect(u.toString(), 301); }
+    if (u.pathname === '/blog') { u.pathname = '/blog/'; return Response.redirect(u.toString(), 301); }
+    // (the blog is a folder, so its addresses keep the trailing slash)
+    if (u.pathname.length > 1 && u.pathname.endsWith('/') && !u.pathname.startsWith('/blog/')) { u.pathname = u.pathname.replace(/\/+$/, ''); return Response.redirect(u.toString(), 301); }
     const res = await env.ASSETS.fetch(request);
     const h = new Headers(res.headers);
     for (const [k, v] of Object.entries(SEC)) h.set(k, v);

@@ -72,13 +72,13 @@ const nav = () => `<nav class="top" aria-label="Main">
   <a class="brand" href="/"><img src="${esc(S.logo)}" alt="" width="32" height="32"><span>${esc(S.name)}</span></a>
   <div class="links">
     <details class="mm"><summary>All tools</summary><div class="mmp">${cfg.categories.map(c => `<div><h3><a href="/${c.id}">${esc(c.name)}</a></h3><ul>${cfg.tools.filter(t => t.category === c.id).map(t => t.status === 'live' ? `<li><a href="/${t.slug}">${esc(t.name)}</a></li>` : `<li class="soon">${esc(t.name)} <small>soon</small></li>`).join('')}</ul></div>`).join('')}</div></details>
-    <a href="${esc(S.blogUrl)}" rel="noopener">Blog</a>
+    <a href="/blog/">Blog</a>
   </div>
 </nav>`;
 
 const footer = () => `<footer class="sitefoot">
   <div class="fr">${cfg.categories.map(c => `<a href="/${c.id}">${esc(c.name)}</a>`).join('')}</div>
-  <div class="fr">${cfg.pages.map(p => `<a href="/${p.slug}">${esc(p.title)}</a>`).join('')}<a href="${esc(S.blogUrl)}" rel="noopener">Blog</a></div>
+  <div class="fr">${cfg.pages.map(p => `<a href="/${p.slug}">${esc(p.title)}</a>`).join('')}<a href="/blog/">Blog</a><a href="${esc(S.blogUrl)}" rel="noopener">${esc(S.blogName)}</a></div>
   <p>&copy; ${new Date().getFullYear()} ${esc(S.name)}. Not affiliated with Google or any other brand named on this site. Brand names belong to their owners.</p>
 </footer>`;
 
@@ -160,13 +160,15 @@ for (const pg of cfg.pages) {
   sitemap.push('/' + pg.slug);
 }
 
-// ---- 404, sitemap, robots
-// ---- blog (copied from the blog/ folder)
-if (fs.existsSync(path.join(root, 'blog'))) {
+// ---- blog (copied from the blog/ folder, so it keeps its own pages)
+const hasBlog = fs.existsSync(path.join(root, 'blog'));
+if (hasBlog) {
   fs.cpSync(path.join(root, 'blog'), path.join(OUT, 'blog'), {recursive: true});
   sitemap.push('/blog/');
   for (const f of fs.readdirSync(path.join(root, 'blog'))) if (f.endsWith('.html') && f !== 'index.html') sitemap.push('/blog/' + f.slice(0, -5));
 }
+
+// ---- 404, sitemap, robots
 write('404.html', head({title: `Page not found | ${S.name}`, desc: 'This page could not be found.', p: '/404', noindex: true})
   + nav() + hero('404', 'Page not found', 'That page does not exist. Pick a tool below.', true)
   + `<section class="card">${cfg.categories.map(c => `<h2 class="fh"><a href="/${c.id}">${esc(c.name)}</a></h2><div class="tg">${cfg.tools.filter(t => t.category === c.id && t.status === 'live').map(card).join('')}</div>`).join('')}</section>\n</main>\n${footer()}\n` + tail);
@@ -177,7 +179,7 @@ const llms = [`# ${S.name}`, '', `> ${S.tagline} ${liveNow.length} free web tool
   `${S.name} is built by the author of the blog "${S.blogName}" (${S.blogUrl}). Each tool has its own page with a short guide and FAQ.`, ''];
 for (const c of cfg.categories) { llms.push(`## ${c.name}`, '', c.description, ''); for (const t of liveNow.filter(x => x.category === c.id)) llms.push(`- [${t.name}](${S.url}/${t.slug}): ${t.description}`); llms.push(''); }
 llms.push('## About and policies', ''); for (const pg of cfg.pages) llms.push(`- [${pg.title}](${S.url}/${pg.slug}): ${pg.description}`);
-llms.push('', '## Optional', '', `- [Sitemap](${S.url}/sitemap.xml): every page on the site`, `- [Full text version of this file](${S.url}/llms-full.txt): descriptions, guides and FAQs for every tool`, `- [${S.blogName}](${S.blogUrl}): the blog behind ${S.name}`, '');
+llms.push('', '## Optional', '', `- [Sitemap](${S.url}/sitemap.xml): every page on the site`, `- [Full text version of this file](${S.url}/llms-full.txt): descriptions, guides and FAQs for every tool`, ...(fs.existsSync(path.join(root, 'blog')) ? [`- [${S.name} blog](${S.url}/blog/): articles and guides`] : []), `- [${S.blogName}](${S.blogUrl}): the blog behind ${S.name}`, '');
 write('llms.txt', llms.join('\n'));
 const plain = h => h.replace(/<\/(h2|li|p)>/g, '$&\n').replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&quot;/g, '"').split('\n').map(l => l.trim()).filter(Boolean).join('\n');
 const full = [`# ${S.name}: full tool descriptions`, '', `> ${S.tagline}`, ''];
